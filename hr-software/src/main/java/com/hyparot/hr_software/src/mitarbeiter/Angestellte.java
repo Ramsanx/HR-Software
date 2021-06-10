@@ -1,0 +1,376 @@
+package mitarbeiter;
+
+import java.util.Calendar;
+//import java.util.Vector;
+import backend.Adresse;
+import backend.BusinessIntellegent;
+import backend.Vertrag;
+import sst.angestellte;
+
+public class Angestellte implements angestellte{
+	
+//	protected static Vector<Angestellte> Angestellte = new Vector<Angestellte>();
+	
+	private String Benutzername;
+	private String Passwort;
+	private String Vorname;
+	private String Nachname;
+	private String EmailAdresse;
+	private String GruppenBezeichnung;
+	private String StellenBezeichnung;
+	
+	private int TelefonNummer;
+	private int PersonalNummer;
+	private int SollArbeitszeit;
+	private int IstArbeitszahl;
+	private int GesamtUrlaubstage;
+	private int NochUrlaubstage;
+	private int Krankheitstage;
+	
+	private Calendar GeburtsTag;
+	private Calendar EinstellungsDatum;
+	//Erstellung eines Calender Objekts erfolgt an anderer Stelle mit z.B. Calender Geburtstag; Geburtstag.set(int Jahr, int Monat, int Tag);
+	
+	private Adresse Adresse;
+	
+	private Vertrag Vertrag;
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	public Angestellte(String Benutzername, String Passwort, String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung,
+						int Telefonnummer, int SollArbeitszeit, 
+						Calendar GeburtsTag, Calendar EinstellungsDatum,
+						Adresse Adresse,
+						Vertrag Vertrag) {
+		this.setBenutzername(Benutzername);
+		this.setPasswort(Passwort);
+		this.setVorname(Vorname);
+		this.setNachname(Nachname);
+		this.setEmailAdresse(Vorname.substring(0, 1) + "." + Nachname + "@unsere-firma.de");
+		this.setGruppenBezeichnung(GruppenBezeichnung);
+		this.setStellenBezeichnung(StellenBezeichnung);
+		
+		this.setTelefonNummer(Telefonnummer);
+		this.setPersonalNummer(10000000); 
+		this.setSollArbeitszeit(SollArbeitszeit);
+		if(SollArbeitszeit >= 37) {
+			this.setGesamtUrlaubstage(30);
+		}else {
+			this.setGesamtUrlaubstage(26);
+		}
+		
+		this.setGeburtsTag(GeburtsTag);
+		this.setAdresse(Adresse);
+		this.setVertrag(new Vertrag(Vorname, Nachname, GruppenBezeichnung, StellenBezeichnung, 
+								   Telefonnummer, SollArbeitszeit,
+								   GeburtsTag, EinstellungsDatum, 
+								   Adresse));
+	}
+
+
+	//getter und setter Block beginn
+	//_________________________________________________________________________________________________________________________________-
+	public String getBenutzername() {
+		return Benutzername;
+	}
+
+
+	public void setBenutzername(String benutzername) {
+		Benutzername = benutzername;
+	}
+
+
+	public String getPasswort() {
+		return Passwort;
+	}
+
+
+	public void setPasswort(String passwort) {
+		Passwort = passwort;
+	}
+
+
+	public String getVorname() {
+		return Vorname;
+	}
+
+
+	public void setVorname(String vorname) {
+		Vorname = vorname;
+	}
+
+
+	public String getNachname() {
+		return Nachname;
+	}
+
+
+	public void setNachname(String nachname) {
+		Nachname = nachname;
+	}
+
+
+	public String getEmailAdresse() {
+		return EmailAdresse;
+	}
+
+
+	public void setEmailAdresse(String emailAdresse) {
+		EmailAdresse = emailAdresse;
+	}
+
+
+	public String getGruppenBezeichnung() {
+		return GruppenBezeichnung;
+	}
+
+
+	public void setGruppenBezeichnung(String gruppenBezeichnung) {
+		GruppenBezeichnung = gruppenBezeichnung;
+	}
+
+
+	public String getStellenBezeichnung() {
+		return StellenBezeichnung;
+	}
+
+
+	public void setStellenBezeichnung(String stellenBezeichnung) {
+		StellenBezeichnung = stellenBezeichnung;
+	}
+
+
+	public int getTelefonNummer() {
+		return TelefonNummer;
+	}
+
+
+	public void setTelefonNummer(int telefonNummer) {
+		TelefonNummer = telefonNummer;
+	}
+
+
+	public int getPersonalNummer() {
+		return PersonalNummer;
+	}
+
+
+	public void setPersonalNummer(int personalNummer) {
+		PersonalNummer = personalNummer;
+	}
+
+
+	public int getSollArbeitszeit() {
+		return SollArbeitszeit;
+	}
+
+
+	public void setSollArbeitszeit(int sollArbeitszeit) {
+		SollArbeitszeit = sollArbeitszeit;
+	}
+
+
+	public int getIstArbeitszahl() {
+		return IstArbeitszahl;
+	}
+
+
+	public void setIstArbeitszahl(int istArbeitszahl) {
+		IstArbeitszahl = istArbeitszahl;
+	}
+
+
+	public int getGesamtUrlaubstage() {
+		return GesamtUrlaubstage;
+	}
+
+
+	public void setGesamtUrlaubstage(int gesamtUrlaubstage) {
+		GesamtUrlaubstage = gesamtUrlaubstage;
+	}
+
+
+	public int getNochUrlaubstage() {
+		return NochUrlaubstage;
+	}
+
+
+	public void setNochUrlaubstage(int nochUrlaubstage) {
+		NochUrlaubstage = nochUrlaubstage;
+	}
+
+
+	public int getKrankheitstage() {
+		return Krankheitstage;
+	}
+
+
+	public void setKrankheitstage(int krankheitstage) {
+		Krankheitstage = krankheitstage;
+	}
+
+
+	public Calendar getGeburtsTag() {
+		return GeburtsTag;
+	}
+
+
+	public void setGeburtsTag(Calendar geburtsTag) {
+		GeburtsTag = geburtsTag;
+	}
+
+
+	public Calendar getEinstellungsDatum() {
+		return EinstellungsDatum;
+	}
+
+
+	public void setEinstellungsDatum(Calendar einstellungsDatum) {
+		EinstellungsDatum = einstellungsDatum;
+	}
+	
+	
+//	public static Vector<Angestellte> getAngestellte() {
+//		return Angestellte;
+//	}
+
+
+	public Adresse getAdresse() {
+		return Adresse;
+	}
+
+
+	public void setAdresse(Adresse adresse) {
+		Adresse = adresse;
+	}
+
+
+	public Vertrag getVertrag() {
+		return Vertrag;
+	}
+
+
+	public void setVertrag(Vertrag vertrag) {
+		Vertrag = vertrag;
+	}
+	//getter und setter Block ende
+	//_________________________________________________________________________________________________________________________________
+
+
+	@Override
+	public boolean loginUser(String username, String password) {
+		// TODO Auto-generated method stub
+		Angestellte nutzer = BusinessIntellegent.getAngestellteByName(username);
+		if(nutzer != null) {
+			if(password.equals(nutzer.getPasswort())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	@Override
+	public void editEmployee(String vorname, 
+							 String nachname, 
+							 String emailAdresse,
+							 int telefonNummer,
+							 Calendar geburtsTag, 
+							 String land, 
+							 String stadt, 
+							 int postleitzahl, 
+							 String straﬂe, 
+							 int hausnummer, 
+							 String hausnummernZusatz) {
+		// TODO Auto-generated method stub
+		
+		this.setVorname(vorname);
+		this.setNachname(nachname);
+		this.setEmailAdresse(emailAdresse);
+		this.setTelefonNummer(telefonNummer);
+		this.setGeburtsTag(geburtsTag);
+		
+		this.Adresse.setLand(land);
+		this.Adresse.setStadt(stadt);
+		this.Adresse.setStraﬂe(straﬂe);
+		this.Adresse.setHausnummernZusatz(hausnummernZusatz);
+		this.Adresse.setPostleitzahl(postleitzahl);
+		this.Adresse.setHausnummer(hausnummer);
+	}
+
+
+	@Override
+	public Calendar applyForVacation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void cancelVacation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void getVacationOverview() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setSick(int dauer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setWorkTime() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setPersonalDate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public backend.Vertrag getContract() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void getPhoneBook() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void getPayrol() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void sendMailinfo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
