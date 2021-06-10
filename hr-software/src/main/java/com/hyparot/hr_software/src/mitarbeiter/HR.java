@@ -1,9 +1,8 @@
-package mitarbeiter;
+package com.hyparot.hr_software.src.mitarbeiter;
 
 import java.util.Calendar;
-import backend.*;
-import sst.hr;
-
+import com.hyparot.hr_software.src.backend.*;
+import com.hyparot.hr_software.src.sst.hr;
 
 
 public class HR extends Angestellte implements hr {
@@ -49,7 +48,7 @@ public class HR extends Angestellte implements hr {
 	}
 
 	@Override
-	public mitarbeiter.Angestellte getPersonalData(int Personalnummer) {
+	public com.hyparot.hr_software.src.mitarbeiter.Angestellte getPersonalData(int Personalnummer) {
 		// TODO Auto-generated method stub
 		return BusinessIntellegent.getAngestellteByID(Personalnummer);
 	}

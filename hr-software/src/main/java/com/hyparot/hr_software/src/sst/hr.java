@@ -1,10 +1,10 @@
-package sst;
+package com.hyparot.hr_software.src.sst;
 
 import java.util.Calendar;
 
-import backend.Adresse;
-import backend.Vertrag;
-import mitarbeiter.Angestellte;
+import com.hyparot.hr_software.src.backend.Adresse;
+import com.hyparot.hr_software.src.backend.Vertrag;
+import com.hyparot.hr_software.src.mitarbeiter.Angestellte;
 
 public interface hr {
 

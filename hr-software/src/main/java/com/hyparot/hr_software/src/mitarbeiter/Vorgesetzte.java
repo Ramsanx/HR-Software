@@ -1,9 +1,9 @@
-package mitarbeiter;
+package com.hyparot.hr_software.src.mitarbeiter;
 
 import java.util.Calendar;
-import backend.Vertrag;
-import backend.Adresse;
-import sst.vorgesetzte;
+import com.hyparot.hr_software.src.backend.Vertrag;
+import com.hyparot.hr_software.src.backend.Adresse;
+import com.hyparot.hr_software.src.sst.vorgesetzte;
 
 public class Vorgesetzte extends Angestellte implements vorgesetzte{
 

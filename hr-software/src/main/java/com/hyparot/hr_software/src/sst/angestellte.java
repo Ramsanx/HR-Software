@@ -1,6 +1,6 @@
-package sst;
+package com.hyparot.hr_software.src.sst;
 
-import backend.*;
+import com.hyparot.hr_software.src.backend.*;
 import java.util.Calendar;
 
 public interface angestellte {
@@ -15,7 +15,7 @@ public interface angestellte {
 			 				 String land, 
 			 				 String stadt, 
 			 				 int postleitzahl, 
-			 				 String straﬂe, 
+			 				 String stra√üe, 
 			 				 int hausnummer, 
 			 				 String hausnummernZusatz);
 	

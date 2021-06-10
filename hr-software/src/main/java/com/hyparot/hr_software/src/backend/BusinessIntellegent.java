@@ -1,6 +1,6 @@
-package backend;
+package com.hyparot.hr_software.src.backend;
 
-import mitarbeiter.*;
+import com.hyparot.hr_software.src.mitarbeiter.*;
 import java.util.*;
 
 public class BusinessIntellegent {
@@ -41,18 +41,18 @@ public class BusinessIntellegent {
 	
 	
 	//muss bearebitet werden 
-	//input erfolgt über javaFX textfelder
+	//input erfolgt ï¿½ber javaFX textfelder
 	public static void createMitarbeiter(String Benutzername, String Passwort, String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung,
 			int Telefonnummer, int SollArbeitszeit, 
 			Calendar GeburtsTag, Calendar EinstellungsDatum,
 			Adresse Adresse,
 			Vertrag Vertrag) {
 		
-		new Angestellte(Benutzername, Passwort, Vorname, Nachname, GruppenBezeichnung, StellenBezeichnung,
+		Angestellte nutzer = new Angestellte(Benutzername, Passwort, Vorname, Nachname, GruppenBezeichnung, StellenBezeichnung,
 						Telefonnummer, SollArbeitszeit, 
 						GeburtsTag, EinstellungsDatum,
 						Adresse,
 						Vertrag);
-		
+		mitarbeiterListe.add(nutzer);
 	}
 }

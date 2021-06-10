@@ -1,7 +1,7 @@
-package backend;
+package com.hyparot.hr_software.src.backend;
 
 
-//ein Objekt der Klasse Adresse wird zum Anlegen eines Angestellten benˆtigt
+//ein Objekt der Klasse Adresse wird zum Anlegen eines Angestellten benÔøΩtigt
 public class Adresse {
 	
 	private int Postleitzahl;
@@ -9,28 +9,28 @@ public class Adresse {
 	
 	private String Land;
 	private String Stadt;
-	private String Straﬂe;
+	private String Stra√üe;
 	private String HausnummernZusatz;
 
 	public Adresse(String Land, 
 				   int Postleitzahl, String Stadt, 
-				   String Straﬂe, int Hausnummer) {
+				   String Stra√üe, int Hausnummer) {
 		
 		this.Land = Land;
 		this.Postleitzahl = Postleitzahl;
 		this.Stadt = Stadt;
-		this.Straﬂe = Straﬂe;
+		this.Stra√üe = Stra√üe;
 		this.Hausnummer = Hausnummer;
 	}
 	
 	public Adresse(String Land, 
 			   int Postleitzahl, String Stadt, 
-			   String Straﬂe, int Hausnummer, String HausnummernZusatz) {
+			   String Stra√üe, int Hausnummer, String HausnummernZusatz) {
 	
 		this.Land = Land;
 		this.Postleitzahl = Postleitzahl;
 		this.Stadt = Stadt;
-		this.Straﬂe = Straﬂe;
+		this.Stra√üe = Stra√üe;
 		this.Hausnummer = Hausnummer;
 		this.HausnummernZusatz = HausnummernZusatz;
 	}
@@ -67,12 +67,12 @@ public class Adresse {
 		this.Stadt = newStadt;
 	}
 
-	public String getStraﬂe() {
-		return this.Straﬂe;
+	public String getStra√üe() {
+		return this.Stra√üe;
 	}
 	
-	public void setStraﬂe(String newStraﬂe) {
-		this.Straﬂe = newStraﬂe;
+	public void setStra√üe(String newStra√üe) {
+		this.Stra√üe = newStra√üe;
 	}
 
 	public String getHausnummernZusatz() {
@@ -94,9 +94,9 @@ public class Adresse {
 	
 	public String toString() {
 		if(this.HausnummernZusatz.isEmpty()) {
-			return(Land + ", " + Postleitzahl + " " + Stadt + ", " + Straﬂe + " " + Hausnummer);
+			return(Land + ", " + Postleitzahl + " " + Stadt + ", " + Stra√üe + " " + Hausnummer);
 		}else {
-			return(Land + ", " + Postleitzahl + " " + Stadt + ", " + Straﬂe + " " + Hausnummer + HausnummernZusatz);
+			return(Land + ", " + Postleitzahl + " " + Stadt + ", " + Stra√üe + " " + Hausnummer + HausnummernZusatz);
 		}
 			
 	}
@@ -106,13 +106,13 @@ public class Adresse {
 			System.out.println("Land: " + Land +
 					   "\nPostleitzahl: " + Postleitzahl +
 					   "\nStadt: " + Stadt +
-					   "\nStraﬂe: " + Straﬂe +
+					   "\nStra√üe: " + Stra√üe +
 					   "\nHausnummer: " + Hausnummer);
 		}else {
 			System.out.println("Land: " + Land +
 					   "\nPostleitzahl: " + Postleitzahl +
 					   "\nStadt: " + Stadt +
-					   "\nStraﬂe: " + Straﬂe +
+					   "\nStra√üe: " + Stra√üe +
 					   "\nHausnummer: " + Hausnummer + HausnummernZusatz);
 		}
 		

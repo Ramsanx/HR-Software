@@ -1,11 +1,11 @@
-package mitarbeiter;
+package com.hyparot.hr_software.src.mitarbeiter;
 
 import java.util.Calendar;
 //import java.util.Vector;
-import backend.Adresse;
-import backend.BusinessIntellegent;
-import backend.Vertrag;
-import sst.angestellte;
+import com.hyparot.hr_software.src.backend.*;
+//import backend.BusinessIntellegent;
+//import backend.Vertrag;
+import com.hyparot.hr_software.src.sst.angestellte;
 
 public class Angestellte implements angestellte{
 	
@@ -38,7 +38,7 @@ public class Angestellte implements angestellte{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Hallo Welt");
 	}
 	
 	
@@ -284,7 +284,7 @@ public class Angestellte implements angestellte{
 							 String land, 
 							 String stadt, 
 							 int postleitzahl, 
-							 String straﬂe, 
+							 String stra√üe, 
 							 int hausnummer, 
 							 String hausnummernZusatz) {
 		// TODO Auto-generated method stub
@@ -297,7 +297,7 @@ public class Angestellte implements angestellte{
 		
 		this.Adresse.setLand(land);
 		this.Adresse.setStadt(stadt);
-		this.Adresse.setStraﬂe(straﬂe);
+		this.Adresse.setStra√üe(stra√üe);
 		this.Adresse.setHausnummernZusatz(hausnummernZusatz);
 		this.Adresse.setPostleitzahl(postleitzahl);
 		this.Adresse.setHausnummer(hausnummer);
@@ -347,7 +347,7 @@ public class Angestellte implements angestellte{
 
 
 	@Override
-	public backend.Vertrag getContract() {
+	public com.hyparot.hr_software.src.backend.Vertrag getContract() {
 		// TODO Auto-generated method stub
 		return null;
 	}
