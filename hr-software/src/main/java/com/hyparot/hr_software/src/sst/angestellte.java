@@ -10,7 +10,7 @@ public interface angestellte {
 	public void editEmployee(String vorname, 
 			 				 String nachname, 
 			 				 String emailAdresse,
-			 				 int telefunNummer,
+			 				 String telefunNummer,
 			 				 Calendar geburtsTag, 
 			 				 String land, 
 			 				 String stadt, 

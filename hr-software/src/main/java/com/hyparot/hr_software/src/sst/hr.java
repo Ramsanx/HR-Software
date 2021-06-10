@@ -10,13 +10,12 @@ public interface hr {
 
 	public void getPayroll(int Personalnummer);
 	
-	public void setNewEmployee(String Benutzername, String Passwort, String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung,
-							   int Telefonnummer, int SollArbeitszeit, 
+	public void setNewEmployee(String Stellung, String Benutzername, String Passwort, String Vorname, String Nachname, 
+							   String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
 							   Calendar GeburtsTag, Calendar EinstellungsDatum,
-							   Adresse Adresse,
-							   Vertrag Vertrag);
+							   Adresse Adresse);
 	
-	public void deleteEmployee(int Personalnummer);
+	public boolean deleteEmployee(int Personalnummer);
 	
 	public Angestellte getPersonalData(int Personalnummer);
 }

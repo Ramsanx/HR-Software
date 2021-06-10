@@ -93,7 +93,7 @@ public class Adresse {
 	}
 	
 	public String toString() {
-		if(this.HausnummernZusatz.isEmpty()) {
+		if(this.HausnummernZusatz == null) {
 			return(Land + ", " + Postleitzahl + " " + Stadt + ", " + Straße + " " + Hausnummer);
 		}else {
 			return(Land + ", " + Postleitzahl + " " + Stadt + ", " + Straße + " " + Hausnummer + HausnummernZusatz);
@@ -102,7 +102,7 @@ public class Adresse {
 	}
 	
 	public void print() {
-		if(this.HausnummernZusatz.isEmpty()) {
+		if(this.HausnummernZusatz == null) {
 			System.out.println("Land: " + Land +
 					   "\nPostleitzahl: " + Postleitzahl +
 					   "\nStadt: " + Stadt +

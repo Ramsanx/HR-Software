@@ -9,9 +9,9 @@ import java.sql.Statement;
 
 public class db_connect {
 
-	// sobald die Software auf dem Server l�uft muss die IP zu "localhost" ge�ndert werden
+	// sobald die Software auf dem Server läuft muss die IP zu "localhost" geändert werden
 	static String db_url = "jdbc:mysql://192.168.178.64:3306/hr"; 
-	// Logindaten bitte nicht �ndern
+	// Logindaten bitte nicht ändern
 	static String user = "hr-adm";
 	static String pass = "pwd4HR-adm";
 		
@@ -33,7 +33,7 @@ public class db_connect {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 		    System.out.println("Verbindung zur Datenbank erfolgreich hergestellt");
 		    
-		    // hier f�r ein neues Objekt vom typ Statement damit kann die Datenbank ver�ndert werden erstellt (kann wie beim Scanner mehrmals verwendet werden)
+		    // hier für ein neues Objekt vom typ Statement damit kann die Datenbank verändert werden erstellt (kann wie beim Scanner mehrmals verwendet werden)
 		    Statement stm_anlegen = con.createStatement();
 		    
 			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter " + "VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+ort+"', '"+plz+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"')");
@@ -77,7 +77,7 @@ public class db_connect {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_update = con.createStatement();
 			stm_update.executeUpdate("UPDATE "+tabelle+" SET "+spalte+" = '"+wert_neu+"' WHERE PersNr = "+persNr+"");
-			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich ge�ndert");
+			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich geändert");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -105,7 +105,7 @@ public class db_connect {
 		}
 		
 	}
-// Eriks Testzeilen bitte erstmal nicht l�schen
+// Eriks Testzeilen bitte erstmal nicht löschen
 	
 //	 // So lest ihr die Inhalte aus der DB aus
 //	ResultSet rs_test = stm.executeQuery("SELECT * FROM t_mitarbeiter;");
@@ -116,10 +116,10 @@ public class db_connect {
 //			}
 //		System.out.println("");
 //		}
-	// Hiermit l�scht ihr einen Eintrag
+	// Hiermit löscht ihr einen Eintrag
 	 //stm.executeUpdate("DELETE FROM t_mitarbeiter WHERE PersNr = 1254");
-	// Hiermit k�nnt ihr einen neuen Mittarbeiter anlegen (der muss immer als erstes erstellt werden, danach erst Vertrag, Zugang usw.)
-			// In dem Schema f�gt ihr etwas ein: (PersNr, Vorname, Nachname, Geburtsdatum, Straße, Hausnummer, PLZ, Telefonnummer, Mail, Position, Einstellungsdatum)
+	// Hiermit könnt ihr einen neuen Mittarbeiter anlegen (der muss immer als erstes erstellt werden, danach erst Vertrag, Zugang usw.)
+			// In dem Schema fügt ihr etwas ein: (PersNr, Vorname, Nachname, Geburtsdatum, Straße, Hausnummer, PLZ, Telefonnummer, Mail, Position, Einstellungsdatum)
 	 //stm.executeUpdate("INSERT INTO t_mitarbeiter " + "VALUES (1254, 'Dominik', 'Lau', '2001-05-01', 'Straße', 7, 12354, 123547856, 'lau@bla', 'Knecht', '2021-04-01')");
 	 //stm.executeUpdate("INSERT INTO t_mitarbeiter " + "VALUES (1538, 'Radsam', 'Dadiev', '2001-05-31', 'Straße', 9, 12444, 636954, 'ramzan@bla', 'Doktor', '2021-04-02')");
 

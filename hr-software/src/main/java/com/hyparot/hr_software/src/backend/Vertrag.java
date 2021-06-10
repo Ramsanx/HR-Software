@@ -10,8 +10,8 @@ public class Vertrag {
 	private String Nachname;
 	private String GruppenBezeichnung;
 	private String StellenBezeichnung;
+	private String Telefonnummer;
 	
-	private int Telefonnummer;
 	private int SollArbeitszeit;
 	
 	private Calendar GeburtsTag;
@@ -19,8 +19,8 @@ public class Vertrag {
 	
 	private Adresse Adresse;
 	
-	public Vertrag(String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung, 
-				   int Telefonnummer, int SollArbeitszeit,
+	public Vertrag(String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, 
+				   int SollArbeitszeit,
 				   Calendar GeburtsTag, Calendar EinstellungsDatum, 
 				   Adresse Adresse) {
 		
@@ -66,11 +66,11 @@ public class Vertrag {
 		this.StellenBezeichnung = newStellenBezeichnung;
 	}
 	
-	public int Telefonnumer() {
+	public String Telefonnumer() {
 		return this.Telefonnummer;
 	}
 	
-	public void setTelefonnummer(int newTelefonnummer) {
+	public void setTelefonnummer(String newTelefonnummer) {
 		this.Telefonnummer = newTelefonnummer;
 	}
 	

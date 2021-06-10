@@ -18,14 +18,16 @@ public class Angestellte implements angestellte{
 	private String EmailAdresse;
 	private String GruppenBezeichnung;
 	private String StellenBezeichnung;
+	private String TelefonNummer;
 	
-	private int TelefonNummer;
 	private int PersonalNummer;
 	private int SollArbeitszeit;
 	private int IstArbeitszahl;
 	private int GesamtUrlaubstage;
 	private int NochUrlaubstage;
 	private int Krankheitstage;
+	
+	private boolean Krank;
 	
 	private Calendar GeburtsTag;
 	private Calendar EinstellungsDatum;
@@ -38,20 +40,19 @@ public class Angestellte implements angestellte{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Hallo Welt");
+		
 	}
 	
 	
 	public Angestellte(String Benutzername, String Passwort, String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung,
-						int Telefonnummer, int SollArbeitszeit, 
-						Calendar GeburtsTag, Calendar EinstellungsDatum,
-						Adresse Adresse,
-						Vertrag Vertrag) {
+					   String Telefonnummer, int SollArbeitszeit, 
+					   Calendar GeburtsTag, Calendar EinstellungsDatum,
+					   Adresse Adresse) {
 		this.setBenutzername(Benutzername);
 		this.setPasswort(Passwort);
 		this.setVorname(Vorname);
 		this.setNachname(Nachname);
-		this.setEmailAdresse(Vorname.substring(0, 1) + "." + Nachname + "@unsere-firma.de");
+		this.setEmailAdresse(Vorname.substring(0, 1).toLowerCase() + "." + Nachname.toLowerCase() + "@unsere-firma.de");
 		this.setGruppenBezeichnung(GruppenBezeichnung);
 		this.setStellenBezeichnung(StellenBezeichnung);
 		
@@ -145,12 +146,12 @@ public class Angestellte implements angestellte{
 	}
 
 
-	public int getTelefonNummer() {
+	public String getTelefonNummer() {
 		return TelefonNummer;
 	}
 
 
-	public void setTelefonNummer(int telefonNummer) {
+	public void setTelefonNummer(String telefonNummer) {
 		TelefonNummer = telefonNummer;
 	}
 
@@ -215,6 +216,16 @@ public class Angestellte implements angestellte{
 	}
 
 
+	public boolean isKrank() {
+		return Krank;
+	}
+
+
+	public void setKrank(boolean krank) {
+		Krank = krank;
+	}
+	
+	
 	public Calendar getGeburtsTag() {
 		return GeburtsTag;
 	}
@@ -265,7 +276,7 @@ public class Angestellte implements angestellte{
 	@Override
 	public boolean loginUser(String username, String password) {
 		// TODO Auto-generated method stub
-		Angestellte nutzer = BusinessIntellegent.getAngestellteByName(username);
+		Angestellte nutzer = BusinessIntellegent.getEmployeeByName(username);
 		if(nutzer != null) {
 			if(password.equals(nutzer.getPasswort())) {
 				return true;
@@ -279,7 +290,7 @@ public class Angestellte implements angestellte{
 	public void editEmployee(String vorname, 
 							 String nachname, 
 							 String emailAdresse,
-							 int telefonNummer,
+							 String telefonNummer,
 							 Calendar geburtsTag, 
 							 String land, 
 							 String stadt, 
@@ -289,18 +300,9 @@ public class Angestellte implements angestellte{
 							 String hausnummernZusatz) {
 		// TODO Auto-generated method stub
 		
-		this.setVorname(vorname);
-		this.setNachname(nachname);
-		this.setEmailAdresse(emailAdresse);
-		this.setTelefonNummer(telefonNummer);
-		this.setGeburtsTag(geburtsTag);
+		BusinessIntellegent.editEmployee(this.getPersonalNummer(),vorname, nachname, emailAdresse, telefonNummer, geburtsTag, 
+										 land, stadt, postleitzahl, straße, hausnummer, hausnummernZusatz);
 		
-		this.Adresse.setLand(land);
-		this.Adresse.setStadt(stadt);
-		this.Adresse.setStraße(straße);
-		this.Adresse.setHausnummernZusatz(hausnummernZusatz);
-		this.Adresse.setPostleitzahl(postleitzahl);
-		this.Adresse.setHausnummer(hausnummer);
 	}
 
 
@@ -372,5 +374,16 @@ public class Angestellte implements angestellte{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
+	public String toString() {
+		return ("Vorname: " + this.Vorname +
+				"\nNachname: " + this.Nachname +
+				"\nE-Mail Adresse: " + this.EmailAdresse +
+				"\nTelefonnummer: " + this.TelefonNummer +
+				"\nStellenbeschreibung: " + this.StellenBezeichnung);
+	}
+
+
 
 }
