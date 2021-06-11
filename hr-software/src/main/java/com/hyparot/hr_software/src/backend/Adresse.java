@@ -4,13 +4,13 @@ package com.hyparot.hr_software.src.backend;
 //ein Objekt der Klasse Adresse wird zum Anlegen eines Angestellten ben�tigt
 public class Adresse {
 	
-	private int Postleitzahl;
-	private int Hausnummer;
+	private int Postleitzahl; // in der Tabelle "t_mitarbeiter" Feld "PLZ" typ int
+	private int Hausnummer; // in der Tabelle "t_mitarbeiter" Feld "Hausnummer" typ int
 	
-	private String Land;
-	private String Stadt;
-	private String Straße;
-	private String HausnummernZusatz;
+	private String Land; // in der Tabelle "t_mitarbeiter" Feld "Land" typ String
+	private String Stadt; // in der Tabelle "t_mitarbeiter" Feld "Stadt" typ String
+	private String Straße; // in der Tabelle "t_mitarbeiter" Feld "Straße" typ String
+	private String HausnummernZusatz; // in der Tabelle "t_mitarbeiter" Feld "HausnummerZusatz" typ String
 
 	public Adresse(String Land, 
 				   int Postleitzahl, String Stadt, 

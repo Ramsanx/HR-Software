@@ -11,29 +11,29 @@ public class Angestellte implements angestellte{
 	
 //	protected static Vector<Angestellte> Angestellte = new Vector<Angestellte>();
 	
-	private String Benutzername;
-	private String Passwort;
-	private String Vorname;
-	private String Nachname;
-	private String EmailAdresse;
-	private String GruppenBezeichnung;
-	private String StellenBezeichnung;
+	private String Benutzername; // in der Datenbank tabelle "Zugänge" Feld "Nutzername" typ String
+	private String Passwort; // in der Datenbank tabelle "Zugänge" Feld "Passwort" typ String
+	private String Vorname; // in der Datenbank tabelle "t_mitarbeiter" Feld "Vorname" typ String
+	private String Nachname; // in der Datenbank tabelle "t_mitarbeiter" Feld "Nachname" typ String
+	private String EmailAdresse; // in der Datenbank tabelle "t_mitarbeiter" Feld "E-Mail" typ String
+	private String GruppenBezeichnung; // in der Datenbank tabelle "t_mitarbeiter" Feld "Gruppe" typ String
+	private String StellenBezeichnung; //  in der Datenbank tabelle "t_mitarbeiter" Feld "Gruppe" typ String
 	private String TelefonNummer;
 	
-	private int PersonalNummer;
-	private int SollArbeitszeit;
-	private int IstArbeitszahl;
-	private int GesamtUrlaubstage;
-	private int NochUrlaubstage;
-	private int Krankheitstage;
+	private int PersonalNummer; // in der Datenbank tabelle "t_mitarbeiter" Feld "PersNr" typ int
+	private int SollArbeitszeit; // in der Datenbank tabelle "t_vertragsdaten" Feld "Arebitsstunden" typ int
+	private int IstArbeitszahl; // in der Datenbank tabelle "t_Urlaub_krankheit" Feld "IstArbeitszeit" typ int
+	private int GesamtUrlaubstage; // in der Datenbank tabelle "t_Urlaub_krankheit" Feld "Urlaubstage_gesamt" typ int
+	private int NochUrlaubstage; // in der Datenbank tabelle "t_Urlaub_krankheit" Feld "Urlaubstage_verbleibend" typ int
+	private int Krankheitstage; // in der Datenbank tabelle "t_Urlaub_krankheit" Feld "Krankentage" typ int
 	
-	private boolean Krank;
+	private boolean Krank; // in der Datenbank tabelle "t_Urlaub_krankheit" Feld "Krank" typ boolean
 	
-	private Calendar GeburtsTag;
-	private Calendar EinstellungsDatum;
+	private Calendar GeburtsTag; // in der Datenbank "t_mitarbeiter" Feld "Geburtstag" typ date
+	private Calendar EinstellungsDatum; // in der Datenbank "t_mitarbeiter" Feld "eingestellt_am"
 	//Erstellung eines Calender Objekts erfolgt an anderer Stelle mit z.B. Calender Geburtstag; Geburtstag.set(int Jahr, int Monat, int Tag);
 	
-	private Adresse Adresse;
+	private Adresse Adresse; 
 	
 	private Vertrag Vertrag;
 	
