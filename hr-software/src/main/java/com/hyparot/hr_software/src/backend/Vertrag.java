@@ -14,14 +14,14 @@ public class Vertrag {
 	
 	private int SollArbeitszeit;
 	
-	private Calendar GeburtsTag;
-	private Calendar EinstellungsDatum;
+	private Datum GeburtsTag;
+	private Datum EinstellungsDatum;
 	
 	private Adresse Adresse;
 	
 	public Vertrag(String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, 
 				   int SollArbeitszeit,
-				   Calendar GeburtsTag, Calendar EinstellungsDatum, 
+				   Datum GeburtsTag, Datum EinstellungsDatum, 
 				   Adresse Adresse) {
 		
 		this.Vorname = Vorname;
@@ -82,19 +82,19 @@ public class Vertrag {
 		this.SollArbeitszeit = newSollArbeitszeit;
 	}
 	
-	public Calendar getGeburtsTag() {
+	public Datum getGeburtsTag() {
 		return this.GeburtsTag;
 	}
 	
-	public void setGeburtsTag(Calendar newGeburtsTag) {
+	public void setGeburtsTag(Datum newGeburtsTag) {
 		this.GeburtsTag = newGeburtsTag;
 	}
 	
-	public Calendar EinstellungsDatum() {
+	public Datum EinstellungsDatum() {
 		return this.EinstellungsDatum;
 	}
 	
-	public void setEinstellungsDatum(Calendar newEinstellungsDatum) {
+	public void setEinstellungsDatum(Datum newEinstellungsDatum) {
 		this.EinstellungsDatum = newEinstellungsDatum;
 	}
 	

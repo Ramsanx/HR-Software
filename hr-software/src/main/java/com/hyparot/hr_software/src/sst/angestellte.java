@@ -11,7 +11,7 @@ public interface angestellte {
 			 				 String nachname, 
 			 				 String emailAdresse,
 			 				 String telefunNummer,
-			 				 Calendar geburtsTag, 
+			 				 Datum geburtsTag, 
 			 				 String land, 
 			 				 String stadt, 
 			 				 int postleitzahl, 
@@ -19,7 +19,7 @@ public interface angestellte {
 			 				 int hausnummer, 
 			 				 String hausnummernZusatz);
 	
-	public Calendar applyForVacation();
+	public Datum applyForVacation();
 	
 	public void cancelVacation();
 	

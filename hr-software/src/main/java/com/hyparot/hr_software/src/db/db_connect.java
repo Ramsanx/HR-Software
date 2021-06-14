@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -14,29 +15,32 @@ public class db_connect {
 	// Logindaten bitte nicht ändern
 	static String user = "hr-adm";
 	static String pass = "pwd4HR-adm";
+	
 		
 	
 	// Main Funktion zum testen
 	public static void main(String[] args) {
-		
 		// anlegen_Benutzer(1235,"Bob", "Baumeister", "1999-12-03", "BaumeisterStraße", 7, "Bauarbeiterhausen", 13591, 5687512, "bob@baumeister.de", "Bauarbeiter", "2015-06-09");
 		// System.out.println(wert_auslesen("t_mitarbeiter", "Nachname", 1235));
-		wert_update("t_mitarbeiter", "Ort", "Berlin", 1538);
+		//anlegen_Benutzer(2000, "Niklas", "Wulsch", "2002-03-03", "Berliner Straße", 1, "c", "Berlin", 12689, "Deutschland", "0176...", "nwulsch@unsere-firma.de", "Student", "HR", "2021-06-14");
+		wert_update("t_mitarbeiter", "Gruppe", "HR", 2000);
+		
 		
 		tabelle_auslesen("t_mitarbeiter");
 		
 	}
 	
-	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String ort,int plz, long telefonnummer, String mail, String position, String einstellungsdatum){
+	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
+			
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 		    System.out.println("Verbindung zur Datenbank erfolgreich hergestellt");
 		    
 		    // hier für ein neues Objekt vom typ Statement damit kann die Datenbank verändert werden erstellt (kann wie beim Scanner mehrmals verwendet werden)
 		    Statement stm_anlegen = con.createStatement();
 		    
-			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter " + "VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+ort+"', '"+plz+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter " + "VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+hausnummernzusatz+"', '"+ort+"', '"+plz+"', '"+land+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"', '"+gruppe+"')");
 			
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
 			
@@ -80,19 +84,24 @@ public class db_connect {
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich geändert");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		}
+		} 
 	}
 	
 	public static void tabelle_auslesen(String tabelle) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_tabelle_auslesen = con.createStatement();
-			
+		
 			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+tabelle+";");
+			ResultSetMetaData meta = rs_tabelle.getMetaData();
+//			for(int i = 1; i <= meta.getColumnCount(); i++) {
+//				System.out.println(meta.getColumnLabel(i));
+//			}
 			
 			if (tabelle.equals("t_mitarbeiter")) {
 				while(rs_tabelle.next()){
-					for (int i=1; i<=12; i++) {
+	
+					for (int i=1; i <= meta.getColumnCount(); i++) {
 						System.out.print(rs_tabelle.getString(i)  + " ");
 						}
 					System.out.println("");
@@ -102,8 +111,23 @@ public class db_connect {
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		}
+		} 
 		
+	}
+//	Niklas' Ergänzungen
+	public static ResultSet read_table(String tabelle) {
+		try {
+			Connection con = DriverManager.getConnection(db_url, user, pass);
+			Statement stm_tabelle_auslesen = con.createStatement();
+		
+			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+tabelle+";");
+			
+			return rs_tabelle;
+			
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 // Eriks Testzeilen bitte erstmal nicht löschen
 	

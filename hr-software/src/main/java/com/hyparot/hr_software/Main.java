@@ -1,6 +1,5 @@
 package com.hyparot.hr_software;
 
-import java.util.Calendar;
 import com.hyparot.hr_software.src.backend.*;
 
 
@@ -10,8 +9,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Calendar Geburtstag = null;
-		Calendar Ein = null;
+		Datum Geburtstag = new Datum(2002, 3, 3);
+		Datum Ein = new Datum(2021, 14, 6);
 		
 		Adresse Ort = new Adresse("Deutschland", 10315, "Berlin", "Alt-Friedrichsfelde", 60);
 		

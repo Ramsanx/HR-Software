@@ -1,15 +1,11 @@
 package com.hyparot.hr_software.src.mitarbeiter;
 
-import java.util.Calendar;
-//import java.util.Vector;
 import com.hyparot.hr_software.src.backend.*;
-//import backend.BusinessIntellegent;
-//import backend.Vertrag;
 import com.hyparot.hr_software.src.sst.angestellte;
 
 public class Angestellte implements angestellte{
 	
-//	protected static Vector<Angestellte> Angestellte = new Vector<Angestellte>();
+
 	
 	private String Benutzername; // in der Datenbank tabelle "Zugänge" Feld "Nutzername" typ String
 	private String Passwort; // in der Datenbank tabelle "Zugänge" Feld "Passwort" typ String
@@ -29,9 +25,9 @@ public class Angestellte implements angestellte{
 	
 	private boolean Krank; // in der Datenbank tabelle "t_Urlaub_krankheit" Feld "Krank" typ boolean
 	
-	private Calendar GeburtsTag; // in der Datenbank "t_mitarbeiter" Feld "Geburtstag" typ date
-	private Calendar EinstellungsDatum; // in der Datenbank "t_mitarbeiter" Feld "eingestellt_am"
-	//Erstellung eines Calender Objekts erfolgt an anderer Stelle mit z.B. Calender Geburtstag; Geburtstag.set(int Jahr, int Monat, int Tag);
+	private Datum GeburtsTag; // in der Datenbank "t_mitarbeiter" Feld "Geburtstag" typ date
+	private Datum EinstellungsDatum; // in der Datenbank "t_mitarbeiter" Feld "eingestellt_am"
+	
 	
 	private Adresse Adresse; 
 	
@@ -44,16 +40,16 @@ public class Angestellte implements angestellte{
 	}
 	
 	
-	public Angestellte(String Benutzername, String Passwort, String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung,
+	public Angestellte(String Benutzername, String Passwort, String Vorname, String Nachname, String StellenBezeichnung,
 					   String Telefonnummer, int SollArbeitszeit, 
-					   Calendar GeburtsTag, Calendar EinstellungsDatum,
+					   Datum GeburtsTag, Datum EinstellungsDatum,
 					   Adresse Adresse) {
 		this.setBenutzername(Benutzername);
 		this.setPasswort(Passwort);
 		this.setVorname(Vorname);
 		this.setNachname(Nachname);
 		this.setEmailAdresse(Vorname.substring(0, 1).toLowerCase() + "." + Nachname.toLowerCase() + "@unsere-firma.de");
-		this.setGruppenBezeichnung(GruppenBezeichnung);
+		this.setGruppenBezeichnung(getClass().getSimpleName());
 		this.setStellenBezeichnung(StellenBezeichnung);
 		
 		this.setTelefonNummer(Telefonnummer);
@@ -75,7 +71,7 @@ public class Angestellte implements angestellte{
 
 
 	//getter und setter Block beginn
-	//_________________________________________________________________________________________________________________________________-
+	//__________________________________________________________________________________________________________________________________
 	public String getBenutzername() {
 		return Benutzername;
 	}
@@ -131,7 +127,7 @@ public class Angestellte implements angestellte{
 	}
 
 
-	public void setGruppenBezeichnung(String gruppenBezeichnung) {
+	private void setGruppenBezeichnung(String gruppenBezeichnung) {
 		GruppenBezeichnung = gruppenBezeichnung;
 	}
 
@@ -226,22 +222,22 @@ public class Angestellte implements angestellte{
 	}
 	
 	
-	public Calendar getGeburtsTag() {
+	public Datum getGeburtsTag() {
 		return GeburtsTag;
 	}
 
 
-	public void setGeburtsTag(Calendar geburtsTag) {
+	public void setGeburtsTag(Datum geburtsTag) {
 		GeburtsTag = geburtsTag;
 	}
 
 
-	public Calendar getEinstellungsDatum() {
+	public Datum getEinstellungsDatum() {
 		return EinstellungsDatum;
 	}
 
 
-	public void setEinstellungsDatum(Calendar einstellungsDatum) {
+	public void setEinstellungsDatum(Datum einstellungsDatum) {
 		EinstellungsDatum = einstellungsDatum;
 	}
 	
@@ -291,7 +287,7 @@ public class Angestellte implements angestellte{
 							 String nachname, 
 							 String emailAdresse,
 							 String telefonNummer,
-							 Calendar geburtsTag, 
+							 Datum geburtsTag, 
 							 String land, 
 							 String stadt, 
 							 int postleitzahl, 
@@ -307,7 +303,7 @@ public class Angestellte implements angestellte{
 
 
 	@Override
-	public Calendar applyForVacation() {
+	public Datum applyForVacation() {
 		// TODO Auto-generated method stub
 		return null;
 	}

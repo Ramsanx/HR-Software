@@ -1,18 +1,17 @@
 package com.hyparot.hr_software.src.mitarbeiter;
 
-import java.util.Calendar;
 import com.hyparot.hr_software.src.backend.*;
 import com.hyparot.hr_software.src.sst.hr;
 
 
 public class HR extends Angestellte implements hr {
 
-	public HR(String Benutzername, String Passwort, String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung,
+	public HR(String Benutzername, String Passwort, String Vorname, String Nachname, String StellenBezeichnung,
 			  String Telefonnummer, int SollArbeitszeit, 
-			  Calendar GeburtsTag, Calendar EinstellungsDatum,
+			  Datum GeburtsTag, Datum EinstellungsDatum,
 			  Adresse Adresse) {
 		
-		super(Benutzername, Passwort, Vorname, Nachname, GruppenBezeichnung, StellenBezeichnung,
+		super(Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
 				Telefonnummer, SollArbeitszeit, 
 				GeburtsTag, EinstellungsDatum,
 				Adresse);
@@ -27,7 +26,7 @@ public class HR extends Angestellte implements hr {
 	@Override
 	public void setNewEmployee(String Stellung, String Benutzername, String Passwort, String Vorname, String Nachname, 
 							   String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
-							   Calendar GeburtsTag, Calendar EinstellungsDatum,
+							   Datum GeburtsTag, Datum EinstellungsDatum,
 							   Adresse Adresse) {
 		// TODO Auto-generated method stub
 		BusinessIntellegent.createEmployee(Stellung, Benutzername, Passwort, Vorname, Nachname, GruppenBezeichnung, StellenBezeichnung,
