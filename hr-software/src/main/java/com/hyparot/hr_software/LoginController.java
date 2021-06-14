@@ -76,11 +76,12 @@ public class LoginController {
 	private void checkLogin() throws IOException {
 
 		if (TFUsername.getText() != null && PFPassword.getText() != null) {
-			if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()).getPasswort().equals(PFPassword.getText().toString())) {
-				changeSceneAfterLogin();
+			if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()) != null) {
+				if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()).getPasswort().equals(PFPassword.getText().toString())) {
+					changeSceneAfterLogin();
 //			}
 //			if (TFUsername.getText().toString().equals("u") && PFPassword.getText().toString().equals("p")) {
-//				
+				}
 			} else {
 				TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
 			}
