@@ -7,12 +7,12 @@ import com.hyparot.hr_software.src.sst.hr;
 public class HR extends Angestellte implements hr {
 
 	public HR(String Benutzername, String Passwort, String Vorname, String Nachname, String StellenBezeichnung,
-			  String Telefonnummer, int SollArbeitszeit, 
+			  String Telefonnummer, int SollArbeitszeit, int Personalnummer, 
 			  Datum GeburtsTag, Datum EinstellungsDatum,
 			  Adresse Adresse) {
 		
 		super(Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
-				Telefonnummer, SollArbeitszeit, 
+				Telefonnummer, SollArbeitszeit, Personalnummer,
 				GeburtsTag, EinstellungsDatum,
 				Adresse);
 	}
@@ -25,14 +25,14 @@ public class HR extends Angestellte implements hr {
 
 	@Override
 	public void setNewEmployee(String Stellung, String Benutzername, String Passwort, String Vorname, String Nachname, 
-							   String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
+							   String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
 							   Datum GeburtsTag, Datum EinstellungsDatum,
 							   Adresse Adresse) {
 		// TODO Auto-generated method stub
-		BusinessIntellegent.createEmployee(Stellung, Benutzername, Passwort, Vorname, Nachname, GruppenBezeichnung, StellenBezeichnung,
-				Telefonnummer, SollArbeitszeit, 
-				GeburtsTag, EinstellungsDatum,
-				Adresse);
+		BusinessIntellegent.createEmployee(Stellung, Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
+										   Telefonnummer, SollArbeitszeit, 
+										   GeburtsTag, EinstellungsDatum,
+										   Adresse);
 		
 	}
 

@@ -23,11 +23,14 @@ public class db_connect {
 		// anlegen_Benutzer(1235,"Bob", "Baumeister", "1999-12-03", "BaumeisterStraße", 7, "Bauarbeiterhausen", 13591, 5687512, "bob@baumeister.de", "Bauarbeiter", "2015-06-09");
 		// System.out.println(wert_auslesen("t_mitarbeiter", "Nachname", 1235));
 		//anlegen_Benutzer(2000, "Niklas", "Wulsch", "2002-03-03", "Berliner Straße", 1, "c", "Berlin", 12689, "Deutschland", "0176...", "nwulsch@unsere-firma.de", "Student", "HR", "2021-06-14");
-		wert_update("t_mitarbeiter", "Gruppe", "HR", 2000);
-		
-		
+//		wert_update("t_mitarbeiter", "Gruppe", "HR", 2000);
+//		
+//		
 		tabelle_auslesen("t_mitarbeiter");
 		
+		read_table("t_mitarbeiter");
+		//System.out.println(getNumberOfLastRow("t_mitarbeiter"));
+		//System.out.println(wert_auslesen("t_mitarbeiter", "Land", 2000));
 	}
 	
 	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum, int z_ID, String nutzername, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr){
@@ -61,7 +64,7 @@ public class db_connect {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static String wert_auslesen(String tabelle, String wert, int persNr) {
+	public static String str_wert_auslesen(String tabelle, String wert, int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_wert_auslesen = con.createStatement();
@@ -124,6 +127,11 @@ public class db_connect {
 		
 			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+tabelle+";");
 			
+			ResultSetMetaData meta = rs_tabelle.getMetaData();
+			for (int i = 1; i <= meta.getColumnCount(); i++) {
+				System.out.print(meta.getColumnName(i) + ", ");
+			}
+			System.out.println();
 			return rs_tabelle;
 			
 		}catch(SQLException e) {
@@ -131,6 +139,53 @@ public class db_connect {
 			return null;
 		}
 	}
+	
+	
+//	public static int getNumberOfLastRow(String tabelle) {
+//		try {
+//			Connection con = DriverManager.getConnection(db_url, user, pass);
+//			Statement stm_wert_auslesen = con.createStatement();
+//			ResultSet rs_wert = stm_wert_auslesen.executeQuery("SELECT * FROM t_mitarbeiter"); 
+//			ResultSetMetaData test = rs_wert.getMetaData();
+//			int Gruppe = 1;
+//			for(int i = 1; i <= test.getColumnCount(); i++) {
+//				if(test.getColumnName(i).equals("Gruppe")) {
+//					Gruppe = i;
+//					break;
+//				}
+//			}
+//			int lastRow = 0;
+//			while(rs_wert.next()) {
+//				lastRow++;
+//				System.out.print(rs_wert.getString(Gruppe) + " ");
+//				System.out.println("\n");
+//				
+//			}
+//			return lastRow;
+//			
+//		}catch (SQLException e) {
+//			System.out.println(e.getMessage());
+//			return -1;
+//		}
+//	}
+	
+	
+	public static int int_wert_auslesen(String tabelle, String wert, int persNr) {
+		try {
+			Connection con = DriverManager.getConnection(db_url, user, pass);
+			Statement stm_wert_auslesen = con.createStatement();
+			ResultSet rs_wert = stm_wert_auslesen.executeQuery("SELECT "+wert+" FROM "+tabelle+" WHERE PersNr='"+persNr+"';");
+			while (rs_wert.next()) {
+				return rs_wert.getInt(wert);
+			}
+			return -1;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return -1;
+		}
+	}
+	
+
 // Eriks Testzeilen bitte erstmal nicht löschen
 	
 //	 // So lest ihr die Inhalte aus der DB aus

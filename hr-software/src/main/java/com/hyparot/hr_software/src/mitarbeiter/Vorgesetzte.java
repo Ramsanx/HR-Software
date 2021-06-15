@@ -7,12 +7,12 @@ import com.hyparot.hr_software.src.sst.vorgesetzte;
 public class Vorgesetzte extends Angestellte implements vorgesetzte{
 
 	public Vorgesetzte(String Benutzername, String Passwort, String Vorname, String Nachname, 
-			           String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
+			           String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, int Personalnummer, 
 			           Datum GeburtsTag, Datum EinstellungsDatum,
 			           Adresse Adresse) {
 		
 		super(Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
-				Telefonnummer, SollArbeitszeit, 
+				Telefonnummer, SollArbeitszeit, Personalnummer,
 				GeburtsTag, EinstellungsDatum,
 				Adresse);
 	}

@@ -1,6 +1,10 @@
 package com.hyparot.hr_software;
 
+import java.util.Iterator;
+import java.util.Vector;
+
 import com.hyparot.hr_software.src.backend.*;
+import com.hyparot.hr_software.src.mitarbeiter.Angestellte;
 
 
 
@@ -9,21 +13,32 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Datum Geburtstag = new Datum(2002, 3, 3);
-		Datum Ein = new Datum(2021, 14, 6);
 		
-		Adresse Ort = new Adresse("Deutschland", 10315, "Berlin", "Alt-Friedrichsfelde", 60);
+		BusinessIntellegent.loadDBDataToLocal();
+		System.out.println(BusinessIntellegent.getEmployees());
+		BusinessIntellegent.createEmployee("HR", "nwulsch", "Passwort", "Niklas", "Wulsch", "Student", "0176", 37, new Datum("2002-03-03"), new Datum("2021-06-15"),
+										   new Adresse("Deutschland", 
+												       12689,
+												       "Berlin", 
+												       "Berliner Straße",
+												       1,
+												   	   "c"));
+		Vector<Angestellte> test = BusinessIntellegent.getEmployees();
+		Iterator<Angestellte> test2 = test.iterator();
+		while(test2.hasNext()) {
+			Angestellte nutzer = test2.next();
+			if(nutzer.getBenutzername().equals("nwulsch")) {
+				nutzer.setEinstellungsDatum(new Datum("2021-06-15"));
+			}
+		}
+		System.out.println(BusinessIntellegent.loadLocalDataToDB());
 		
-		// Stellung, Benutzername, Passwort, Vorname, Nachname, Gruppenbezeichnung, Stellenbezeichnung, 
-		// Telefonnummer, SollArbeitszeit, Geburtstag, Einstellungsdatum, Adresse, Vertrag (if Adress == null){Vertrag == null}
-		BusinessIntellegent.createEmployee("HR", "nwulsch", "*NaLosTippSchon", "Niklas", "Wulsch", "msp-t", "Student",
-											"01761111111", 37, Geburtstag, Ein, Ort);
-		System.out.println((BusinessIntellegent.getEmployeeByName("nwulsch")));
-		System.out.println(BusinessIntellegent.getEmployeeByName("nwulsch").getAdresse());
+		//BusinessIntellegent.loadDBDataToLocal();
+		
 		JavaFXLauncher.main(args);
 		
 		
-
+			
 	}
 
 }

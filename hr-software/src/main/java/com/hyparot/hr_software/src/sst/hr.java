@@ -9,7 +9,7 @@ public interface hr {
 	public void getPayroll(int Personalnummer);
 	
 	public void setNewEmployee(String Stellung, String Benutzername, String Passwort, String Vorname, String Nachname, 
-							   String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
+							   String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
 							   Datum GeburtsTag, Datum EinstellungsDatum,
 							   Adresse Adresse);
 	

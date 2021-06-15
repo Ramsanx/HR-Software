@@ -41,7 +41,7 @@ public class Angestellte implements angestellte{
 	
 	
 	public Angestellte(String Benutzername, String Passwort, String Vorname, String Nachname, String StellenBezeichnung,
-					   String Telefonnummer, int SollArbeitszeit, 
+					   String Telefonnummer, int SollArbeitszeit, int Personalnummer, 
 					   Datum GeburtsTag, Datum EinstellungsDatum,
 					   Adresse Adresse) {
 		this.setBenutzername(Benutzername);
@@ -53,7 +53,7 @@ public class Angestellte implements angestellte{
 		this.setStellenBezeichnung(StellenBezeichnung);
 		
 		this.setTelefonNummer(Telefonnummer);
-		this.setPersonalNummer(10000000); 
+		this.setPersonalNummer(Personalnummer); 
 		this.setSollArbeitszeit(SollArbeitszeit);
 		if(SollArbeitszeit >= 37) {
 			this.setGesamtUrlaubstage(30);
