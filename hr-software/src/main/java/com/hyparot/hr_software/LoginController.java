@@ -81,9 +81,15 @@ public class LoginController {
 					changeSceneAfterLogin(TFUsername.getText().toString());
 //			}
 //			if (TFUsername.getText().toString().equals("u") && PFPassword.getText().toString().equals("p")) {
+				}else {
+					TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
+					TFUsername.setText(null);
+					PFPassword.setText(null);
 				}
 			} else {
 				TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
+				TFUsername.setText(null);
+				PFPassword.setText(null);
 			}
 		}
 	}

@@ -43,19 +43,19 @@ public class FRController {
     }
 	
 	@FXML
-    private Text TVorname_Nachname = new Text();
+    private Text TVorname_Nachname;
 	
 	@FXML
-    private Text TPersonalnummer = new Text();
+    private Text TPersonalnummer;
 	
 	@FXML
-    private Text TStelle = new Text();
+    private Text TStelle;
 	
 	@FXML
-    private Text TTelefonnummer = new Text();
+    private Text TTelefonnummer;
 	
 	@FXML
-    private Text TE_Mail = new Text();
+    private Text TE_Mail;
 
     @FXML
     void initialize() {
@@ -76,7 +76,7 @@ public class FRController {
 	public FRController(Stage stage, String Username) {
 		this.stage = stage;
 		this.User = Username;
-		schreiben();
+		//schreiben();
 		
 	}
 	

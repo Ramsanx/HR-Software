@@ -30,7 +30,7 @@ public class Main {
 		System.out.print("\n\nGeben Sie ihr Passwort ein: ");
 		String Passwort = eingabe.next();
 		eingabe.close();
-		System.out.println(BusinessIntellegent.getEmployees());
+		
 		BusinessIntellegent.createEmployee("HR", Benutzername, Passwort, Vorname, Nachname, "Dozent", "017633620", 37, new Datum("2009-04-01"), new Datum("2021-06-16"),
 										   new Adresse("Deutschland", 
 												       10315,
@@ -39,7 +39,8 @@ public class Main {
 												       60,
 												   	   ""));
 		
-		System.out.println(BusinessIntellegent.loadLocalDataToDB());
+		System.out.println(BusinessIntellegent.getEmployees().get(BusinessIntellegent.getEmployees().size()-1));
+		BusinessIntellegent.loadLocalDataToDB();
 		
 
 		
