@@ -23,14 +23,17 @@ public class db_connect {
 		// anlegen_Benutzer(1235,"Bob", "Baumeister", "1999-12-03", "BaumeisterStraße", 7, "Bauarbeiterhausen", 13591, 5687512, "bob@baumeister.de", "Bauarbeiter", "2015-06-09");
 		// System.out.println(wert_auslesen("t_mitarbeiter", "Nachname", 1235));
 		//anlegen_Benutzer(2000, "Niklas", "Wulsch", "2002-03-03", "Berliner Straße", 1, "c", "Berlin", 12689, "Deutschland", "0176...", "nwulsch@unsere-firma.de", "Student", "HR", "2021-06-14");
-		wert_update("t_mitarbeiter", "Gruppe", "HR", 2000);
+		anlegen_Benutzer(1536, "Max", "Mustermann", "2000-02-20", "Musterstraße", 7, "-", "Musterhausen", 10365, "Musterland", "+49 306524685", "m.mustermann@mail.de", "CEO", "Vorgesetzter", "2020-05-06", 1569, "mamu", "123456", 12856, 30, 140, 12568, 6000, 5896);  
+		anlegen_Benutzer(1537, "Erik", "Mustermann", "2000-04-20", "Musterstraße", 7, "-", "Musterhausen", 10365, "Musterland", "+49 306524696", "e.mustermann@mail.de", "HR-Agent", "HR", "2020-06-06", 1570, "ermu", "123456", 12857, 30, 140, 12569, 6000, 5897);  
+		//wert_update("t_mitarbeiter", "Gruppe", "HR", 2000);
 		
 		
 		tabelle_auslesen("t_mitarbeiter");
+		tabelle_auslesen("t_zugaenge");
 		
 	}
 	
-	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum, int z_ID, String nutzername, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr){
+	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum, int z_ID, String nutzername, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, int v_Nr, int gehalt, int entgeltabrNr){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
 			
@@ -42,7 +45,7 @@ public class db_connect {
 		    
 			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+hausnummernzusatz+"', '"+ort+"', '"+plz+"', '"+land+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"', '"+gruppe+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+nutzername+"', '"+pwd+"')");
-			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+ist_Arbeitszeit+"', '"+krank+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+ist_Arbeitszeit+"', '"+false+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten ('"+v_Nr+", '"+persNr+"', '"+gehalt+"', '"+entgeltabrNr+"')");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
 			
