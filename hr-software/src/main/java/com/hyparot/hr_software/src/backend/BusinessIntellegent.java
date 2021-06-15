@@ -1,6 +1,9 @@
 package com.hyparot.hr_software.src.backend;
 
 import com.hyparot.hr_software.src.mitarbeiter.*;
+
+import net.fortuna.ical4j.model.property.Method;
+
 import com.hyparot.hr_software.src.db.db_connect;
 import java.sql.ResultSet;
 //import java.sql.ResultSetMetaData;
@@ -62,26 +65,35 @@ public class BusinessIntellegent {
 									  Datum GeburtsTag, Datum EinstellungsDatum,
 									  Adresse Adresse) {
 		
-		Angestellte nutzer;
-		if(Stellung.equals("HR")) {
-			nutzer = new HR(Benutzername, Passwort, Vorname, Nachname, 
-					 	    StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
-					 	    GeburtsTag, EinstellungsDatum,
-					 	    Adresse);
-		}else if(Stellung.equals("Vorgesetzte")) {
-			nutzer = new Vorgesetzte(Benutzername, Passwort, Vorname, Nachname, 
-					 			     StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
-					 			     GeburtsTag, EinstellungsDatum,
-					 			     Adresse);
-		}else {
-			nutzer = new Angestellte(Benutzername, Passwort, Vorname, Nachname, 
-									 StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
-									 GeburtsTag, EinstellungsDatum,
-									 Adresse);
+		Iterator<Angestellte> mitarbeiter = mitarbeiterListe.iterator();
+		while(mitarbeiter.hasNext()) {
+			if(mitarbeiter.next().getBenutzername().equals(Benutzername)) {
+				return;
+			}
 		}
-		mitarbeiterListe.add(nutzer);
-		bearbeitet.put(nutzer.getPersonalNummer(), "angelegt");
-	}
+		
+			Angestellte nutzer;
+			if(Stellung.equals("HR")) {
+				nutzer = new HR(Benutzername, Passwort, Vorname, Nachname, 
+						 	    StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
+						 	    GeburtsTag, EinstellungsDatum,
+						 	    Adresse);
+			}else if(Stellung.equals("Vorgesetzte")) {
+				nutzer = new Vorgesetzte(Benutzername, Passwort, Vorname, Nachname, 
+						 			     StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
+						 			     GeburtsTag, EinstellungsDatum,
+						 			     Adresse);
+			}else {
+				nutzer = new Angestellte(Benutzername, Passwort, Vorname, Nachname, 
+										 StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
+										 GeburtsTag, EinstellungsDatum,
+										 Adresse);
+			}
+			mitarbeiterListe.add(nutzer);
+			bearbeitet.put(nutzer.getPersonalNummer(), "angelegt");
+		}
+		
+		
 	
 	
 	public static void editEmployee(int Personalnummer, 
@@ -136,7 +148,7 @@ public class BusinessIntellegent {
 				while(Daten.next()) {
 					
 					String Klasse = Daten.getString("Gruppe");
-					System.out.println(Daten.getInt("PersNr"));
+					//System.out.println(Daten.getInt("PersNr"));
 					if(Klasse.equals("HR")) {
 						HR mitarbeiter = new HR(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", Daten.getInt("PersNr")),
 												db_connect.str_wert_auslesen("t_zugaenge", "Passwort", Daten.getInt("PersNr")),
@@ -155,7 +167,7 @@ public class BusinessIntellegent {
 														    Daten.getInt("Hausnummer"), 
 														    Daten.getString("HausnummernZusatz")));
 						mitarbeiterListe.add(mitarbeiter);
-						System.out.println("neuer HR");
+						//System.out.println("neuer HR");
 						
 					}else if(Klasse.equals("Vorgesetzter")) {
 						Vorgesetzte mitarbeiter = new Vorgesetzte(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", Daten.getInt("PersNr")),
@@ -175,7 +187,8 @@ public class BusinessIntellegent {
 																		  	  Daten.getInt("Hausnummer"), 
 																		  	  Daten.getString("HausnummernZusatz")));
 						mitarbeiterListe.add(mitarbeiter);
-						System.out.println("neuer VG");										  	  
+						//System.out.println("neuer VG");	
+						
 					}else if(Klasse.equals("Angestellte")) {
 						Angestellte mitarbeiter = new Angestellte(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", Daten.getInt("PersNr")),
 																  db_connect.str_wert_auslesen("t_zugaenge", "Passwort", Daten.getInt("PersNr")),
@@ -236,9 +249,10 @@ public class BusinessIntellegent {
 											false, 
 											mitarbeiter.getPersonalNummer(), 
 											0, 
-											0);
+											0,
+											37);
 				bearbeitet.remove(Personalnummer);
-				return true;
+				
 				
 			}else if(bearbeitet.get(Personalnummer).equals("geändert")) {
 				db_connect.wert_update("t_mitarbeiter", "Stellenbezeichung", mitarbeiter.getStellenBezeichnung(), Personalnummer);
@@ -255,16 +269,17 @@ public class BusinessIntellegent {
 				db_connect.wert_update("t_mitarbeiter", "Vorname", mitarbeiter.getVorname(), Personalnummer);
 				
 				bearbeitet.remove(Personalnummer);
-				return true;
+				//return true;
 				
 			}else if(bearbeitet.get(Personalnummer).equals("gelöscht")) {
+				
 				db_connect.löschen_Benutzer(Personalnummer);
 				
 				bearbeitet.remove(Personalnummer);
-				return true;
+				
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	

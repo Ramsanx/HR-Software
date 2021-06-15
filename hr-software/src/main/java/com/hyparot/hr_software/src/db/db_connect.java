@@ -33,7 +33,7 @@ public class db_connect {
 		//System.out.println(wert_auslesen("t_mitarbeiter", "Land", 2000));
 	}
 	
-	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum, int z_ID, String nutzername, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr){
+	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum, int z_ID, String nutzername, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
 			
@@ -43,10 +43,16 @@ public class db_connect {
 		    // hier für ein neues Objekt vom typ Statement damit kann die Datenbank verändert werden erstellt (kann wie beim Scanner mehrmals verwendet werden)
 		    Statement stm_anlegen = con.createStatement();
 		    
+//			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+hausnummernzusatz+"', '"+ort+"', '"+plz+"', '"+land+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"', '"+gruppe+"')");
+//			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+nutzername+"', '"+pwd+"')");
+//			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+ist_Arbeitszeit+"', '"+krank+"')");
+//			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten ('"+v_Nr+"', '"+persNr+"', '"+a_stunden+"', '"+gehalt+"', '"+entgeltabrNr+"')");
+//			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
+//			
 			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+hausnummernzusatz+"', '"+ort+"', '"+plz+"', '"+land+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"', '"+gruppe+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+nutzername+"', '"+pwd+"')");
-			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+ist_Arbeitszeit+"', '"+krank+"')");
-			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten ('"+v_Nr+", '"+persNr+"', '"+gehalt+"', '"+entgeltabrNr+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+a_Stunden+"', '"+2+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten VALUES ('"+v_Nr+"', '"+persNr+"', '"+a_Stunden +"', '"+gehalt+"', '"+entgeltabrNr+"')");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
 			
 		} catch (SQLException e) {
@@ -58,8 +64,12 @@ public class db_connect {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_loeschen = con.createStatement();
+			stm_loeschen.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE PersNr = "+persNr+"");
+			stm_loeschen.executeUpdate("DELETE FROM t_zugaenge WHERE PersNr = "+persNr+"");
+			stm_loeschen.executeUpdate("DELETE FROM t_vertragsdaten WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_mitarbeiter WHERE PersNr = "+persNr+"");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich gel�scht");
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -127,11 +137,11 @@ public class db_connect {
 		
 			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+tabelle+";");
 			
-			ResultSetMetaData meta = rs_tabelle.getMetaData();
-			for (int i = 1; i <= meta.getColumnCount(); i++) {
-				System.out.print(meta.getColumnName(i) + ", ");
-			}
-			System.out.println();
+//			ResultSetMetaData meta = rs_tabelle.getMetaData();
+//			for (int i = 1; i <= meta.getColumnCount(); i++) {
+//				System.out.print(meta.getColumnName(i) + ", ");
+//			}
+//			System.out.println();
 			return rs_tabelle;
 			
 		}catch(SQLException e) {

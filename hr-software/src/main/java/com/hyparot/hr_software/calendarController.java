@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 
 public class calendarController {
 
+	private String User;
+	
 	private Stage stage;
 	
     @FXML
@@ -25,7 +27,7 @@ public class calendarController {
 
     @FXML
     void back(ActionEvent event) throws IOException {
-    	changeSceneAfterLogin();
+    	changeSceneAfterLogin(User);
     }
 
     @FXML
@@ -34,13 +36,14 @@ public class calendarController {
 
     }
     
-	public calendarController(Stage stage) {
+	public calendarController(Stage stage, String Username) {
 		this.stage = stage;
+		this.User = Username;
 	}
 	
-	public void changeSceneAfterLogin() throws IOException {
+	public void changeSceneAfterLogin(String Username) throws IOException {
 		var loader = new FXMLLoader();
-		var fRController = new FRController(stage);
+		var fRController = new FRController(stage, Username);
 		loader.setLocation(getClass().getResource("/afterLogin.fxml"));
 		loader.setController(fRController);
 		stage.getScene().setRoot(loader.load());

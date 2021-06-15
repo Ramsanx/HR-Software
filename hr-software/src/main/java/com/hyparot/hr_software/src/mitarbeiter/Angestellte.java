@@ -62,6 +62,7 @@ public class Angestellte implements angestellte{
 		}
 		
 		this.setGeburtsTag(GeburtsTag);
+		this.setEinstellungsDatum(EinstellungsDatum);
 		this.setAdresse(Adresse);
 		this.setVertrag(new Vertrag(Vorname, Nachname, GruppenBezeichnung, StellenBezeichnung, 
 								   Telefonnummer, SollArbeitszeit,

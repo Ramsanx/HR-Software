@@ -78,7 +78,7 @@ public class LoginController {
 		if (TFUsername.getText() != null && PFPassword.getText() != null) {
 			if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()) != null) {
 				if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()).getPasswort().equals(PFPassword.getText().toString())) {
-					changeSceneAfterLogin();
+					changeSceneAfterLogin(TFUsername.getText().toString());
 //			}
 //			if (TFUsername.getText().toString().equals("u") && PFPassword.getText().toString().equals("p")) {
 				}
@@ -91,11 +91,12 @@ public class LoginController {
 	private void cancelLogin() throws IOException {
 		TFUsername.setText(null);
 		PFPassword.setText(null);
+		TFErrorMessage.setText(null);
 	}
 
-	public void changeSceneAfterLogin() throws IOException {
+	public void changeSceneAfterLogin(String Username) throws IOException {
 		var loader = new FXMLLoader();
-		var frController = new FRController(stage);
+		var frController = new FRController(stage, Username);
 		loader.setLocation(getClass().getResource("/afterLogin.fxml"));
 		loader.setController(frController);
 		stage.getScene().setRoot(loader.load());

@@ -58,7 +58,7 @@
 						</VBox>
 						<VBox prefHeight="250.0" prefWidth="426.0" style="-fx-border-color: black;">
 							<children>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vorname Nachname">
+								<Text fx:id="TVorname_Nachname" strokeType="OUTSIDE" strokeWidth="0.0" text="Vorname Nachname">
 									<font>
 										<Font name="Dubai Regular" size="24.0" />
 									</font>
@@ -66,7 +66,7 @@
 										<Insets left="50.0" top="30.0" />
 									</VBox.margin>
 								</Text>
-								<Text layoutX="60.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personalnummer">
+								<Text fx:id="TPersonalnummer" layoutX="60.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personalnummer">
 									<font>
 										<Font name="Dubai Regular" size="24.0" />
 									</font>
@@ -74,7 +74,7 @@
 										<Insets left="50.0" />
 									</VBox.margin>
 								</Text>
-								<Text layoutX="10.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stelle">
+								<Text fx:id="TStelle" layoutX="10.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stelle">
 									<font>
 										<Font name="Dubai Regular" size="24.0" />
 									</font>
@@ -82,7 +82,7 @@
 										<Insets left="50.0" />
 									</VBox.margin>
 								</Text>
-								<Text layoutX="60.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefonnummer">
+								<Text fx:id="TTelefonnummer" layoutX="60.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefonnummer">
 									<font>
 										<Font name="Dubai Regular" size="24.0" />
 									</font>
@@ -90,7 +90,7 @@
 										<Insets left="50.0" />
 									</VBox.margin>
 								</Text>
-								<Text layoutX="60.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail">
+								<Text fx:id="TE_Mail" layoutX="60.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail">
 									<font>
 										<Font name="Dubai Regular" size="24.0" />
 									</font>
