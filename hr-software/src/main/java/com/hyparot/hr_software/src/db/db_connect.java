@@ -30,7 +30,7 @@ public class db_connect {
 		
 	}
 	
-	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum){
+	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum, int z_ID, String nutzername, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
 			
@@ -40,8 +40,10 @@ public class db_connect {
 		    // hier für ein neues Objekt vom typ Statement damit kann die Datenbank verändert werden erstellt (kann wie beim Scanner mehrmals verwendet werden)
 		    Statement stm_anlegen = con.createStatement();
 		    
-			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter " + "VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+hausnummernzusatz+"', '"+ort+"', '"+plz+"', '"+land+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"', '"+gruppe+"')");
-			
+			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+hausnummernzusatz+"', '"+ort+"', '"+plz+"', '"+land+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"', '"+gruppe+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+nutzername+"', '"+pwd+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+ist_Arbeitszeit+"', '"+krank+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten ('"+v_Nr+", '"+persNr+"', '"+gehalt+"', '"+entgeltabrNr+"')");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
 			
 		} catch (SQLException e) {
