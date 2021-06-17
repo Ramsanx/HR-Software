@@ -185,9 +185,9 @@ public class BusinessIntellegent implements BI, employee, hr, superior{
 	@Override
 	public boolean cancelVacation(Absence vacation) {
 		// TODO Auto-generated method stub
-		if(vacation.exists()) {
-			return true;
-		}
+//		if(vacation.exists()) {
+//			return true;
+//		}
 		return false;
 	}
 
