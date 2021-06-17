@@ -14,7 +14,7 @@ import com.hyparot.hr_software.src.mitarbeiter.Superior;
 public class SystemDBConnector {
 
 	public static void loadDBDataToLocal() {
-		ResultSet data = db_connect.read_table("t_employee");
+		ResultSet data = db_connect.read_table("t_mitarbeiter");
 		if(data != null) {
 			
 			try {
@@ -29,7 +29,7 @@ public class SystemDBConnector {
 												data.getString("Nachname"), 
 												data.getString("bezeichnung"),
 												data.getString("TelNr"), 
-												db_connect.int_wert_auslesen("t_vertragsdata", "Arbeitsstunden", data.getInt("PersNr")), 
+												db_connect.int_wert_auslesen("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
 												data.getInt("PersNr"),
 												new Date(data.getString("Geburtstag")), 
 												new Date(data.getString("eingestellt_am")),
@@ -50,7 +50,7 @@ public class SystemDBConnector {
 																  data.getString("Nachname"), 
 																  data.getString("bezeichnung"),
 																  data.getString("TelNr"), 
-																  db_connect.int_wert_auslesen("t_vertragsdata", "Arbeitsstunden", data.getInt("PersNr")), 
+																  db_connect.int_wert_auslesen("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
 																  data.getInt("PersNr"),
 																  new Date(data.getString("Geburtstag")), 
 																  new Date(data.getString("eingestellt_am")),
@@ -71,7 +71,7 @@ public class SystemDBConnector {
 																  data.getString("Nachname"), 
 																  data.getString("bezeichnung"),
 																  data.getString("TelNr"), 
-																  db_connect.int_wert_auslesen("t_vertragsdata", "Arbeitsstunden", data.getInt("PersNr")), 
+																  db_connect.int_wert_auslesen("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
 																  data.getInt("PersNr"),
 																  new Date(data.getString("Geburtstag")), 
 																  new Date(data.getString("eingestellt_am")),

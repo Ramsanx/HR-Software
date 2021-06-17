@@ -55,9 +55,10 @@ public class Main {
 //			System.out.println(BusinessIntellegent.getEmployees().get(BusinessIntellegent.getEmployees().size()-1));
 //			
 //			BusinessIntellegent.loadLocalDataToDB();
-			
+			SystemDBConnector.loadDBDataToLocal();
 			JavaFXLauncher.main(args);
 //		}
+
 			
 	}
 
