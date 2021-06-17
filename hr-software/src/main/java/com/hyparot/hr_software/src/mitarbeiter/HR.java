@@ -4,47 +4,47 @@ import com.hyparot.hr_software.src.backend.*;
 import com.hyparot.hr_software.src.sst.hr;
 
 
-public class HR extends Angestellte implements hr {
+public class HR extends Employee implements hr {
 
-	public HR(String Benutzername, String Passwort, String Vorname, String Nachname, String StellenBezeichnung,
-			  String Telefonnummer, int SollArbeitszeit, int Personalnummer, 
-			  Datum GeburtsTag, Datum EinstellungsDatum,
-			  Adresse Adresse) {
+	public HR(String username, String password, String firstname, String lastname, String jobTitle,
+			  String phoneNumber, int workingTime_contract, int persNr, 
+			  Date birthday, Date startDate,
+			  Adress adress) {
 		
-		super(Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
-				Telefonnummer, SollArbeitszeit, Personalnummer,
-				GeburtsTag, EinstellungsDatum,
-				Adresse);
+		super(username, password, firstname, lastname, jobTitle,
+				phoneNumber, workingTime_contract, persNr,
+				birthday, startDate,
+				adress);
 	}
 
 	@Override
-	public void getPayroll(int Personalnummer) {
+	public void getPayroll(int persNr) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setNewEmployee(String Stellung, String Benutzername, String Passwort, String Vorname, String Nachname, 
-							   String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
-							   Datum GeburtsTag, Datum EinstellungsDatum,
-							   Adresse Adresse) {
-		// TODO Auto-generated method stub
-		BusinessIntellegent.createEmployee(Stellung, Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
-										   Telefonnummer, SollArbeitszeit, 
-										   GeburtsTag, EinstellungsDatum,
-										   Adresse);
 		
 	}
 
 	@Override
-	public boolean deleteEmployee(int Personalnummer) {
+	public void setNewEmployee(String group, String username, String password, String firstname, String lastname, 
+							   String jobTitle, String phoneNumber, int workingTime_contract, 
+							   Date birthday, Date startDate,
+							   Adress adress) {
 		// TODO Auto-generated method stub
-		return BusinessIntellegent.deleteEmloyee(Personalnummer);
+		BusinessIntellegent.createEmployee(group, username, password, firstname, lastname, jobTitle,
+										   phoneNumber, workingTime_contract, 
+										   birthday, startDate,
+										   adress);
+		
 	}
 
 	@Override
-	public com.hyparot.hr_software.src.mitarbeiter.Angestellte getPersonalData(int Personalnummer) {
+	public boolean deleteEmployee(int persNr) {
 		// TODO Auto-generated method stub
-		return BusinessIntellegent.getEmployeeByID(Personalnummer);
+		return BusinessIntellegent.deleteEmloyee(persNr);
+	}
+
+	@Override
+	public com.hyparot.hr_software.src.mitarbeiter.Employee getPersonalData(int persNr) {
+		// TODO Auto-generated method stub
+		return BusinessIntellegent.getEmployeeByID(persNr);
 	}
 }

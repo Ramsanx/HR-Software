@@ -1,10 +1,10 @@
-package com.hyparot.hr_software.src.backend;
+package com.hyparot.hr_software.src.mitarbeiter;
 
 import java.util.Calendar;
 
 
 //ein Objekt der Klasse Vertrag wird beim Anlegen eines Angestellten erstellt
-public class Vertrag {
+public class Contract {
 
 	private String Vorname;
 	private String Nachname;
@@ -14,15 +14,15 @@ public class Vertrag {
 	
 	private int SollArbeitszeit;
 	
-	private Datum GeburtsTag;
-	private Datum EinstellungsDatum;
+	private Date GeburtsTag;
+	private Date EinstellungsDatum;
 	
-	private Adresse Adresse;
+	private Adress Adresse;
 	
-	public Vertrag(String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, 
+	public Contract(String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, 
 				   int SollArbeitszeit,
-				   Datum GeburtsTag, Datum EinstellungsDatum, 
-				   Adresse Adresse) {
+				   Date GeburtsTag, Date EinstellungsDatum, 
+				   Adress Adresse) {
 		
 		this.Vorname = Vorname;
 		this.Nachname = Nachname;
@@ -82,27 +82,27 @@ public class Vertrag {
 		this.SollArbeitszeit = newSollArbeitszeit;
 	}
 	
-	public Datum getGeburtsTag() {
+	public Date getGeburtsTag() {
 		return this.GeburtsTag;
 	}
 	
-	public void setGeburtsTag(Datum newGeburtsTag) {
+	public void setGeburtsTag(Date newGeburtsTag) {
 		this.GeburtsTag = newGeburtsTag;
 	}
 	
-	public Datum EinstellungsDatum() {
+	public Date EinstellungsDatum() {
 		return this.EinstellungsDatum;
 	}
 	
-	public void setEinstellungsDatum(Datum newEinstellungsDatum) {
+	public void setEinstellungsDatum(Date newEinstellungsDatum) {
 		this.EinstellungsDatum = newEinstellungsDatum;
 	}
 	
-	public Adresse getAdresse() {
+	public Adress getAdresse() {
 		return this.Adresse;
 	}
 	
-	public void setAdresse(Adresse newAdresse) {
+	public void setAdresse(Adress newAdresse) {
 		this.Adresse = newAdresse;
 	}
 }

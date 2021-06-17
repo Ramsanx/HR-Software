@@ -1,15 +1,13 @@
 package com.hyparot.hr_software.src.mitarbeiter;
 
-import com.hyparot.hr_software.src.backend.Datum;
-import com.hyparot.hr_software.src.backend.Adresse;
-import com.hyparot.hr_software.src.sst.vorgesetzte;
+import com.hyparot.hr_software.src.sst.superior;
 
-public class Vorgesetzte extends Angestellte implements vorgesetzte{
+public class Superior extends Employee implements superior{
 
-	public Vorgesetzte(String Benutzername, String Passwort, String Vorname, String Nachname, 
+	public Superior(String Benutzername, String Passwort, String Vorname, String Nachname, 
 			           String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, int Personalnummer, 
-			           Datum GeburtsTag, Datum EinstellungsDatum,
-			           Adresse Adresse) {
+			           Date GeburtsTag, Date EinstellungsDatum,
+			           Adress Adresse) {
 		
 		super(Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
 				Telefonnummer, SollArbeitszeit, Personalnummer,

@@ -1,286 +1,134 @@
 package com.hyparot.hr_software.src.backend;
 
 import com.hyparot.hr_software.src.mitarbeiter.*;
-
-import net.fortuna.ical4j.model.property.Method;
-
-import com.hyparot.hr_software.src.db.db_connect;
-import java.sql.ResultSet;
-//import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import com.hyparot.hr_software.src.mitarbeiter.Date;
 import java.util.*;
 
 public class BusinessIntellegent {
 
-	private static Vector<Angestellte> mitarbeiterListe = new Vector<Angestellte>();
-	private static Hashtable<Integer, String> bearbeitet = new Hashtable<Integer, String>();
 	
-	
-	public static Vector<Angestellte> getEmployees() {
-		return mitarbeiterListe;
-	}
-	
-	
-	static public Angestellte getEmployeeByName(String Nutzername) {;
-		Iterator<Angestellte> mitarbeiter = mitarbeiterListe.iterator();
+	static public Employee getEmployeeByName(String username) {
+		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
 		
-		while(mitarbeiter.hasNext()) {
-			Angestellte nutzer = mitarbeiter.next();
-			if(nutzer.getBenutzername().equals(Nutzername)) {
-				return nutzer;
+		while(employee.hasNext()) {
+			Employee user = employee.next();
+			if(user.getUsername().equals(username)) {
+				return user;
 			}
 		}
 		return null;
 	}
 	
-	static public Angestellte getEmployeeByID(int Personalnummer) {
-		Iterator<Angestellte> mitarbeiter = mitarbeiterListe.iterator();
+	static public Employee getEmployeeByID(int persNr) {
+		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
 		
-		while(mitarbeiter.hasNext()) {
-			Angestellte nutzer = mitarbeiter.next();
-			if(nutzer.getPersonalNummer() == Personalnummer) {
-				return nutzer;
+		while(employee.hasNext()) {
+			Employee user = employee.next();
+			if(user.getPersNr() == persNr) {
+				return user;
 			}
 		}
 		return null;
 	}
 	
 	
-	private static int ermittleHöchstePersonalnummer() {
-		Iterator<Angestellte> mitarbeiter = mitarbeiterListe.iterator();
-		int Personalnummer = mitarbeiter.next().getPersonalNummer(); //wirft eine Exception
-		while(mitarbeiter.hasNext()) {
-			Angestellte nutzer = mitarbeiter.next();
-			if(nutzer.getPersonalNummer() > Personalnummer) {
-				Personalnummer = nutzer.getPersonalNummer();
+	private static int findHighestPersNr() {
+		if(LocalStorage.getStorage().isEmpty()) {
+			return 1000;
+		}
+		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
+		int persNr = employee.next().getPersNr(); //wirft eine Exception
+		while(employee.hasNext()) {
+			Employee user = employee.next();
+			if(user.getPersNr() > persNr) {
+				persNr = user.getPersNr();
 			}
 		}
-		return Personalnummer;
+		return persNr;
 	}
 	
 	
 	
-	public static void createEmployee(String Stellung, String Benutzername, String Passwort, String Vorname, String Nachname, 
-									  String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, 
-									  Datum GeburtsTag, Datum EinstellungsDatum,
-									  Adresse Adresse) {
+	public static void createEmployee(String group, String username, String password, String firstname, String lastname, 
+									  String jobTitle, String phoneNumber, int workingTime_contract, 
+									  Date birthday, Date startDate,
+									  Adress adress) {
 		
-		Iterator<Angestellte> mitarbeiter = mitarbeiterListe.iterator();
-		while(mitarbeiter.hasNext()) {
-			if(mitarbeiter.next().getBenutzername().equals(Benutzername)) {
+		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
+		while(employee.hasNext()) {
+			if(employee.next().getUsername().equals(username)) {
 				return;
 			}
 		}
 		
-			Angestellte nutzer;
-			if(Stellung.equals("HR")) {
-				nutzer = new HR(Benutzername, Passwort, Vorname, Nachname, 
-						 	    StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
-						 	    GeburtsTag, EinstellungsDatum,
-						 	    Adresse);
-			}else if(Stellung.equals("Vorgesetzte")) {
-				nutzer = new Vorgesetzte(Benutzername, Passwort, Vorname, Nachname, 
-						 			     StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
-						 			     GeburtsTag, EinstellungsDatum,
-						 			     Adresse);
-			}else {
-				nutzer = new Angestellte(Benutzername, Passwort, Vorname, Nachname, 
-										 StellenBezeichnung, Telefonnummer, SollArbeitszeit, ermittleHöchstePersonalnummer()+1,
-										 GeburtsTag, EinstellungsDatum,
-										 Adresse);
+			Employee user = null;
+			if(group.equals("HR")) {
+				user = new HR(username, password, firstname, lastname, 
+							  jobTitle, phoneNumber, workingTime_contract, findHighestPersNr()+1,
+							  birthday, startDate,
+							  adress);
+			}else if(group.equals("Superior")) {
+				user = new Superior(username, password, firstname, lastname, 
+									jobTitle, phoneNumber, workingTime_contract, findHighestPersNr()+1,
+									birthday, startDate,
+									adress);
+			}else if(group.equals("Employee")){
+				user = new Employee(username, password, firstname, lastname, 
+									jobTitle, phoneNumber, workingTime_contract, findHighestPersNr()+1,
+									birthday, startDate,
+									adress);
 			}
-			mitarbeiterListe.add(nutzer);
-			bearbeitet.put(nutzer.getPersonalNummer(), "angelegt");
+			LocalStorage.addToEmployees(user);
+			LocalStorage.addToChanges(user.getPersNr(), "created");
 		}
 		
 		
 	
 	
-	public static void editEmployee(int Personalnummer, 
-									String vorname, 
-									String nachname, 
-									String emailAdresse,
-									String telefonNummer,
-									Datum geburtsTag, 
-									String land, 
-									String stadt, 
-									int postleitzahl, 
-									String straße, 
-									int hausnummer, 
-									String hausnummernZusatz) {
+	public static void editEmployee(int persNr, 
+									String firstname, 
+									String lastname, 
+									String eMail,
+									String phoneNumber,
+									Date birthday, 
+									String country, 
+									String city, 
+									int postcode, 
+									String street, 
+									int houseNr, 
+									String housenumberSupplement) {
 		
-		Angestellte nutzer = getEmployeeByID(Personalnummer);
-		if(nutzer != null) {
-			nutzer.setVorname(vorname);
-			nutzer.setNachname(nachname);
-			nutzer.setEmailAdresse(emailAdresse);
-			nutzer.setTelefonNummer(telefonNummer);
-			nutzer.setGeburtsTag(geburtsTag);
+		Employee user = getEmployeeByID(persNr);
+		if(user != null) {
+			user.setFirstname(firstname);;
+			user.setLastname(lastname);
+			user.setEMail(eMail);
+			user.setPhoneNumber(phoneNumber);
+			user.setBirthday(birthday);
 		
-			nutzer.getAdresse().setLand(land);
-			nutzer.getAdresse().setStadt(stadt);
-			nutzer.getAdresse().setStraße(straße);
-			nutzer.getAdresse().setPostleitzahl(postleitzahl);
-			nutzer.getAdresse().setHausnummer(hausnummer);
-			nutzer.getAdresse().setHausnummernZusatz(hausnummernZusatz);
+			user.getAdress().setCountry(country);
+			user.getAdress().setCity(city);
+			user.getAdress().setStreet(street);
+			user.getAdress().setPostcode(postcode);
+			user.getAdress().setHouseNr(houseNr);
+			user.getAdress().setHousenumberSupplement(housenumberSupplement);
 		
-			bearbeitet.put(Personalnummer, "geändert");
+			LocalStorage.addToChanges(persNr, "changed");
 		}
 	}
 	
-	public static boolean deleteEmloyee(int Personalnummer) {
-		Angestellte mitarbeiter = getEmployeeByID(Personalnummer);
-		if(mitarbeiter == null) {
+	public static boolean deleteEmloyee(int persNr) {
+		Employee employee = getEmployeeByID(persNr);
+		if(employee == null) {
 			return false;
 		}else {
-			mitarbeiterListe.remove(mitarbeiter);
-			bearbeitet.put(Personalnummer, "gelöscht");
+			LocalStorage.removeFromEmployees(employee);
+			LocalStorage.addToChanges(persNr, "deleted");
 			return true;
 		}
 	}
 	
 	
-	public static void loadDBDataToLocal() {
-		ResultSet Daten = db_connect.read_table("t_mitarbeiter");
-		if(Daten != null) {
-			
-			try {
-				while(Daten.next()) {
-					
-					String Klasse = Daten.getString("Gruppe");
-					//System.out.println(Daten.getInt("PersNr"));
-					if(Klasse.equals("HR")) {
-						HR mitarbeiter = new HR(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", Daten.getInt("PersNr")),
-												db_connect.str_wert_auslesen("t_zugaenge", "Passwort", Daten.getInt("PersNr")),
-												Daten.getString("Vorname"), 
-												Daten.getString("Nachname"), 
-												Daten.getString("bezeichnung"),
-												Daten.getString("TelNr"), 
-												db_connect.int_wert_auslesen("t_vertragsdaten", "Arbeitsstunden", Daten.getInt("PersNr")), 
-												Daten.getInt("PersNr"),
-												new Datum(Daten.getString("Geburtstag")), 
-												new Datum(Daten.getString("eingestellt_am")),
-												new Adresse(Daten.getString("Land"), 
-														    Daten.getInt("PLZ"), 
-														    Daten.getString("Ort"), 
-														    Daten.getString("Straße"), 
-														    Daten.getInt("Hausnummer"), 
-														    Daten.getString("HausnummernZusatz")));
-						mitarbeiterListe.add(mitarbeiter);
-						//System.out.println("neuer HR");
-						
-					}else if(Klasse.equals("Vorgesetzter")) {
-						Vorgesetzte mitarbeiter = new Vorgesetzte(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", Daten.getInt("PersNr")),
-																  db_connect.str_wert_auslesen("t_zugaenge", "Passwort", Daten.getInt("PersNr")),
-																  Daten.getString("Vorname"), 
-																  Daten.getString("Nachname"), 
-																  Daten.getString("bezeichnung"),
-																  Daten.getString("TelNr"), 
-																  db_connect.int_wert_auslesen("t_vertragsdaten", "Arbeitsstunden", Daten.getInt("PersNr")), 
-																  Daten.getInt("PersNr"),
-																  new Datum(Daten.getString("Geburtstag")), 
-																  new Datum(Daten.getString("eingestellt_am")),
-																  new Adresse(Daten.getString("Land"), 
-																		  	  Daten.getInt("PLZ"), 
-																		  	  Daten.getString("Ort"), 
-																		  	  Daten.getString("Straße"), 
-																		  	  Daten.getInt("Hausnummer"), 
-																		  	  Daten.getString("HausnummernZusatz")));
-						mitarbeiterListe.add(mitarbeiter);
-						//System.out.println("neuer VG");	
-						
-					}else if(Klasse.equals("Angestellte")) {
-						Angestellte mitarbeiter = new Angestellte(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", Daten.getInt("PersNr")),
-																  db_connect.str_wert_auslesen("t_zugaenge", "Passwort", Daten.getInt("PersNr")),
-																  Daten.getString("Vorname"), 
-																  Daten.getString("Nachname"), 
-																  Daten.getString("bezeichnung"),
-																  Daten.getString("TelNr"), 
-																  db_connect.int_wert_auslesen("t_vertragsdaten", "Arbeitsstunden", Daten.getInt("PersNr")), 
-																  Daten.getInt("PersNr"),
-																  new Datum(Daten.getString("Geburtstag")), 
-																  new Datum(Daten.getString("eingestellt_am")),
-																  new Adresse(Daten.getString("Land"), 
-																		  	  Daten.getInt("PLZ"), 
-																		  	  Daten.getString("Ort"), 
-																		  	  Daten.getString("Straße"), 
-																		  	  Daten.getInt("Hausnummer"), 
-																		  	  Daten.getString("HausnummernZusatz")));
-						mitarbeiterListe.add(mitarbeiter);
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
-	
-	public static boolean loadLocalDataToDB() {
-		Iterator<Integer> zuspeichernd = bearbeitet.keys().asIterator();
-		while(zuspeichernd.hasNext()) {
-			int Personalnummer = zuspeichernd.next();
-			Angestellte mitarbeiter = getEmployeeByID(Personalnummer);
-			
-			if(bearbeitet.get(Personalnummer).equals("angelegt")) {
-				db_connect.anlegen_Benutzer(mitarbeiter.getPersonalNummer(),
-											mitarbeiter.getVorname(), 
-											mitarbeiter.getNachname(), 
-											mitarbeiter.getGeburtsTag().toString(), 
-											mitarbeiter.getAdresse().getStraße(), 
-											mitarbeiter.getAdresse().getHausnummer(), 
-											mitarbeiter.getAdresse().getHausnummernZusatz(), 
-											mitarbeiter.getAdresse().getStadt(), 
-											mitarbeiter.getAdresse().getPostleitzahl(), 
-											mitarbeiter.getAdresse().getLand(), 
-											mitarbeiter.getTelefonNummer(),
-											mitarbeiter.getEmailAdresse(),
-											mitarbeiter.getStellenBezeichnung(),
-											mitarbeiter.getGruppenBezeichnung(), 
-											mitarbeiter.getEinstellungsDatum().toString(), 
-											mitarbeiter.getPersonalNummer(), 
-											mitarbeiter.getBenutzername(), 
-											mitarbeiter.getPasswort(), 
-											mitarbeiter.getPersonalNummer(), 
-											mitarbeiter.getGesamtUrlaubstage(), 
-											0,
-											false, 
-											mitarbeiter.getPersonalNummer(), 
-											0, 
-											0,
-											37);
-				bearbeitet.remove(Personalnummer);
-				
-				
-			}else if(bearbeitet.get(Personalnummer).equals("geändert")) {
-				db_connect.wert_update("t_mitarbeiter", "Stellenbezeichung", mitarbeiter.getStellenBezeichnung(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "E-Mail", mitarbeiter.getEmailAdresse(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "eingestellt am", mitarbeiter.getEinstellungsDatum().toString(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Geburtstag", mitarbeiter.getGeburtsTag().toString(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Gruppe", mitarbeiter.getClass().getSimpleName(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Hausnummer", String.valueOf(mitarbeiter.getAdresse().getHausnummer()), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Hausnummernzusatz", mitarbeiter.getAdresse().getHausnummernZusatz(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Land", mitarbeiter.getAdresse().getLand(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Nachname", mitarbeiter.getNachname(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Ort", mitarbeiter.getAdresse().getStadt(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "TelNr", mitarbeiter.getTelefonNummer(), Personalnummer);
-				db_connect.wert_update("t_mitarbeiter", "Vorname", mitarbeiter.getVorname(), Personalnummer);
-				
-				bearbeitet.remove(Personalnummer);
-				//return true;
-				
-			}else if(bearbeitet.get(Personalnummer).equals("gelöscht")) {
-				
-				db_connect.löschen_Benutzer(Personalnummer);
-				
-				bearbeitet.remove(Personalnummer);
-				
-			}
-		}
-		return true;
-	}
-	
+
 	
 }

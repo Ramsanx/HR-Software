@@ -26,14 +26,15 @@ public class db_connect {
 //		wert_update("t_mitarbeiter", "Gruppe", "HR", 2000);
 //		
 //		
-		tabelle_auslesen("t_mitarbeiter");
-		
-		read_table("t_mitarbeiter");
+//		tabelle_auslesen("t_mitarbeiter");
+//		
+//		read_table("t_mitarbeiter");
+		delete_user(1234);
 		//System.out.println(getNumberOfLastRow("t_mitarbeiter"));
 		//System.out.println(wert_auslesen("t_mitarbeiter", "Land", 2000));
 	}
 	
-	public static void anlegen_Benutzer(int persNr, String vorname, String nachname, String geburtsdatum, String Straße, int hausnummer, String hausnummernzusatz, String ort, int plz, String land, String telefonnummer, String mail, String position,String gruppe, String einstellungsdatum, int z_ID, String nutzername, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
+	public static void create_user(int persNr, String firstname, String lastname, String birthday, String street, int houseNr, String housenumberSupplement, String city, int postcode, String country, String phoneNumber, String eMail, String jobTitle,String group, String startDate, int z_ID, String username, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
 			
@@ -49,8 +50,8 @@ public class db_connect {
 //			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten ('"+v_Nr+"', '"+persNr+"', '"+a_stunden+"', '"+gehalt+"', '"+entgeltabrNr+"')");
 //			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
 //			
-			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+vorname+"', '"+nachname+"', '"+geburtsdatum+"', '"+Straße+"', '"+hausnummer+"', '"+hausnummernzusatz+"', '"+ort+"', '"+plz+"', '"+land+"', '"+telefonnummer+"', '"+mail+"', '"+position+"', '"+einstellungsdatum+"', '"+gruppe+"')");
-			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+nutzername+"', '"+pwd+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+firstname+"', '"+lastname+"', '"+birthday+"', '"+street+"', '"+houseNr+"', '"+housenumberSupplement+"', '"+city+"', '"+postcode+"', '"+country+"', '"+phoneNumber+"', '"+eMail+"', '"+jobTitle+"', '"+startDate+"', '"+group+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+username+"', '"+pwd+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+a_Stunden+"', '"+2+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten VALUES ('"+v_Nr+"', '"+persNr+"', '"+a_Stunden +"', '"+gehalt+"', '"+entgeltabrNr+"')");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
@@ -60,7 +61,7 @@ public class db_connect {
 		}
 	}
 	
-	public static void löschen_Benutzer(int persNr) {
+	public static void delete_user(int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_loeschen = con.createStatement();
@@ -68,7 +69,7 @@ public class db_connect {
 			stm_loeschen.executeUpdate("DELETE FROM t_zugaenge WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_vertragsdaten WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_mitarbeiter WHERE PersNr = "+persNr+"");
-			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich gel�scht");
+			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich gelöscht");
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -130,12 +131,12 @@ public class db_connect {
 		
 	}
 //	Niklas' Ergänzungen
-	public static ResultSet read_table(String tabelle) {
+	public static ResultSet read_table(String table) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_tabelle_auslesen = con.createStatement();
 		
-			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+tabelle+";");
+			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+table+";");
 			
 //			ResultSetMetaData meta = rs_tabelle.getMetaData();
 //			for (int i = 1; i <= meta.getColumnCount(); i++) {

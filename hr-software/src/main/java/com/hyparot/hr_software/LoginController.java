@@ -77,18 +77,18 @@ public class LoginController {
 
 		if (TFUsername.getText() != null && PFPassword.getText() != null) {
 			if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()) != null) {
-				if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()).getPasswort().equals(PFPassword.getText().toString())) {
+				if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()).getPassword().equals(PFPassword.getText().toString())) {
 					changeSceneAfterLogin(TFUsername.getText().toString());
 //			}
 //			if (TFUsername.getText().toString().equals("u") && PFPassword.getText().toString().equals("p")) {
 				}else {
 					TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
-					TFUsername.setText(null);
+					//TFUsername.setText(null);
 					PFPassword.setText(null);
 				}
 			} else {
 				TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
-				TFUsername.setText(null);
+				//TFUsername.setText(null);
 				PFPassword.setText(null);
 			}
 		}
@@ -109,5 +109,6 @@ public class LoginController {
 		stage.setWidth(1280);
 		stage.setHeight(720);
 		stage.centerOnScreen();
+		frController.schreiben();
 	}
 }

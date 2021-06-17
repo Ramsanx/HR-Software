@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.hyparot.hr_software.src.mitarbeiter.Angestellte;
+import com.hyparot.hr_software.src.mitarbeiter.Employee;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class FRController {
 
-	private String User;
+	private String user;
 	
 	private Stage stage;
 
@@ -73,26 +73,26 @@ public class FRController {
     
     
 	
-	public FRController(Stage stage, String Username) {
+	public FRController(Stage stage, String username) {
 		this.stage = stage;
-		this.User = Username;
+		this.user = username;
 		//schreiben();
 		
 	}
 	
-	private void schreiben() {
-		Angestellte nutzer = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(User);
-		TVorname_Nachname.setText(nutzer.getVorname() + " " + nutzer.getNachname());
-		TPersonalnummer.setText((String.valueOf(nutzer.getPersonalNummer()))); 
-		TStelle.setText(nutzer.getStellenBezeichnung());
-		TTelefonnummer.setText(nutzer.getTelefonNummer());
-		TE_Mail.setText(nutzer.getEmailAdresse());
+	public void schreiben() {
+		Employee user = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(this.user);
+		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
+		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
+		TStelle.setText(user.getJobTitle());
+		TTelefonnummer.setText(user.getPhoneNumber());
+		TE_Mail.setText(user.getEMail());
 	}
 		
 		
 	public void changeSceneCalendar() throws IOException {
 		var loader = new FXMLLoader();
-		var CalendarController = new calendarController(stage, User);
+		var CalendarController = new calendarController(stage, user);
 		loader.setLocation(getClass().getResource("/calendar.fxml"));
 		loader.setController(CalendarController);
 		stage.getScene().setRoot(loader.load());
