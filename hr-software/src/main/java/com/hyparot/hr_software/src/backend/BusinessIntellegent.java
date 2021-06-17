@@ -2,12 +2,15 @@ package com.hyparot.hr_software.src.backend;
 
 import com.hyparot.hr_software.src.mitarbeiter.*;
 import com.hyparot.hr_software.src.mitarbeiter.Date;
+import com.hyparot.hr_software.src.sst.BI;
+import com.hyparot.hr_software.src.sst.*;
+
 import java.util.*;
 
-public class BusinessIntellegent {
+public class BusinessIntellegent implements BI, employee, hr, superior{
 
 	
-	static public Employee getEmployeeByName(String username) {
+	public static Employee getEmployeeByName(String username) {
 		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
 		
 		while(employee.hasNext()) {
@@ -19,7 +22,7 @@ public class BusinessIntellegent {
 		return null;
 	}
 	
-	static public Employee getEmployeeByID(int persNr) {
+	public static Employee getEmployeeByID(int persNr) {
 		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
 		
 		while(employee.hasNext()) {
@@ -126,6 +129,114 @@ public class BusinessIntellegent {
 			LocalStorage.addToChanges(persNr, "deleted");
 			return true;
 		}
+	}
+
+	@Override
+	public boolean acceptVacation(String doYouAccept) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void getPayroll(int persNr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setNewEmployee(String group, String username, String password, String firstname, String lastname,
+			String jobTitle, String phoneNumber, int workingTime_contract, Date birthday, Date startDay,
+			Adress adress) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean deleteEmployee(int persNr) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Employee getPersonalData(int persNr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean loginUser(String username, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void editEmployee(String firstname, String lastname, String eMail, String phoneNumber, Date birthday,
+			String country, String city, int postcode, String street, int houseNr, String housenumberSupplement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean applyForVacation(Date firstDayOfVac, Date lastDayOfVac) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean cancelVacation(Absence vacation) {
+		// TODO Auto-generated method stub
+		if(vacation.exists()) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void getVacationOverview() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSick(int dauer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setWorkTime() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPersonalDate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Contract getContract() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void getPhoneBook() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getPayrol() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendMailinfo() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

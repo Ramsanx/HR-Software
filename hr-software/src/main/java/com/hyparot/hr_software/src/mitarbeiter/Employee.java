@@ -1,6 +1,7 @@
 package com.hyparot.hr_software.src.mitarbeiter;
 
 import com.hyparot.hr_software.src.backend.*;
+//import com.hyparot.hr_software.src.sst.BI;
 import com.hyparot.hr_software.src.sst.employee;
 
 
@@ -13,9 +14,9 @@ public class Employee extends Person implements employee{
 	
 
 	public static void main(String[] args) {
-		Date test = new Date("2021-01-02");
-		Date test2 = new Date("2021-01-22");
-//		System.out.println(test.getVacDays(test2));
+		
+		SystemDBConnector.loadDBDataToLocal();
+		System.out.println(BusinessIntellegent.getEmployeeByName("nwulsch"));
 	}
 	
 	
@@ -90,22 +91,31 @@ public class Employee extends Person implements employee{
 
 
 	@Override
-	public Date applyForVacation() {
+	public boolean applyForVacation(Date firstDayOfVac, Date lastDayOfVac) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		BusinessIntellegent bi = new BusinessIntellegent();
+		bi.applyForVacation(firstDayOfVac, lastDayOfVac);
+		return false;
 	}
 
 
 	@Override
-	public void cancelVacation() {
+	public boolean cancelVacation(Absence vacation) {
 		// TODO Auto-generated method stub
 		
+		BusinessIntellegent bi = new BusinessIntellegent();
+		bi.cancelVacation(vacation);
+		
+		return false;
 	}
 
 
 	@Override
 	public void getVacationOverview() {
 		// TODO Auto-generated method stub
+		
+		BusinessIntellegent bi = new BusinessIntellegent();
 		
 	}
 
@@ -114,12 +124,16 @@ public class Employee extends Person implements employee{
 	public void setSick(int dauer) {
 		// TODO Auto-generated method stub
 		
+		BusinessIntellegent bi = new BusinessIntellegent();
+		
 	}
 
 
 	@Override
 	public void setWorkTime() {
 		// TODO Auto-generated method stub
+		
+		BusinessIntellegent bi = new BusinessIntellegent();
 		
 	}
 
@@ -128,12 +142,16 @@ public class Employee extends Person implements employee{
 	public void setPersonalDate() {
 		// TODO Auto-generated method stub
 		
+		BusinessIntellegent bi = new BusinessIntellegent();
+		
 	}
 
 
 	@Override
 	public com.hyparot.hr_software.src.mitarbeiter.Contract getContract() {
 		// TODO Auto-generated method stub
+		
+		BusinessIntellegent bi = new BusinessIntellegent();
 		return null;
 	}
 
@@ -142,12 +160,16 @@ public class Employee extends Person implements employee{
 	public void getPhoneBook() {
 		// TODO Auto-generated method stub
 		
+		BusinessIntellegent bi = new BusinessIntellegent();
+		
 	}
 
 
 	@Override
 	public void getPayrol() {
 		// TODO Auto-generated method stub
+		
+		BusinessIntellegent bi = new BusinessIntellegent();
 		
 	}
 
@@ -156,17 +178,18 @@ public class Employee extends Person implements employee{
 	public void sendMailinfo() {
 		// TODO Auto-generated method stub
 		
+		BusinessIntellegent bi = new BusinessIntellegent();
+		
 	}
 
 	
 	public String toString() {
 		return ("Vorname: " + this.getFirstname() +
 				"\nNachname: " + this.getLastname() +
-				"\nE-Mail Adresse: " + this.getEMail() +
+				"\nE-Mail-Adresse: " + this.getEMail() +
 				"\nTelefonnummer: " + this.getPhoneNumber() +
 				"\nStellenbeschreibung: " + this.getJobTitle());
 	}
-
 
 
 }

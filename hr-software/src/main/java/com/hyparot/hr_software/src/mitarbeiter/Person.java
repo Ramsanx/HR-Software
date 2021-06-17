@@ -217,10 +217,6 @@ abstract class Person {
 		this.startDate = startDate;
 	}
 	
-	
-//	public static Vector<Angestellte> getAngestellte() {
-//		return Angestellte;
-//	}
 
 
 	public Adress getAdress() {

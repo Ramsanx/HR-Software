@@ -14,7 +14,7 @@ import com.hyparot.hr_software.src.mitarbeiter.Superior;
 public class SystemDBConnector {
 
 	public static void loadDBDataToLocal() {
-		ResultSet data = db_connect.read_table("t_employee");
+		ResultSet data = db_connect.read_table("t_mitarbeiter");
 		if(data != null) {
 			
 			try {
@@ -23,13 +23,13 @@ public class SystemDBConnector {
 					String classType = data.getString("Gruppe");
 					//System.out.println(Daten.getInt("PersNr"));
 					if(classType.equals("HR")) {
-						HR employee = new HR(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", data.getInt("PersNr")),
-												db_connect.str_wert_auslesen("t_zugaenge", "Passwort", data.getInt("PersNr")),
+						HR employee = new HR(db_connect.read_str_value("t_zugaenge", "Nutzername", data.getInt("PersNr")),
+												db_connect.read_str_value("t_zugaenge", "Passwort", data.getInt("PersNr")),
 												data.getString("Vorname"), 
 												data.getString("Nachname"), 
 												data.getString("bezeichnung"),
 												data.getString("TelNr"), 
-												db_connect.int_wert_auslesen("t_vertragsdata", "Arbeitsstunden", data.getInt("PersNr")), 
+												db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
 												data.getInt("PersNr"),
 												new Date(data.getString("Geburtstag")), 
 												new Date(data.getString("eingestellt_am")),
@@ -44,13 +44,13 @@ public class SystemDBConnector {
 						
 						
 					}else if(classType.equals("Vorgesetzter")) {
-						Superior employee = new Superior(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", data.getInt("PersNr")),
-																  db_connect.str_wert_auslesen("t_zugaenge", "Passwort", data.getInt("PersNr")),
+						Superior employee = new Superior(db_connect.read_str_value("t_zugaenge", "Nutzername", data.getInt("PersNr")),
+																  db_connect.read_str_value("t_zugaenge", "Passwort", data.getInt("PersNr")),
 																  data.getString("Vorname"), 
 																  data.getString("Nachname"), 
 																  data.getString("bezeichnung"),
 																  data.getString("TelNr"), 
-																  db_connect.int_wert_auslesen("t_vertragsdata", "Arbeitsstunden", data.getInt("PersNr")), 
+																  db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
 																  data.getInt("PersNr"),
 																  new Date(data.getString("Geburtstag")), 
 																  new Date(data.getString("eingestellt_am")),
@@ -65,13 +65,13 @@ public class SystemDBConnector {
 							
 						
 					}else if(classType.equals("Angestellte")) {
-						Employee employee = new Employee(db_connect.str_wert_auslesen("t_zugaenge", "Nutzername", data.getInt("PersNr")),
-																  db_connect.str_wert_auslesen("t_zugaenge", "Passwort", data.getInt("PersNr")),
+						Employee employee = new Employee(db_connect.read_str_value("t_zugaenge", "Nutzername", data.getInt("PersNr")),
+																  db_connect.read_str_value("t_zugaenge", "Passwort", data.getInt("PersNr")),
 																  data.getString("Vorname"), 
 																  data.getString("Nachname"), 
 																  data.getString("bezeichnung"),
 																  data.getString("TelNr"), 
-																  db_connect.int_wert_auslesen("t_vertragsdata", "Arbeitsstunden", data.getInt("PersNr")), 
+																  db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
 																  data.getInt("PersNr"),
 																  new Date(data.getString("Geburtstag")), 
 																  new Date(data.getString("eingestellt_am")),
@@ -131,18 +131,18 @@ public class SystemDBConnector {
 				LocalStorage.removeFromChanges(persNr);
 				
 			}else if(changes.get(persNr).equals("changed")) {
-				db_connect.wert_update("t_employee", "Stellenbezeichung", employee.getJobTitle(), persNr);
-				db_connect.wert_update("t_employee", "E-Mail", employee.getEMail(), persNr);
-				db_connect.wert_update("t_employee", "eingestellt am", employee.getStartDate().toString(), persNr);
-				db_connect.wert_update("t_employee", "Geburtstag", employee.getBirthday().toString(), persNr);
-				db_connect.wert_update("t_employee", "Gruppe", employee.getClass().getSimpleName(), persNr);
-				db_connect.wert_update("t_employee", "Hausnummer", String.valueOf(employee.getAdress().getHouseNr()), persNr);
-				db_connect.wert_update("t_employee", "Hausnummernzusatz", employee.getAdress().getHousenumberSupplement(), persNr);
-				db_connect.wert_update("t_employee", "Land", employee.getAdress().getCountry(), persNr);
-				db_connect.wert_update("t_employee", "Nachname", employee.getLastname(), persNr);
-				db_connect.wert_update("t_employee", "Ort", employee.getAdress().getCity(), persNr);
-				db_connect.wert_update("t_employee", "TelNr", employee.getPhoneNumber(), persNr);
-				db_connect.wert_update("t_employee", "Vorname", employee.getFirstname(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Stellenbezeichung", employee.getJobTitle(), persNr);
+				db_connect.value_update("t_mitarbeiter", "E-Mail", employee.getEMail(), persNr);
+				db_connect.value_update("t_mitarbeiter", "eingestellt am", employee.getStartDate().toString(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Geburtstag", employee.getBirthday().toString(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Gruppe", employee.getClass().getSimpleName(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Hausnummer", String.valueOf(employee.getAdress().getHouseNr()), persNr);
+				db_connect.value_update("t_mitarbeiter", "Hausnummernzusatz", employee.getAdress().getHousenumberSupplement(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Land", employee.getAdress().getCountry(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Nachname", employee.getLastname(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Ort", employee.getAdress().getCity(), persNr);
+				db_connect.value_update("t_mitarbeiter", "TelNr", employee.getPhoneNumber(), persNr);
+				db_connect.value_update("t_mitarbeiter", "Vorname", employee.getFirstname(), persNr);
 				
 				LocalStorage.removeFromChanges(persNr);
 				

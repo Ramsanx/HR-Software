@@ -98,24 +98,28 @@ public class Date {
 
 	}
 
-//	public int getVacDays (Date anotherDate) {
-//		GregorianCalendar date_1 = new GregorianCalendar(this.year, this.month, this.day);
-//		GregorianCalendar date_2 = new GregorianCalendar(anotherDate.getYear(), anotherDate.getMonth(), anotherDate.getDay());
-//		int date_1_day = date_1.get(Calendar.DAY_OF_YEAR);
-//		int date_2_day = date_2.get(Calendar.DAY_OF_YEAR);
-//		
-//		for (int i = date_1_day; i<=date_1_day; i++) {
-//
-//			Date dayoF = 
-//			day.isWeekday();
-//		}
-//		int date_1_day;
-//
-//
-//		int days = date_2_day - date_1_day;
-//
-//
-//
-//		return days;
-//	}
+	public static int getVacDays (Date start, Date end) {
+		GregorianCalendar date_1 = new GregorianCalendar(start.getYear(), start.getMonth(), start.getDay());
+		GregorianCalendar date_2 = new GregorianCalendar(end.getYear(), end.getMonth(), end.getDay());
+		int date_1_day = date_1.get(Calendar.DAY_OF_YEAR);
+		int date_2_day = date_2.get(Calendar.DAY_OF_YEAR);
+
+		int days = 0;
+
+		for (int i = date_1_day; i<= date_2_day; i++) {
+
+			Calendar day = Calendar.getInstance();
+			day.set(Calendar.YEAR, start.getYear());
+			day.set(Calendar.DAY_OF_YEAR, i);
+			
+			Date date = new Date (day.get(Calendar.YEAR), day.get(Calendar.MONTH), day.get(Calendar.DAY_OF_MONTH));
+
+			boolean weekday = date.isWeekday();
+			if (weekday == true) {
+				days++;
+			} 
+		}
+
+		return days;
+	}
 }
