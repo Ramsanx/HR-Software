@@ -22,7 +22,6 @@ public class Logging {
 			}
 			
 			String today = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH)+1)+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH))+" ("+String.valueOf(c.get(Calendar.HOUR_OF_DAY))+":"+minute+"): ";
-			// System.out.println(today);
 			
 			String massage = null;
 			

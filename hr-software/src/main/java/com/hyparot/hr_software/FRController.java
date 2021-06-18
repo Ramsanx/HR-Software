@@ -19,60 +19,60 @@ public class FRController {
 	private String user;
 	
 	private Stage stage;
-
-	@FXML
-	private ResourceBundle resources;
-
-	@FXML
-	private URL location;
-
-	@FXML
-	private Button BCalendarShow;
-	
-	@FXML
-	private Button BLogout;
-
-	@FXML
-	void calendarShow(ActionEvent event) throws IOException {
-		changeSceneCalendar();
-	}
-	
-	@FXML
-    void logout(ActionEvent event) throws IOException {
-		changeSceneLogout();
-    }
-	
-	@FXML
-    private Text TVorname_Nachname;
-	
-	@FXML
-    private Text TPersonalnummer;
-	
-	@FXML
-    private Text TStelle;
-	
-	@FXML
-    private Text TTelefonnummer;
-	
-	@FXML
-    private Text TE_Mail;
-
-    @FXML
-    void initialize() {
-        assert BCalendarShow != null : "fx:id=\"BCalendarShow\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        //assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'afterLogin.fxml'.";
 		
+	    @FXML
+	    private ResourceBundle resources;
 
-    }
-    
-    
-	
+	    @FXML
+	    private URL location;
+
+	    @FXML
+	    private Button BZeiterfassung;
+
+	    @FXML
+	    private Text TKuerzel;
+
+	    @FXML
+	    private Text TVorname_Nachname;
+
+	    @FXML
+	    private Text TPersonalnummer;
+
+	    @FXML
+	    private Text TStelle;
+
+	    @FXML
+	    private Text TTelefonnummer;
+
+	    @FXML
+	    private Text TE_Mail;
+
+	    @FXML
+	    private Button BLogout;
+
+	    @FXML
+	    void logout(ActionEvent event) throws IOException {
+	    	changeSceneLogout();
+	    }
+
+	    @FXML
+	    void zeiterfassen(ActionEvent event) throws IOException {
+	    	changeSceneTime(user);
+	    }
+
+	    @FXML
+	    void initialize() {
+	        assert BZeiterfassung != null : "fx:id=\"BZeiterfassung\" was not injected: check your FXML file 'afterLogin.fxml'.";
+	        assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'afterLogin.fxml'.";
+	        assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'afterLogin.fxml'.";
+	        assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
+	        assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'afterLogin.fxml'.";
+	        assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
+	        assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'afterLogin.fxml'.";
+	        assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
+
+	    }
+    	
 	public FRController(Stage stage, String username) {
 		this.stage = stage;
 		this.user = username;
@@ -87,20 +87,9 @@ public class FRController {
 		TStelle.setText(user.getJobTitle());
 		TTelefonnummer.setText(user.getPhoneNumber());
 		TE_Mail.setText(user.getEMail());
+		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 	}
 		
-		
-	public void changeSceneCalendar() throws IOException {
-		var loader = new FXMLLoader();
-		var CalendarController = new calendarController(stage, user);
-		loader.setLocation(getClass().getResource("/calendar.fxml"));
-		loader.setController(CalendarController);
-		stage.getScene().setRoot(loader.load());
-		stage.setWidth(1280);
-		stage.setHeight(720);
-		stage.centerOnScreen();
-		stage.setResizable(false);
-	}
 	
 	public void changeSceneLogout() throws IOException {
 		var loader = new FXMLLoader();
@@ -113,5 +102,18 @@ public class FRController {
 		stage.centerOnScreen();
 		stage.setResizable(false);
 
+	}
+	
+	public void changeSceneTime(String Username) throws IOException {
+		var loader = new FXMLLoader();
+		var timeController = new TimeController(stage, Username);
+		loader.setLocation(getClass().getResource("/Time.fxml"));
+		loader.setController(timeController);
+		stage.getScene().setRoot(loader.load());
+		stage.setWidth(1280);
+		stage.setHeight(720);
+		stage.centerOnScreen();
+		stage.setResizable(false);
+		timeController.schreiben();
 	}
 }

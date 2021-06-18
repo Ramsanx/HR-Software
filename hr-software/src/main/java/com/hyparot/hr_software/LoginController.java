@@ -109,6 +109,7 @@ public class LoginController {
 		stage.setWidth(1280);
 		stage.setHeight(720);
 		stage.centerOnScreen();
+		stage.setResizable(false);
 		frController.schreiben();
 	}
 }
