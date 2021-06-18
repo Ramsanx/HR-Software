@@ -67,17 +67,17 @@ public class BusinessIntellegent implements BI, employee, hr, superior{
 			Employee user = null;
 			if(group.equals("HR")) {
 				user = new HR(username, password, firstname, lastname, 
-							  jobTitle, phoneNumber, workingTime_contract, findHighestPersNr()+1,
+							  jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, 
 							  birthday, startDate,
 							  adress);
 			}else if(group.equals("Superior")) {
 				user = new Superior(username, password, firstname, lastname, 
-									jobTitle, phoneNumber, workingTime_contract, findHighestPersNr()+1,
+									jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, 
 									birthday, startDate,
 									adress);
 			}else if(group.equals("Employee")){
 				user = new Employee(username, password, firstname, lastname, 
-									jobTitle, phoneNumber, workingTime_contract, findHighestPersNr()+1,
+									jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, 
 									birthday, startDate,
 									adress);
 			}
