@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 public class Logging {
 	
 	public static void main (String[] args) {
-		writeActlog("AZT001", 1234);
+		writeActlog("AUS002", 1234);
 	}
 	public static void writeActlog(String event, int persNr) {
 		try {
@@ -67,7 +67,7 @@ public class Logging {
 					massage = today + event + " Bei der Eingabe des Benutzers mit der Personalnummer "+persNr+" war ungültig mit der SQL Syntax";
 					break;
 				case "EDB003":
-					massage = today + event + " Bei der Verbindung mit der Datenbank des Nutzers "+persNr+ "gab es einen Fehler";
+					massage = today + event + " Bei der Verbindung mit der Datenbank des Nutzers "+persNr+ " gab es einen Fehler";
 					break;
 						
 			}
@@ -75,6 +75,11 @@ public class Logging {
 			actlog.write(massage+"\n");
 			actlog.close();
 			
+			if (event.substring(0,1).equals("E")) {
+				FileWriter errlog = new FileWriter("errlog.txt", true);
+				errlog.write(massage+"\n");
+				errlog.close();
+			}
 			
 			
 		} catch (Exception e) {
