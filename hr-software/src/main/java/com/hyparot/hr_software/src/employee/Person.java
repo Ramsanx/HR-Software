@@ -245,14 +245,17 @@ abstract class Person {
 		this.contract = contract;
 	}
 	
-	protected void addAbsence(Absence absence) {
+
+	private void addAbsence(Absence absence) {
 		this.absence.add(absence);
 	}
 	
+
 	protected Vector<Absence> getAbsencesa(){
 		return this.absence;
 	}
 	
+
 //	protected Absence getAbsence() {
 //		
 //	}

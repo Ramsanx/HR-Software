@@ -3,14 +3,16 @@ package com.hyparot.hr_software.src.employeedata;
 public class Absence {
 	//Klasse für die Objekte der Abwesenheit (Urlaub und Krankheit)
 	
+	private int persNr;
 	private Date begin;
 	private Date end;
-	private boolean isVac;
+	private boolean isIll;
 	
-	public Absence(Date begin, Date end, boolean isVac) {
+	public Absence(int persNr, Date begin, Date end, boolean isIll) {
+		this.setPersNr(persNr);
 		this.setBegin(begin);
 		this.setEnd(end);
-		this.setVac(isVac);
+		this.setVac(isIll);
 	}
 
 	public Date getBegin() {
@@ -29,12 +31,20 @@ public class Absence {
 		this.end = end;
 	}
 
-	public boolean isVac() {
-		return isVac;
+	public int getPersNr() {
+		return persNr;
 	}
 
-	public void setVac(boolean isVac) {
-		this.isVac = isVac;
+	public void setPersNr(int persNr) {
+		this.persNr = persNr;
+	}
+
+	public boolean isIll() {
+		return isIll;
+	}
+
+	public void setVac(boolean isIll) {
+		this.isIll = isIll;
 	}
 	
 	public int getAbsenceDuration() {
