@@ -157,7 +157,7 @@
 						</VBox>
 						<VBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="426.0" style="-fx-border-color: black;">
 							<children>
-								<Button mnemonicParsing="false" prefWidth="350.0" text="Persönliche Daten">
+								<Button fx:id="BPersonalData" mnemonicParsing="false" onAction="#personalData" prefWidth="350.0" text="Persönliche Daten">
 									<font>
 										<Font size="24.0" />
 									</font>

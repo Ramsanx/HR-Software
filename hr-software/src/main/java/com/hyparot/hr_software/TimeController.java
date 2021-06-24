@@ -16,83 +16,83 @@ import javafx.stage.Stage;
 public class TimeController {
 
 	private Stage stage;
-	
+
 	private String user;
-	
-	    @FXML
-	    private ResourceBundle resources;
 
-	    @FXML
-	    private URL location;
+	@FXML
+	private ResourceBundle resources;
 
-	    @FXML
-	    private Text TResturlaubstage;
+	@FXML
+	private URL location;
 
-	    @FXML
-	    private Button BArbeitszeitErfassen;
+	@FXML
+	private Text TResturlaubstage;
 
-	    @FXML
-	    private Button BKrankmelden;
+	@FXML
+	private Button BArbeitszeitErfassen;
 
-	    @FXML
-	    private Button BUrlaubBeantragen;
+	@FXML
+	private Button BKrankmelden;
 
-	    @FXML
-	    private Text TKuerzel;
+	@FXML
+	private Button BUrlaubBeantragen;
 
-	    @FXML
-	    private Text TVorname_Nachname;
+	@FXML
+	private Text TKuerzel;
 
-	    @FXML
-	    private Text TPersonalnummer;
+	@FXML
+	private Text TVorname_Nachname;
 
-	    @FXML
-	    private Text TStelle;
+	@FXML
+	private Text TPersonalnummer;
 
-	    @FXML
-	    private Text TTelefonnummer;
+	@FXML
+	private Text TStelle;
 
-	    @FXML
-	    private Text TE_Mail;
+	@FXML
+	private Text TTelefonnummer;
 
-	    @FXML
-	    private Button Bzurueck;
+	@FXML
+	private Text TE_Mail;
 
-	    @FXML
-	    private Button BLogout;
+	@FXML
+	private Button Bzurueck;
 
-	    @FXML
-	    void logout(ActionEvent event) throws IOException {
-	    	changeSceneLogout();
-	    }
+	@FXML
+	private Button BLogout;
 
-	    @FXML
-	    void zurück(ActionEvent event) throws IOException {
-	    	changeSceneZurueck(user);
-	    }
+	@FXML
+	void logout(ActionEvent event) throws IOException {
+		changeSceneLogout();
+	}
 
-	    @FXML
-	    void initialize() {
-	        assert TResturlaubstage != null : "fx:id=\"TResturlaubstage\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert BArbeitszeitErfassen != null : "fx:id=\"BArbeitszeitErfassen\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert BKrankmelden != null : "fx:id=\"BKrankmelden\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert BUrlaubBeantragen != null : "fx:id=\"BUrlaubBeantragen\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert Bzurueck != null : "fx:id=\"Bzurueck\" was not injected: check your FXML file 'Time.fxml'.";
-	        assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'Time.fxml'.";
+	@FXML
+	void zurück(ActionEvent event) throws IOException {
+		changeSceneZurueck(user);
+	}
 
-	    }
+	@FXML
+	void initialize() {
+		assert TResturlaubstage != null : "fx:id=\"TResturlaubstage\" was not injected: check your FXML file 'Time.fxml'.";
+		assert BArbeitszeitErfassen != null : "fx:id=\"BArbeitszeitErfassen\" was not injected: check your FXML file 'Time.fxml'.";
+		assert BKrankmelden != null : "fx:id=\"BKrankmelden\" was not injected: check your FXML file 'Time.fxml'.";
+		assert BUrlaubBeantragen != null : "fx:id=\"BUrlaubBeantragen\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'Time.fxml'.";
+		assert Bzurueck != null : "fx:id=\"Bzurueck\" was not injected: check your FXML file 'Time.fxml'.";
+		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'Time.fxml'.";
+
+	}
 
 	public TimeController(Stage stage, String username) {
 		this.stage = stage;
 		this.user = username;
 	}
-	
+
 	public void schreiben() {
 		Employee user = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(this.user);
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
@@ -102,8 +102,8 @@ public class TimeController {
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 	}
-	
-	
+
+
 	public void changeSceneZurueck(String Username) throws IOException {
 		var loader = new FXMLLoader();
 		var fRController = new FRController(stage, Username);
@@ -116,7 +116,7 @@ public class TimeController {
 		stage.setResizable(false);
 		fRController.schreiben();
 	}
-	
+
 	public void changeSceneLogout() throws IOException {
 		var loader = new FXMLLoader();
 		var loginController = new LoginController(stage);

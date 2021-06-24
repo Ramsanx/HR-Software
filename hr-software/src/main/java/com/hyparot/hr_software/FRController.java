@@ -49,6 +49,9 @@ public class FRController {
 
 	    @FXML
 	    private Button BLogout;
+	    
+	    @FXML
+	    private Button BPersonalData;
 
 	    @FXML
 	    void logout(ActionEvent event) throws IOException {
@@ -61,6 +64,11 @@ public class FRController {
 	    }
 
 	    @FXML
+	    void personalData(ActionEvent event) throws IOException {
+	    	changeScenePersonalData(user);
+	    }
+	    
+	    @FXML
 	    void initialize() {
 	        assert BZeiterfassung != null : "fx:id=\"BZeiterfassung\" was not injected: check your FXML file 'afterLogin.fxml'.";
 	        assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'afterLogin.fxml'.";
@@ -70,7 +78,7 @@ public class FRController {
 	        assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
 	        assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'afterLogin.fxml'.";
 	        assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
-
+	        assert BPersonalData != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
 	    }
     	
 	public FRController(Stage stage, String username) {
@@ -115,5 +123,18 @@ public class FRController {
 		stage.centerOnScreen();
 		stage.setResizable(false);
 		timeController.schreiben();
+	}
+	
+	public void changeScenePersonalData(String Username) throws IOException {
+		var loader = new FXMLLoader();
+		var personalDataController = new PersonalDataController(stage, Username);
+		loader.setLocation(getClass().getResource("/PersonalData.fxml"));
+		loader.setController(personalDataController);
+		stage.getScene().setRoot(loader.load());
+		stage.setWidth(1280);
+		stage.setHeight(720);
+		stage.centerOnScreen();
+		stage.setResizable(false);
+		personalDataController.schreiben();
 	}
 }
