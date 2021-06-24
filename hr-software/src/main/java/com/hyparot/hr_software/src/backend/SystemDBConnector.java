@@ -116,18 +116,19 @@ public class SystemDBConnector {
 						employee.getEMail(),
 						employee.getJobTitle(),
 						employee.getGroup(),
+						0,//v_day_left
+						0,//ill_days
+						0,//w_time_left
 						employee.getStartDate().toString(), 
 						employee.getPersNr(), 
 						employee.getUsername(), 
 						employee.getPassword(), 
-						employee.getPersNr(), 
-						employee.getVacation_contract(), 
-						0,
-						false, 
-						employee.getPersNr(), 
-						0, 
-						0,
-						37);
+						employee.getVacation_contract(),
+						employee.getPersNr(),
+						0,//Gehalt
+						0,//entgeltabrNr
+						employee.getWorkingTime_contract()
+						);
 				LocalStorage.removeFromChanges(persNr);
 
 			}else if(changes.get(persNr).equals("changed")) {
