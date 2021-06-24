@@ -100,7 +100,8 @@ public class SystemDBConnector {
 		while(toStore.hasNext()) {
 			int persNr = toStore.next();
 			Employee employee = BusinessIntellegent.getEmployeeByID(persNr);
-
+			
+			
 			if(changes.get(persNr).equals("created")) {
 				db_connect.create_user(employee.getPersNr(),
 						employee.getFirstname(), 
@@ -116,19 +117,20 @@ public class SystemDBConnector {
 						employee.getEMail(),
 						employee.getJobTitle(),
 						employee.getGroup(),
+						0,//v_day_left
+						0,//ill_days
+						0,//w_time_left
 						employee.getStartDate().toString(), 
 						employee.getPersNr(), 
 						employee.getUsername(), 
 						employee.getPassword(), 
-						employee.getPersNr(), 
-						employee.getVacation_contract(), 
-						0,
-						false, 
-						employee.getPersNr(), 
-						0, 
-						0,
-						37);
-				LocalStorage.removeFromChanges(persNr);
+						employee.getVacation_contract(),
+						employee.getPersNr(),
+						0,//Gehalt
+						0,//entgeltabrNr
+						employee.getWorkingTime_contract()
+						);
+//
 
 			}else if(changes.get(persNr).equals("changed")) {
 				db_connect.value_update("t_mitarbeiter", "Bezeichnung", employee.getJobTitle(), persNr);

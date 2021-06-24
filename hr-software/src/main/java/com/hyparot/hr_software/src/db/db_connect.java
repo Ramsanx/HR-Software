@@ -18,10 +18,10 @@ public class db_connect {
 	
 	// Main Funktion zum testen
 	public static void main(String[] args) {
-
+		new_vacation_ill(1001, "2021-05-12", "2021-05-20", false);
 	}
 	
-	public static void create_user(int persNr, String firstname, String lastname, String birthday, String street, int houseNr, String housenumberSupplement, String city, int postcode, String country, String phoneNumber, String eMail, String jobTitle,String group, String startDate, int z_ID, String username, String pwd, int uk_ID, int u_tage_gesamt, int ist_Arbeitszeit, boolean krank, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
+	public static void create_user(int persNr, String firstname, String lastname, String birthday, String street, int houseNr, String housenumberSupplement, String city, int postcode, String country, String phoneNumber, String eMail, String jobTitle,String group, int v_days_left, int ill_days, int w_time_left, String startDate, int z_ID, String username, String pwd, int v_days, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
 			
@@ -31,22 +31,48 @@ public class db_connect {
 		    // hier für ein neues Objekt vom typ Statement damit kann die Datenbank verändert werden erstellt (kann wie beim Scanner mehrmals verwendet werden)
 		    Statement stm_anlegen = con.createStatement();
 		    		
-			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+firstname+"', '"+lastname+"', '"+birthday+"', '"+street+"', '"+houseNr+"', '"+housenumberSupplement+"', '"+city+"', '"+postcode+"', '"+country+"', '"+phoneNumber+"', '"+eMail+"', '"+jobTitle+"', '"+startDate+"', '"+group+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+firstname+"', '"+lastname+"', '"+birthday+"', '"+street+"', '"+houseNr+"', '"+housenumberSupplement+"', '"+city+"', '"+postcode+"', '"+country+"', '"+phoneNumber+"', '"+eMail+"', '"+jobTitle+"', '"+startDate+"', '"+group+"', '"+v_days_left+"', '"+ill_days+"', '"+w_time_left+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+username+"', '"+pwd+"')");
-			stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+a_Stunden+"', '"+2+"')");
-			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten VALUES ('"+v_Nr+"', '"+persNr+"', '"+a_Stunden +"', '"+gehalt+"', '"+entgeltabrNr+"')");
+			// stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+a_Stunden+"', '"+2+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten VALUES ('"+v_Nr+"', '"+persNr+"', '"+a_Stunden +"', '"+gehalt+"', '"+entgeltabrNr+"', '"+v_days+"')");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
+	public static void new_vacation_ill(int persNr, String start, String end, boolean ill) {
+		
+		
+		try {
+			Connection con = DriverManager.getConnection(db_url, user, pass);
+			Statement stm_vac = con.createStatement();
+			int uk_ID = 1;
+			
+			ResultSet rs = stm_vac.executeQuery("SELECT (UK_ID) FROM t_urlaub_krankheit ORDER BY UK_ID DESC LIMIT 1;");
+			while (rs.next()) {
+				uk_ID = rs.getInt(1)+1;	
+				}
+			int ill_i = 0;
+			if (ill == true) {
+				ill_i = 2;
+			}
+			else {
+				ill_i = 1;
+			}
+			stm_vac.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+start+"', '"+end+"', '"+ill_i+"')");
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
 	
 	public static void delete_user(int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_loeschen = con.createStatement();
-			stm_loeschen.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE PersNr = "+persNr+"");
+//			stm_loeschen.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_zugaenge WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_vertragsdaten WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_mitarbeiter WHERE PersNr = "+persNr+"");
