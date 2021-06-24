@@ -1,6 +1,4 @@
-package com.hyparot.hr_software.src.mitarbeiter;
-
-import java.util.Calendar;
+package com.hyparot.hr_software.employeedata;
 
 
 //ein Objekt der Klasse Vertrag wird beim Anlegen eines Angestellten erstellt

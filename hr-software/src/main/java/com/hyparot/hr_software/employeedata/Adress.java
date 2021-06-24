@@ -1,4 +1,4 @@
-package com.hyparot.hr_software.src.mitarbeiter;
+package com.hyparot.hr_software.employeedata;
 
 
 //ein Objekt der Klasse Adresse wird zum Anlegen eines Angestellten ben�tigt

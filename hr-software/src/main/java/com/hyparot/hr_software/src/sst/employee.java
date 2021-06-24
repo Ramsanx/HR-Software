@@ -1,8 +1,8 @@
 package com.hyparot.hr_software.src.sst;
 
-import com.hyparot.hr_software.src.mitarbeiter.Date;
-import com.hyparot.hr_software.src.mitarbeiter.Contract;
-import com.hyparot.hr_software.src.mitarbeiter.Absence;
+import com.hyparot.hr_software.employeedata.Absence;
+import com.hyparot.hr_software.employeedata.Contract;
+import com.hyparot.hr_software.employeedata.Date;
 
 
 public interface employee {

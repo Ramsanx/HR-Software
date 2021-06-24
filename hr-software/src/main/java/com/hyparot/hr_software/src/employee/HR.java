@@ -1,5 +1,7 @@
-package com.hyparot.hr_software.src.mitarbeiter;
+package com.hyparot.hr_software.src.employee;
 
+import com.hyparot.hr_software.employeedata.Adress;
+import com.hyparot.hr_software.employeedata.Date;
 import com.hyparot.hr_software.src.backend.*;
 import com.hyparot.hr_software.src.sst.hr;
 
@@ -43,7 +45,7 @@ public class HR extends Employee implements hr {
 	}
 
 	@Override
-	public com.hyparot.hr_software.src.mitarbeiter.Employee getPersonalData(int persNr) {
+	public com.hyparot.hr_software.src.employee.Employee getPersonalData(int persNr) {
 		// TODO Auto-generated method stub
 		return BusinessIntellegent.getEmployeeByID(persNr);
 	}

@@ -1,8 +1,10 @@
 package com.hyparot.hr_software.src.backend;
 
 import java.util.Vector;
+
+import com.hyparot.hr_software.src.employee.Employee;
+
 import java.util.Hashtable;
-import com.hyparot.hr_software.src.mitarbeiter.Employee;
 
 
 public class LocalStorage {

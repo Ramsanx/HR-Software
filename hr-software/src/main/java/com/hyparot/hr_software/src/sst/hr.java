@@ -1,8 +1,8 @@
 package com.hyparot.hr_software.src.sst;
 
-import com.hyparot.hr_software.src.mitarbeiter.Adress;
-import com.hyparot.hr_software.src.mitarbeiter.Employee;
-import com.hyparot.hr_software.src.mitarbeiter.Date;
+import com.hyparot.hr_software.employeedata.Adress;
+import com.hyparot.hr_software.employeedata.Date;
+import com.hyparot.hr_software.src.employee.Employee;
 
 public interface hr {
 

@@ -1,4 +1,8 @@
-package com.hyparot.hr_software.src.mitarbeiter;
+package com.hyparot.hr_software.src.employee;
+
+import com.hyparot.hr_software.employeedata.Adress;
+import com.hyparot.hr_software.employeedata.Contract;
+import com.hyparot.hr_software.employeedata.Date;
 
 abstract class Person {
 	
