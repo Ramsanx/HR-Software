@@ -42,6 +42,6 @@ public class Absence {
 	}
 	
 	public String toString() {
-		return ("Absent from " + this.begin.toString() + " till " + this.end.toString());
+		return ("\nAbsent from " + this.begin.toString() + " till " + this.end.toString());
 	}
 }

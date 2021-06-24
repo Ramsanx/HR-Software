@@ -3,6 +3,8 @@ package com.hyparot.hr_software.src.employee;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Contract;
 import com.hyparot.hr_software.src.employeedata.Date;
+import com.hyparot.hr_software.src.employeedata.Absence;
+import java.util.Vector;
 
 abstract class Person {
 	
@@ -32,6 +34,7 @@ abstract class Person {
 	
 	private Contract contract;
 	
+	private Vector<Absence> absence= new Vector<Absence>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -241,6 +244,18 @@ abstract class Person {
 	public void setContract(Contract contract) {
 		this.contract = contract;
 	}
+	
+	protected void addAbsence(Absence absence) {
+		this.absence.add(absence);
+	}
+	
+	protected Vector<Absence> getAbsencesa(){
+		return this.absence;
+	}
+	
+//	protected Absence getAbsence() {
+//		
+//	}
 	//getter und setter Block ende
 	//_________________________________________________________________________________________________________________________________
 
