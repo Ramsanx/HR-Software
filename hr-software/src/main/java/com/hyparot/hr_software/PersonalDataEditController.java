@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.hyparot.hr_software.employeedata.Date;
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
 import com.hyparot.hr_software.src.employee.Employee;
+import com.hyparot.hr_software.src.employeedata.Date;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

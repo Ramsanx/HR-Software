@@ -1,4 +1,4 @@
-package com.hyparot.hr_software.employeedata;
+package com.hyparot.hr_software.src.employeedata;
 
 public class Absence {
 	//Klasse für die Objekte der Abwesenheit (Urlaub und Krankheit)
