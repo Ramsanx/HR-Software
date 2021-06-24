@@ -4,7 +4,8 @@ import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Contract;
 import com.hyparot.hr_software.src.employeedata.Date;
 import com.hyparot.hr_software.src.employeedata.Absence;
-import java.util.Vector;
+import java.util.Hashtable;
+
 
 abstract class Person {
 	
@@ -34,7 +35,7 @@ abstract class Person {
 	
 	private Contract contract;
 	
-	private Vector<Absence> absence= new Vector<Absence>();
+	private Hashtable<Absence, String> absence= new Hashtable<Absence, String>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -246,16 +247,30 @@ abstract class Person {
 	}
 	
 
-	private void addAbsence(Absence absence) {
-		this.absence.add(absence);
+	private boolean addAbsence(Absence absence) {
+		if(this.absence.containsKey(absence)) {
+			return false;
+		}
+		this.absence.put(absence, "nicht genehmigt");
+		return true;
 	}
 	
 
-	protected Vector<Absence> getAbsencesa(){
+	protected Hashtable<Absence, String> getAbsencesa(){
 		return this.absence;
 	}
 	
 
+	public boolean newAbsence(Date begin, Date end, boolean isSick) {
+		return addAbsence(new Absence(this.persNr, begin, end, isSick));
+	}
+	
+	
+	public void cancelAbsence(Absence absence) {
+		this.absence.remove(absence);
+	}
+	
+	
 //	protected Absence getAbsence() {
 //		
 //	}

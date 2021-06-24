@@ -18,7 +18,7 @@ public class db_connect {
 	
 	// Main Funktion zum testen
 	public static void main(String[] args) {
-		new_vacation_ill(1001, "2021-05-12", "2021-05-20", false);
+		//new_vacation_ill(1001, "2021-05-12", "2021-05-20", false);
 	}
 	
 	public static void create_user(int persNr, String firstname, String lastname, String birthday, String street, int houseNr, String housenumberSupplement, String city, int postcode, String country, String phoneNumber, String eMail, String jobTitle,String group, int v_days_left, int ill_days, int w_time_left, String startDate, int z_ID, String username, String pwd, int v_days, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
@@ -41,32 +41,36 @@ public class db_connect {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static void new_vacation_ill(int persNr, String start, String end, boolean ill) {
-		
-		
+	
+	public static void new_vacation_sick(int persNr, String start, String end, boolean sick, boolean is_acceptet) {
+
+
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_vac = con.createStatement();
 			int uk_ID = 1;
-			
+
 			ResultSet rs = stm_vac.executeQuery("SELECT (UK_ID) FROM t_urlaub_krankheit ORDER BY UK_ID DESC LIMIT 1;");
 			while (rs.next()) {
-				uk_ID = rs.getInt(1)+1;	
+				uk_ID = rs.getInt(1)+1;
 				}
-			int ill_i = 0;
-			if (ill == true) {
-				ill_i = 2;
-			}
-			else {
-				ill_i = 1;
-			}
-			stm_vac.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+start+"', '"+end+"', '"+ill_i+"')");
-			
+				int sick_i = 0;
+				if (sick == true) {
+					sick_i = 1;
+				}
+				int acceptet_i = 0;
+				if (is_acceptet == true) {
+					acceptet_i = 1;
+				}
+				stm_vac.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+start+"', '"+end+"', '"+sick_i+"', '"+acceptet_i+"')");
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 
-	}
+
+
+		}
 	
 	public static void delete_user(int persNr) {
 		try {

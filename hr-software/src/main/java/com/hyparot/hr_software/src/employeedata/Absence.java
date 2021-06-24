@@ -6,13 +6,14 @@ public class Absence {
 	private int persNr;
 	private Date begin;
 	private Date end;
-	private boolean isIll;
+	private boolean isSick;
+	private boolean isAccepted;
 	
-	public Absence(int persNr, Date begin, Date end, boolean isIll) {
+	public Absence(int persNr, Date begin, Date end, boolean isSick) {
 		this.setPersNr(persNr);
 		this.setBegin(begin);
 		this.setEnd(end);
-		this.setVac(isIll);
+		this.setSick(isSick);
 	}
 
 	public Date getBegin() {
@@ -39,12 +40,12 @@ public class Absence {
 		this.persNr = persNr;
 	}
 
-	public boolean isIll() {
-		return isIll;
+	public boolean isSick() {
+		return isSick;
 	}
 
-	public void setVac(boolean isIll) {
-		this.isIll = isIll;
+	public void setSick(boolean isSick) {
+		this.isSick = isSick;
 	}
 	
 	public int getAbsenceDuration() {
@@ -53,5 +54,13 @@ public class Absence {
 	
 	public String toString() {
 		return ("\nAbsent from " + this.begin.toString() + " till " + this.end.toString());
+	}
+
+	public boolean isAccepted() {
+		return isAccepted;
+	}
+
+	public void setAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
 	}
 }
