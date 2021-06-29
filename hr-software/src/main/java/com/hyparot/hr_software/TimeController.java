@@ -17,7 +17,7 @@ public class TimeController {
 
 	private Stage stage;
 
-	private String user;
+	private Employee user;
 
 	@FXML
 	private ResourceBundle resources;
@@ -88,13 +88,12 @@ public class TimeController {
 
 	}
 
-	public TimeController(Stage stage, String username) {
+	public TimeController(Stage stage, Employee username) {
 		this.stage = stage;
 		this.user = username;
 	}
 
 	public void schreiben() {
-		Employee user = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(this.user);
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
 		TStelle.setText(user.getJobTitle());
@@ -104,7 +103,7 @@ public class TimeController {
 	}
 
 
-	public void changeSceneZurueck(String Username) throws IOException {
+	public void changeSceneZurueck(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var fRController = new FRController(stage, Username);
 		loader.setLocation(getClass().getResource("/AfterLogin.fxml"));

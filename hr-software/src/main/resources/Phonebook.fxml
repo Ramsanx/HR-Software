@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.calendarfx.view.YearMonthView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -20,102 +20,26 @@
 			<children>
 				<HBox prefHeight="695.0" prefWidth="854.0" style="-fx-background-color: #424a48;">
 					<children>
-						<VBox alignment="BOTTOM_CENTER" prefHeight="695.0" prefWidth="400.0" style="-fx-border-color: black;">
-							<children>
-								<ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-									<image>
-										<Image url="@HR_Logo.png" />
-									</image>
-									<VBox.margin>
-										<Insets bottom="40.0" />
-									</VBox.margin>
-								</ImageView>
-								<Button fx:id="BZeiterfassung" mnemonicParsing="false" onAction="#zeiterfassen" prefWidth="230.0" text="Zeiterfassung">
-									<VBox.margin>
-										<Insets bottom="21.0" />
-									</VBox.margin>
-									<font>
-										<Font size="18.0" />
-									</font>
-								</Button>
-								<YearMonthView prefHeight="330.0" prefWidth="378.0" style="-fx-background-color: white;">
-									<VBox.margin>
-										<Insets bottom="20.0" left="10.0" right="10.0" />
-									</VBox.margin>
-								</YearMonthView>
-							</children>
-						</VBox>
-						<VBox prefHeight="695.0" prefWidth="454.0">
+						<VBox prefHeight="695.0" prefWidth="854.0" style="-fx-border-color: black;">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="174.0" prefWidth="454.0">
-                           <children>
-                              <ImageView fitHeight="68.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <Button fx:id="BPhonebook" mnemonicParsing="false" onAction="#phonebook" prefWidth="200.0" text="Telefonbuch">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="174.0" prefWidth="454.0">
-                           <children>
-                              <ImageView fitHeight="68.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <Button mnemonicParsing="false" onAction="#zeiterfassen" prefWidth="200.0" text="Zeiterfassung">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="174.0" prefWidth="454.0">
-                           <children>
-                              <ImageView fitHeight="68.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <Button fx:id="BVacatiobRequests" mnemonicParsing="false" onAction="#VacationRequests" prefWidth="200.0" text="Urlaubsanträge">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="173.0" prefWidth="454.0">
-                           <children>
-                              <ImageView fitHeight="68.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <VBox alignment="CENTER" prefHeight="173.0" prefWidth="200.0">
+                        <ScrollPane prefHeight="695.0" prefWidth="854.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="670.0" prefWidth="854.0">
                                  <children>
-                                    <Button fx:id="BEditOtherEmployee" mnemonicParsing="false" onAction="#editOtherEmployee" prefWidth="200.0" text="Angestellter verwalten" visible="false">
-                                       <font>
-                                          <Font size="17.0" />
-                                       </font>
-                                    </Button>
-                                    <TextField fx:id="TFPersnr" alignment="CENTER" maxWidth="150.0" prefWidth="100.0" promptText="Personalnummer" visible="false">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin>
-                                       <font>
-                                          <Font name="Corbel" size="12.0" />
-                                       </font>
-                                    </TextField>
+                                    <TableView fx:id="TableView" prefHeight="692.0" prefWidth="853.0">
+                                      <columns>
+                                        <TableColumn fx:id="TCName" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="250.0" text="Name" />
+                                          <TableColumn fx:id="TCMail" minWidth="0.0" prefWidth="224.0" text="E-Mail" />
+                                          <TableColumn fx:id="TCphonenumber" minWidth="0.0" prefWidth="190.0" text="Telefonnummer" />
+                                          <TableColumn fx:id="TCJobTitle" minWidth="0.0" prefWidth="190.0" text="Stelle" />
+                                      </columns>
+                                    </TableView>
                                  </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children></VBox>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+						</VBox>
 					</children>
 				</HBox>
 				<VBox alignment="TOP_CENTER" prefHeight="695.0" prefWidth="426.0" style="-fx-background-color: #71807d;">
@@ -228,7 +152,7 @@
 						</VBox>
 						<VBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="426.0" style="-fx-border-color: black;">
 							<children>
-								<Button fx:id="BPersonalData" mnemonicParsing="false" onAction="#personalData" prefWidth="350.0" text="Persönliche Daten">
+								<Button fx:id="BPersonalData" mnemonicParsing="false" onAction="#zurueck" prefWidth="350.0" text="Zurück">
 									<font>
 										<Font size="24.0" />
 									</font>

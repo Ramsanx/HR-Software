@@ -60,8 +60,7 @@ public class Employee extends Person implements employee{
 	//_________________________________________________________________________________________________________________________________
 
 
-	@Override
-	public boolean loginUser(String username, String password) {
+	public static boolean loginUser(String username, String password) {
 		// TODO Auto-generated method stub
 		Employee user = BusinessIntellegent.getEmployeeByName(username);
 		if(user != null) {
@@ -193,6 +192,4 @@ public class Employee extends Person implements employee{
 				"\nTelefonnummer: " + this.getPhoneNumber() +
 				"\nStellenbeschreibung: " + this.getJobTitle());
 	}
-
-
 }

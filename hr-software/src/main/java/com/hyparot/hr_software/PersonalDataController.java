@@ -17,6 +17,11 @@ import javafx.stage.Stage;
 
 public class PersonalDataController {
 
+	private Stage stage;
+	private Employee user;
+	private Employee userEdit;
+	private Employee userC;
+
 	@FXML
 	private ResourceBundle resources;
 
@@ -94,7 +99,11 @@ public class PersonalDataController {
 
 	@FXML
 	void contract(ActionEvent event) throws IOException {
-		changeSceneContract(user);
+		if (this.userEdit == null) {
+			changeSceneContract(user);
+		} else {
+			changeSceneContractOther(user, userEdit);
+		}
 	}
 
 	@FXML
@@ -104,9 +113,12 @@ public class PersonalDataController {
 
 	@FXML
 	void personalDataEdit(ActionEvent event) throws IOException {
+		if (userEdit == null) {
 		changeScenePersonalDataEdit(user);
+		} else {
+			changeScenePersonalDataEditOther(user, userEdit);
+		}
 	}
-
 
 	@FXML
 	void zurueck(ActionEvent event) throws IOException {
@@ -138,22 +150,23 @@ public class PersonalDataController {
 		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'PersonalData.fxml'.";
 		assert Bzurueck != null : "fx:id=\"Bzurueck\" was not injected: check your FXML file 'PersonalData.fxml'.";
 		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'PersonalData.fxml'.";
-
 	}
 
 
-
-
-	private Stage stage;
-	private String user;
-
-	public PersonalDataController(Stage stage, String username) {
+	public PersonalDataController(Stage stage, Employee username) {
 		this.stage = stage;
 		this.user = username;
+		this.userC = username;
+	}
+
+	public PersonalDataController(Stage stage, Employee username, Employee usernameEdit) {
+		this.stage = stage;
+		this.user = username;
+		this.userC = usernameEdit;
+		this.userEdit = usernameEdit;
 	}
 
 	public void schreiben() {
-		Employee user = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(this.user);
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
 		TStelle.setText(user.getJobTitle());
@@ -161,24 +174,24 @@ public class PersonalDataController {
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 
-		TVornameData.setText(user.getFirstname());
-		TNachnameData.setText(user.getLastname());
-		TStelleData.setText(user.getJobTitle());
-		TTelefonnummerData.setText(user.getPhoneNumber());
-		TPersonalnummerData.setText(String.valueOf(user.getPersNr()));
-		TGeburtstagData.setText(String.valueOf(user.getBirthday().toString()));
-		TEinstellungsdatumData.setText(user.getStartDate().toString());
+		TVornameData.setText(userC.getFirstname());
+		TNachnameData.setText(userC.getLastname());
+		TStelleData.setText(userC.getJobTitle());
+		TTelefonnummerData.setText(userC.getPhoneNumber());
+		TPersonalnummerData.setText(String.valueOf(userC.getPersNr()));
+		TGeburtstagData.setText(String.valueOf(userC.getBirthday().toString()));
+		TEinstellungsdatumData.setText(userC.getStartDate().toString());
 
-		TLandData.setText(user.getAdress().getCountry());
-		TPLZData.setText(String.valueOf(user.getAdress().getPostcode()));
-		TStadtData.setText(user.getAdress().getCity());
-		TStrasseData.setText(user.getAdress().getStreet());
-		THausnummerData.setText(String.valueOf(user.getAdress().getHouseNr()));
-		TZusatzData.setText(user.getAdress().getHousenumberSupplement());
-		if (user.getAdress().getHousenumberSupplement().isEmpty()) {
+		TLandData.setText(userC.getAdress().getCountry());
+		TPLZData.setText(String.valueOf(userC.getAdress().getPostcode()));
+		TStadtData.setText(userC.getAdress().getCity());
+		TStrasseData.setText(userC.getAdress().getStreet());
+		THausnummerData.setText(String.valueOf(userC.getAdress().getHouseNr()));
+		TZusatzData.setText(userC.getAdress().getHousenumberSupplement());
+		if (userC.getAdress().getHousenumberSupplement().isEmpty()) {
 			TZusatzData.setText("-");
 		} else {
-			TZusatzData.setText(user.getAdress().getHousenumberSupplement());
+			TZusatzData.setText(userC.getAdress().getHousenumberSupplement());
 		}
 	}
 
@@ -194,7 +207,7 @@ public class PersonalDataController {
 		stage.setResizable(false);
 	}
 
-	public void changeSceneZurueck(String Username) throws IOException {
+	public void changeSceneZurueck(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var fRController = new FRController(stage, Username);
 		loader.setLocation(getClass().getResource("/AfterLogin.fxml"));
@@ -207,7 +220,7 @@ public class PersonalDataController {
 		fRController.schreiben();
 	}
 
-	public void changeScenePersonalDataEdit(String Username) throws IOException {
+	public void changeScenePersonalDataEdit(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var personalDataEditController = new PersonalDataEditController(stage, Username);
 		loader.setLocation(getClass().getResource("/PersonalDataEdit.fxml"));
@@ -220,9 +233,35 @@ public class PersonalDataController {
 		personalDataEditController.schreiben();
 	}
 	
-	public void changeSceneContract(String Username) throws IOException {
+	public void changeScenePersonalDataEditOther(Employee Username, Employee userEdit) throws IOException {
+		var loader = new FXMLLoader();
+		var personalDataEditOtherController = new PersonalDataEditOtherController(stage, Username, userEdit);
+		loader.setLocation(getClass().getResource("/PersonalDataEditOther.fxml"));
+		loader.setController(personalDataEditOtherController);
+		stage.getScene().setRoot(loader.load());
+		stage.setWidth(1280);
+		stage.setHeight(720);
+		stage.centerOnScreen();
+		stage.setResizable(false);
+		personalDataEditOtherController.schreiben();
+	}
+
+	public void changeSceneContract(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var contractDataController = new ContractDataController(stage, Username);
+		loader.setLocation(getClass().getResource("/ContractData.fxml"));
+		loader.setController(contractDataController);
+		stage.getScene().setRoot(loader.load());
+		stage.setWidth(1280);
+		stage.setHeight(720);
+		stage.centerOnScreen();
+		stage.setResizable(false);
+		contractDataController.schreiben();
+	}
+
+	public void changeSceneContractOther(Employee Username, Employee UserEdit) throws IOException {
+		var loader = new FXMLLoader();
+		var contractDataController = new ContractDataController(stage, Username, UserEdit);
 		loader.setLocation(getClass().getResource("/ContractData.fxml"));
 		loader.setController(contractDataController);
 		stage.getScene().setRoot(loader.load());

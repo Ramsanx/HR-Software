@@ -2,6 +2,8 @@ package com.hyparot.hr_software;
 	
 import java.io.IOException;
 
+import com.hyparot.hr_software.src.backend.SystemDBConnector;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -35,6 +37,7 @@ public class JavaFXLauncher extends Application {
 	
 	
 	public static void main(String[] args) {
+		SystemDBConnector.loadDBDataToLocal();
 		launch(args);
 	}
 }

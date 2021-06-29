@@ -166,8 +166,8 @@ public class BusinessIntellegent implements BI, employee, hr, superior{
 		return null;
 	}
 
-	@Override
-	public boolean loginUser(String username, String password) {
+	
+	public static boolean loginUser(String username, String password) {
 		// TODO Auto-generated method stub
 		return false;
 	}

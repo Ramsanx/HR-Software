@@ -5,8 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
-import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employeedata.Date;
+import com.hyparot.hr_software.src.employee.Employee;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -133,9 +133,9 @@ public class PersonalDataEditController {
 	}
 
 	private Stage stage;
-	private String user;
+	private Employee user;
 
-	public PersonalDataEditController(Stage stage, String username) {
+	public PersonalDataEditController(Stage stage, Employee username) {
 		this.stage = stage;
 		this.user = username;
 		//schreiben();
@@ -143,7 +143,6 @@ public class PersonalDataEditController {
 	}
 
 	public void schreiben() {
-		Employee user = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(this.user);
 		//Uneditable Text
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
@@ -187,7 +186,7 @@ public class PersonalDataEditController {
 	}
 
 
-	public void changeSceneVerwerfen(String Username) throws IOException {
+	public void changeSceneVerwerfen(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var personalDataController = new PersonalDataController(stage, Username);
 		loader.setLocation(getClass().getResource("/PersonalData.fxml"));
@@ -201,7 +200,6 @@ public class PersonalDataEditController {
 	}
 
 	public void saveChanges() throws IOException {
-		Employee userNew = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(this.user);
 		String firstNameNew = TFVorname.getText();
 		String lastNameNew = TFNachname.getText();
 
@@ -240,7 +238,7 @@ public class PersonalDataEditController {
 
 
 
-		userNew.editEmployee(firstNameNew, lastNameNew, userNew.getEMail(), userNew.getPhoneNumber(), birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
+		user.editEmployee(firstNameNew, lastNameNew, user.getEMail(), user.getPhoneNumber(), birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
 		SystemDBConnector.loadLocalDataToDB();
 
 		changeSceneVerwerfen(user);
