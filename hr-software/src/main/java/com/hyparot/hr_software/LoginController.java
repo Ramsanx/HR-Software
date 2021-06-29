@@ -3,6 +3,10 @@ package com.hyparot.hr_software;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.hyparot.hr_software.src.backend.BusinessIntellegent;
+import com.hyparot.hr_software.src.mitarbeiter.Employee;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,20 +80,14 @@ public class LoginController {
 	private void checkLogin() throws IOException {
 
 		if (TFUsername.getText() != null && PFPassword.getText() != null) {
-			if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()) != null) {
-				if(com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()).getPassword().equals(PFPassword.getText().toString())) {
-					changeSceneAfterLogin(TFUsername.getText().toString());
+			if(com.hyparot.hr_software.src.mitarbeiter.Employee.loginUser(TFUsername.getText().toString(), PFPassword.getText().toString())) {
+					changeSceneAfterLogin(BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()));
 //			}
 //			if (TFUsername.getText().toString().equals("u") && PFPassword.getText().toString().equals("p")) {
-				}else {
+			}else {
 					TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
 					//TFUsername.setText(null);
 					PFPassword.setText(null);
-				}
-			} else {
-				TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
-				//TFUsername.setText(null);
-				PFPassword.setText(null);
 			}
 		}
 	}
@@ -100,7 +98,7 @@ public class LoginController {
 		TFErrorMessage.setText(null);
 	}
 
-	public void changeSceneAfterLogin(String Username) throws IOException {
+	public void changeSceneAfterLogin(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var frController = new FRController(stage, Username);
 		loader.setLocation(getClass().getResource("/afterLogin.fxml"));

@@ -7,7 +7,9 @@ import com.hyparot.hr_software.src.mitarbeiter.Absence;
 
 public interface employee {
 
-	public boolean loginUser(String username, String password);
+	public static boolean loginUser(String username, String password) {
+		return false;
+	};
 	
 	public void editEmployee(String firstname, 
 			 				 String lastname, 

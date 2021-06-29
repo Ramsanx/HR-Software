@@ -100,7 +100,11 @@ public class ContractDataController {
 
     @FXML
     void zurueck(ActionEvent event) throws IOException {
+    	if (this.userEdit == null) {
     	changeSceneZurueck(user);
+    	} else {
+    		changeSceneZurueckOther(user, userEdit);
+    	}
     }
 
     @FXML
@@ -133,15 +137,25 @@ public class ContractDataController {
     }
     
 	private Stage stage;
-	private String user;
+	private Employee user;
+	private Employee userEdit;
+	private Employee userC;
+	
 
-	public ContractDataController(Stage stage, String username) {
+	public ContractDataController(Stage stage, Employee username) {
 		this.stage = stage;
 		this.user = username;
+		this.userC = username;
+	}
+	
+	public ContractDataController(Stage stage, Employee username, Employee userEdit) {
+		this.stage = stage;
+		this.user = username;
+		this.userC = userEdit;
+		this.userEdit = userEdit;
 	}
 
 	public void schreiben() {
-		Employee user = com.hyparot.hr_software.src.backend.BusinessIntellegent.getEmployeeByName(this.user);
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
 		TStelle.setText(user.getJobTitle());
@@ -149,29 +163,29 @@ public class ContractDataController {
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 
-		TVornameData.setText(user.getFirstname());
-		TNachnameData.setText(user.getLastname());
-		TStelleData.setText(user.getJobTitle());
-		TTelefonnummerData.setText(user.getPhoneNumber());
-		TPersonalnummerData.setText(String.valueOf(user.getPersNr()));
-		TGeburtstagData.setText(String.valueOf(user.getBirthday().toString()));
-		TEinstellungsdatumData.setText(user.getStartDate().toString());
+		TVornameData.setText(userC.getFirstname());
+		TNachnameData.setText(userC.getLastname());
+		TStelleData.setText(userC.getJobTitle());
+		TTelefonnummerData.setText(userC.getPhoneNumber());
+		TPersonalnummerData.setText(String.valueOf(userC.getPersNr()));
+		TGeburtstagData.setText(String.valueOf(userC.getBirthday().toString()));
+		TEinstellungsdatumData.setText(userC.getStartDate().toString());
 
-		TLandData.setText(user.getAdress().getCountry());
-		TPLZData.setText(String.valueOf(user.getAdress().getPostcode()));
-		TStadtData.setText(user.getAdress().getCity());
-		TStrasseData.setText(user.getAdress().getStreet());
-		THausnummerData.setText(String.valueOf(user.getAdress().getHouseNr()));
-		TZusatzData.setText(user.getAdress().getHousenumberSupplement());
-		if (user.getAdress().getHousenumberSupplement().isEmpty()) {
+		TLandData.setText(userC.getAdress().getCountry());
+		TPLZData.setText(String.valueOf(userC.getAdress().getPostcode()));
+		TStadtData.setText(userC.getAdress().getCity());
+		TStrasseData.setText(userC.getAdress().getStreet());
+		THausnummerData.setText(String.valueOf(userC.getAdress().getHouseNr()));
+		TZusatzData.setText(userC.getAdress().getHousenumberSupplement());
+		if (userC.getAdress().getHousenumberSupplement().isEmpty()) {
 			TZusatzData.setText("-");
 		} else {
-			TZusatzData.setText(user.getAdress().getHousenumberSupplement());
+			TZusatzData.setText(userC.getAdress().getHousenumberSupplement());
 		}
 		//------------------------------------------------------------------------
 		TGehaltData.setText("ERGÄNZEN!");
-		TArbeitszeitData.setText(String.valueOf(user.getWorkingTime_contract()));
-		TUrlaubstageData.setText(String.valueOf(user.getVacation_contract()));
+		TArbeitszeitData.setText(String.valueOf(userC.getWorkingTime_contract()));
+		TUrlaubstageData.setText(String.valueOf(userC.getVacation_contract()));
 	}
 
 	public void changeSceneLogout() throws IOException {
@@ -186,7 +200,20 @@ public class ContractDataController {
 		stage.setResizable(false);
 	}
 
-	public void changeSceneZurueck(String Username) throws IOException {
+	public void changeSceneZurueckOther(Employee Username, Employee UserEdit) throws IOException {
+		var loader = new FXMLLoader();
+		var personalDataController = new PersonalDataController(stage, Username, UserEdit);
+		loader.setLocation(getClass().getResource("/PersonalData.fxml"));
+		loader.setController(personalDataController);
+		stage.getScene().setRoot(loader.load());
+		stage.setWidth(1280);
+		stage.setHeight(720);
+		stage.centerOnScreen();
+		stage.setResizable(false);
+		personalDataController.schreiben();
+	}
+	
+	public void changeSceneZurueck(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var personalDataController = new PersonalDataController(stage, Username);
 		loader.setLocation(getClass().getResource("/PersonalData.fxml"));
