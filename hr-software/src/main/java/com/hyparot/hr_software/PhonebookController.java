@@ -49,9 +49,6 @@ public class PhonebookController {
 	private TableView<Employee> TableView;
 
 	@FXML
-	private TableColumn<Employee, Integer> TCPersnr;
-
-	@FXML
 	private TableColumn<Employee, String> TCName;
 
 	@FXML
@@ -100,7 +97,6 @@ public class PhonebookController {
 	@FXML
 	void initialize() {
 		assert TableView != null : "fx:id=\"TableView\" was not injected: check your FXML file 'Phonebook.fxml'.";
-		assert TCPersnr != null : "fx:id=\"TCPersnr\" was not injected: check your FXML file 'Phonebook.fxml'.";
 		assert TCName != null : "fx:id=\"TCName\" was not injected: check your FXML file 'Phonebook.fxml'.";
 		assert TCMail != null : "fx:id=\"TCMail\" was not injected: check your FXML file 'Phonebook.fxml'.";
 		assert TCphonenumber != null : "fx:id=\"TCphonenumber\" was not injected: check your FXML file 'Phonebook.fxml'.";
@@ -115,9 +111,6 @@ public class PhonebookController {
 		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'Phonebook.fxml'.";
 
 	}
-
-
-
 
 	private Employee user;
 	private Stage stage;
@@ -169,5 +162,4 @@ public class PhonebookController {
 			stage.setResizable(false);
 			fRController.schreiben();
 		}
-
 	}
