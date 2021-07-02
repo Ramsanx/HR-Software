@@ -7,13 +7,25 @@ import java.util.ResourceBundle;
 import com.hyparot.hr_software.src.backend.BusinessIntellegent;
 import com.hyparot.hr_software.src.employee.Employee;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class FRController {
 
@@ -33,7 +45,16 @@ public class FRController {
 	private Button BVacatiobRequests;
 
 	@FXML
+	private ChoiceBox<String> CBGroup;
+
+	@FXML
+	private Button BCreateUser;
+
+	@FXML
 	private Button BEditOtherEmployee;
+
+	@FXML
+	private TextField TFPersnr;
 
 	@FXML
 	private Text TKuerzel;
@@ -59,12 +80,16 @@ public class FRController {
 	@FXML
 	private Button BLogout;
 
-	@FXML
-	private TextField TFPersnr;
+	ObservableList<String> availableChoices = FXCollections.observableArrayList("HR", "Superior", "Employee"); 
 
 	@FXML
 	void VacationRequests(ActionEvent event) {
 
+	}
+
+	@FXML
+	void createUser(ActionEvent event) throws IOException {
+		changeSceneCreateEmployee(user);
 	}
 
 	@FXML
@@ -108,6 +133,8 @@ public class FRController {
 		assert BZeiterfassung != null : "fx:id=\"BZeiterfassung\" was not injected: check your FXML file 'afterLogin.fxml'.";
 		assert BPhonebook != null : "fx:id=\"BPhonebook\" was not injected: check your FXML file 'afterLogin.fxml'.";
 		assert BVacatiobRequests != null : "fx:id=\"BVacatiobRequests\" was not injected: check your FXML file 'afterLogin.fxml'.";
+		assert CBGroup != null : "fx:id=\"CBGroup\" was not injected: check your FXML file 'afterLogin.fxml'.";
+		assert BCreateUser != null : "fx:id=\"BCreateUser\" was not injected: check your FXML file 'afterLogin.fxml'.";
 		assert BEditOtherEmployee != null : "fx:id=\"BEditOtherEmployee\" was not injected: check your FXML file 'afterLogin.fxml'.";
 		assert TFPersnr != null : "fx:id=\"TFPersnr\" was not injected: check your FXML file 'afterLogin.fxml'.";
 		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'afterLogin.fxml'.";
@@ -144,6 +171,9 @@ public class FRController {
 			BEditOtherEmployee.setVisible(true);
 			TFPersnr.setVisible(true);
 		}
+
+		CBGroup.setItems(availableChoices);
+		CBGroup.setValue("Gruppe des Users");
 	}
 
 
@@ -157,7 +187,24 @@ public class FRController {
 		stage.setHeight(500);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+	}
 
+	public void changeSceneCreateEmployee(Employee Username) throws IOException {
+		String group = CBGroup.getSelectionModel().getSelectedItem().toString();
+		if (group.equals("Gruppe des Users") || group.equals("Ungültige Eingabe")) {
+			CBGroup.setValue("Ungültige Eingabe");
+		} else {
+			var loader = new FXMLLoader();
+			var createUserController = new CreateUserController(stage, Username, group);
+			loader.setLocation(getClass().getResource("/CreateEmployee.fxml"));
+			loader.setController(createUserController);
+			stage.getScene().setRoot(loader.load());
+			stage.setWidth(1280);
+			stage.setHeight(720);
+			stage.centerOnScreen();
+			stage.setResizable(false);
+			createUserController.schreiben();
+		}
 	}
 
 	public void changeScenePhonebook(Employee Username) throws IOException {
@@ -172,7 +219,7 @@ public class FRController {
 		stage.setResizable(false);
 		phonebookController.schreiben();
 	}
-	
+
 	public void changeSceneTime(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var timeController = new TimeController(stage, Username);
