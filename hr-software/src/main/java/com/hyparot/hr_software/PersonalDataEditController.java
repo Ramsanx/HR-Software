@@ -238,7 +238,7 @@ public class PersonalDataEditController {
 
 
 
-		user.editEmployee(firstNameNew, lastNameNew, user.getEMail(), user.getPhoneNumber(), birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
+		user.setPersonaldata(firstNameNew, lastNameNew, user.getEMail(), user.getPhoneNumber(), birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
 		SystemDBConnector.loadLocalDataToDB();
 
 		changeSceneVerwerfen(user);

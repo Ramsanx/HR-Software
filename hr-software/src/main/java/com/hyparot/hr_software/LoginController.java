@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.hyparot.hr_software.src.backend.BusinessIntellegent;
+import com.hyparot.hr_software.src.backend.BIConnect;
 import com.hyparot.hr_software.src.employee.Employee;
 
 import javafx.event.ActionEvent;
@@ -80,8 +80,9 @@ public class LoginController {
 	private void checkLogin() throws IOException {
 
 		if (TFUsername.getText() != null && PFPassword.getText() != null) {
-			if(com.hyparot.hr_software.src.employee.Employee.loginUser(TFUsername.getText().toString(), PFPassword.getText().toString())) {
-					changeSceneAfterLogin(BusinessIntellegent.getEmployeeByName(TFUsername.getText().toString()));
+			BIConnect bic = new BIConnect();
+			if(bic.loginUser(TFUsername.getText().toString(), PFPassword.getText().toString())) {
+					changeSceneAfterLogin(bic.getEmployeeByName(TFUsername.getText().toString()));
 //			}
 //			if (TFUsername.getText().toString().equals("u") && PFPassword.getText().toString().equals("p")) {
 			}else {

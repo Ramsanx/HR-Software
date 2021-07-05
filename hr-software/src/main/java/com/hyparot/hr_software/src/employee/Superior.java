@@ -6,15 +6,15 @@ import com.hyparot.hr_software.src.sst.superior;
 
 public class Superior extends Employee implements superior{
 
-	public Superior(String Benutzername, String Passwort, String Vorname, String Nachname, 
-			           String StellenBezeichnung, String Telefonnummer, int SollArbeitszeit, int Personalnummer, 
-			           Date GeburtsTag, Date EinstellungsDatum,
-			           Adress Adresse) {
+	public Superior(String username, String password, String firstname, String lastname, 
+			           String jobTitle, String phonenumber, int workingTime_contract, int persNr, 
+			           Date birthday, Date startDate,
+			           Adress adress) {
 		
-		super(Benutzername, Passwort, Vorname, Nachname, StellenBezeichnung,
-				Telefonnummer, SollArbeitszeit, Personalnummer,
-				GeburtsTag, EinstellungsDatum,
-				Adresse);
+		super(username, password, firstname, lastname, jobTitle,
+				phonenumber, workingTime_contract, persNr,
+				birthday, startDate,
+				adress);
 	}
 
 	@Override

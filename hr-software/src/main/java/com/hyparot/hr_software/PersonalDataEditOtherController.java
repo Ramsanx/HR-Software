@@ -243,7 +243,7 @@ public class PersonalDataEditOtherController {
 		}
 
 
-		userEdit.editEmployee(firstNameNew, lastNameNew, user.getEMail(), telefonnummerNew, birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
+		userEdit.setPersonaldata(firstNameNew, lastNameNew, user.getEMail(), telefonnummerNew, birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
 		SystemDBConnector.loadLocalDataToDB();
 
 		changeSceneVerwerfen(user, userEdit);

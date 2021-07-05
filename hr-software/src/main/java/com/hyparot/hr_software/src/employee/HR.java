@@ -21,8 +21,8 @@ public class HR extends Employee implements hr {
 
 	@Override
 	public void getPayroll(int persNr) {
-		// TODO Auto-generated method stub
-		
+		BIConnect bic = new BIConnect();
+		bic.getPayroll(persNr);
 	}
 
 	@Override
@@ -30,23 +30,25 @@ public class HR extends Employee implements hr {
 							   String jobTitle, String phoneNumber, int workingTime_contract, 
 							   Date birthday, Date startDate,
 							   Adress adress) {
-		// TODO Auto-generated method stub
-		BusinessIntellegent.createEmployee(group, username, password, firstname, lastname, jobTitle,
-										   phoneNumber, workingTime_contract, 
-										   birthday, startDate,
-										   adress);
 		
+		BIConnect bic = new BIConnect();
+		bic.setNewEmployee(group, username, password, firstname, lastname,
+					       jobTitle, phoneNumber, workingTime_contract, 
+						   birthday, startDate,
+						   adress);	
 	}
 
 	@Override
 	public boolean deleteEmployee(int persNr) {
-		// TODO Auto-generated method stub
-		return BusinessIntellegent.deleteEmloyee(persNr);
+		
+		BIConnect bic = new BIConnect();
+		return bic.deleteEmployee(persNr);
 	}
 
 	@Override
-	public com.hyparot.hr_software.src.employee.Employee getPersonalData(int persNr) {
-		// TODO Auto-generated method stub
-		return BusinessIntellegent.getEmployeeByID(persNr);
+	public Employee getPersonalData(int persNr) {
+		
+		BIConnect bic = new BIConnect();
+		return bic.getPersonalData(persNr);
 	}
 }

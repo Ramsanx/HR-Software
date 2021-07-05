@@ -3,8 +3,8 @@ package com.hyparot.hr_software.src.employee;
 import com.hyparot.hr_software.src.backend.*;
 import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;
+import com.hyparot.hr_software.src.employeedata.Contract;
 import com.hyparot.hr_software.src.employeedata.Date;
-//import com.hyparot.hr_software.src.sst.BI;
 import com.hyparot.hr_software.src.sst.employee;
 
 
@@ -18,8 +18,7 @@ public class Employee extends Person implements employee{
 
 	public static void main(String[] args) {
 		
-		SystemDBConnector.loadDBDataToLocal();
-		System.out.println(BusinessIntellegent.getEmployeeByName("nwulsch"));
+		
 	}
 	
 	
@@ -60,44 +59,14 @@ public class Employee extends Person implements employee{
 	//_________________________________________________________________________________________________________________________________
 
 
-	public static boolean loginUser(String username, String password) {
-		// TODO Auto-generated method stub
-		Employee user = BusinessIntellegent.getEmployeeByName(username);
-		if(user != null) {
-			if(password.equals(user.getPassword())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-
-	@Override
-	public void editEmployee(String firstname, 
-							 String lastname, 
-							 String eMail,
-							 String phoneNumber,
-							 Date birthday, 
-							 String land, 
-							 String city, 
-							 int postcode, 
-							 String street, 
-							 int houseNr, 
-							 String housenumberSupplement) {
-		// TODO Auto-generated method stub
-		
-		BusinessIntellegent.editEmployee(this.getPersNr(), firstname, lastname, eMail, phoneNumber, birthday, 
-										 land, city, postcode, street, houseNr, housenumberSupplement);
-		
-	}
-
+	
 
 	@Override
 	public boolean applyForVacation(Date firstDayOfVac, Date lastDayOfVac) {
 		// TODO Auto-generated method stub
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
-		bi.applyForVacation(firstDayOfVac, lastDayOfVac);
+		BIConnect bic = new BIConnect();
+		bic.applyForVacation(firstDayOfVac, lastDayOfVac);
 		return false;
 	}
 
@@ -106,8 +75,8 @@ public class Employee extends Person implements employee{
 	public boolean cancelVacation(Absence vacation) {
 		// TODO Auto-generated method stub
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
-		bi.cancelVacation(vacation);
+		BIConnect bic = new BIConnect();
+		bic.cancelVacation(vacation);
 		
 		return false;
 	}
@@ -115,63 +84,64 @@ public class Employee extends Person implements employee{
 
 	@Override
 	public void getVacationOverview() {
-		// TODO Auto-generated method stub
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
+		BIConnect bic = new BIConnect(this.getPersNr());
+		bic.getVacationOverview();
 		
 	}
 
 
 	@Override
-	public void setSick(int dauer) {
-		// TODO Auto-generated method stub
+	public void setSick(int duration) {
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
+		BIConnect bic = new BIConnect(this.getPersNr());
+		bic.setSick(duration);
 		
 	}
 
 
 	@Override
 	public void setWorkTime() {
-		// TODO Auto-generated method stub
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
-		
-	}
-
-
-	@Override
-	public void setPersonalDate() {
-		// TODO Auto-generated method stub
-		
-		BusinessIntellegent bi = new BusinessIntellegent();
+		BIConnect bic = new BIConnect(this.getPersNr());
+		bic.setWorkTime();
 		
 	}
 
 
 	@Override
-	public com.hyparot.hr_software.src.employeedata.Contract getContract() {
-		// TODO Auto-generated method stub
+	public void setPersonaldata(String firstname, String lastname, String eMail, String phoneNumber, Date birthday,
+							    String country, String city, int postcode, String street, int houseNr, String housenumberSupplement) {
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
-		return null;
+		BIConnect bic = new BIConnect(this.getPersNr());
+		bic.setPersonaldata(firstname, lastname, eMail, phoneNumber, birthday, 
+					        country, city, postcode, street, houseNr, housenumberSupplement);
+	}
+
+
+	@Override
+	public Contract getContract() {
+		
+		BIConnect bic = new BIConnect(this.getPersNr());
+		return bic.getContract();
 	}
 
 
 	@Override
 	public void getPhoneBook() {
-		// TODO Auto-generated method stub
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
+		BIConnect bic = new BIConnect();
+		bic.getPhoneBook();
 		
 	}
 
 
 	@Override
-	public void getPayrol() {
+	public void getPayroll() {
 		// TODO Auto-generated method stub
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
+		BIConnect bic = new BIConnect(this.getPersNr());
+		bic.getPayroll();;
 		
 	}
 
@@ -180,7 +150,8 @@ public class Employee extends Person implements employee{
 	public void sendMailinfo() {
 		// TODO Auto-generated method stub
 		
-		BusinessIntellegent bi = new BusinessIntellegent();
+		BIConnect bic = new BIConnect(this.getPersNr());
+		bic.sendMailinfo();
 		
 	}
 
@@ -192,4 +163,7 @@ public class Employee extends Person implements employee{
 				"\nTelefonnummer: " + this.getPhoneNumber() +
 				"\nStellenbeschreibung: " + this.getJobTitle());
 	}
+
+
+	
 }

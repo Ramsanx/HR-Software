@@ -10,7 +10,7 @@ public interface hr {
 	
 	public void setNewEmployee(String group, String username, String password, String firstname, String lastname, 
 							   String jobTitle, String phoneNumber, int workingTime_contract, 
-							   Date birthday, Date startDay,
+							   Date birthday, Date startDate,
 							   Adress adress);
 	
 	public boolean deleteEmployee(int persNr);

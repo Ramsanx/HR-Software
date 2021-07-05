@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.hyparot.hr_software.src.backend.BusinessIntellegent;
+import com.hyparot.hr_software.src.backend.BIConnect;
 import com.hyparot.hr_software.src.employee.Employee;
 
 import javafx.collections.FXCollections;
@@ -95,8 +95,9 @@ public class FRController {
 	@FXML
 	void editOtherEmployee(ActionEvent event) throws IOException {
 		try {
-			if (BusinessIntellegent.getEmployeeByID(Integer.parseInt(TFPersnr.getText().toString())) != null) {
-				Employee userEdit = BusinessIntellegent.getEmployeeByID(Integer.parseInt(TFPersnr.getText().toString()));
+			BIConnect bic = new BIConnect();
+			if (bic.getEmployeeByID(Integer.parseInt(TFPersnr.getText().toString())) != null) {
+				Employee userEdit = bic.getEmployeeByID(Integer.parseInt(TFPersnr.getText().toString()));
 				changeScenePersonalDataOther(user, userEdit);
 			} else {
 				TFPersnr.setText("Falsche Persnummer!");
