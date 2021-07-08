@@ -1,5 +1,8 @@
 package com.hyparot.hr_software.src.backend;
 
+import java.util.Hashtable;
+import java.util.Iterator;
+
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;
@@ -22,11 +25,11 @@ public class BIConnect implements employee, hr, superior{
 	}
 	
 	public Employee getEmployeeByName(String username) {
-		return BusinessIntellegent.getEmployeeByName(username);
+		return BusinessIntelligence.getEmployeeByName(username);
 	}
 	
 	public Employee getEmployeeByID(int persNr) {
-		return BusinessIntellegent.getEmployeeByID(persNr);
+		return BusinessIntelligence.getEmployeeByID(persNr);
 	}
 	
 	
@@ -47,25 +50,29 @@ public class BIConnect implements employee, hr, superior{
 			String jobTitle, String phoneNumber, int workingTime_contract, Date birthday, Date startDate,
 			Adress adress){
 		
-		BusinessIntellegent.createEmployee(group, username, password, firstname, lastname,
+		BusinessIntelligence.createEmployee(group, username, password, firstname, lastname,
 										   jobTitle, phoneNumber, workingTime_contract, birthday, startDate,
 										   adress);
 	}
 
 	@Override
 	public boolean deleteEmployee(int persNr) {
-		return BusinessIntellegent.deleteEmloyee(persNr);
+		return BusinessIntelligence.deleteEmloyee(persNr);
 	}
 
 	@Override
 	public Employee getPersonalData(int persNr) {
-		return BusinessIntellegent.getEmployeeByID(persNr);
+		return BusinessIntelligence.getEmployeeByID(persNr);
 	}
 
 
 	@Override
 	public boolean applyForVacation(Date firstDayOfVac, Date lastDayOfVac) {
-		// TODO Auto-generated method stub
+		Employee employ = this.getEmployeeByID(operatingUserID);
+		if(employ.newAbsence(firstDayOfVac, lastDayOfVac, false)) {
+			BusinessIntelligence.saveAbsence(employ.getAbsence(firstDayOfVac, lastDayOfVac));
+			return true;
+		}
 		return false;
 	}
 
@@ -76,9 +83,14 @@ public class BIConnect implements employee, hr, superior{
 	}
 
 	@Override
-	public void getVacationOverview() {
+	public Hashtable<Absence, String> getVacationOverview() {
 		// TODO Auto-generated method stub
 		
+		Hashtable<Absence, String> absence = BusinessIntelligence.getAbsenceOf(this.getEmployeeByID(operatingUserID));
+		
+		//TODO
+		
+		return absence;
 	}
 
 	@Override
@@ -123,14 +135,14 @@ public class BIConnect implements employee, hr, superior{
 	public void setPersonaldata(String firstname, String lastname, String eMail, String phoneNumber, Date birthday,
 								String country, String city, int postcode, String street, int houseNr, String housenumberSupplement) {
 		
-		BusinessIntellegent.editEmployee(operatingUserID, firstname, lastname, eMail, phoneNumber, birthday,
+		BusinessIntelligence.editEmployee(operatingUserID, firstname, lastname, eMail, phoneNumber, birthday,
 			     country, city, postcode, street, houseNr, housenumberSupplement);
 	}
 	
 	
 	public boolean loginUser(String username, String password) {
 		
-		Employee user = BusinessIntellegent.getEmployeeByName(username);
+		Employee user = BusinessIntelligence.getEmployeeByName(username);
 		if(user != null) {
 			if(password.equals(user.getPassword())) {
 				return true;

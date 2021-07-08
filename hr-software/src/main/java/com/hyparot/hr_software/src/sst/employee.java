@@ -1,5 +1,7 @@
 package com.hyparot.hr_software.src.sst;
 
+import java.util.Hashtable;
+
 import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Contract;
 import com.hyparot.hr_software.src.employeedata.Date;
@@ -18,7 +20,7 @@ public interface employee {
 	
 	public boolean cancelVacation(Absence vacation);
 	
-	public void getVacationOverview();
+	public Hashtable<Absence, String> getVacationOverview();
 	
 	public void setSick(int duration);
 	

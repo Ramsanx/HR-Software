@@ -12,6 +12,7 @@ public class LocalStorage {
 	private static Vector<Employee> employees = new Vector<Employee>();
 	private static Hashtable<Integer, String> changes = new Hashtable<Integer, String>();
 	
+	
 	protected static boolean addToEmployees(Employee employee) {
 		return employees.add(employee);
 	}

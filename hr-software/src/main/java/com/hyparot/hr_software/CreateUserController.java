@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
-import com.hyparot.hr_software.src.backend.BusinessIntellegent;
+import com.hyparot.hr_software.src.backend.BusinessIntelligence;
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employee.HR;

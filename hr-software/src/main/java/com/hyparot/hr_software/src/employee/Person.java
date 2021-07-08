@@ -5,9 +5,10 @@ import com.hyparot.hr_software.src.employeedata.Contract;
 import com.hyparot.hr_software.src.employeedata.Date;
 import com.hyparot.hr_software.src.employeedata.Absence;
 import java.util.Hashtable;
+import java.util.Iterator;
 
 
-abstract class Person {
+public abstract class Person {
 	
 
 	
@@ -248,11 +249,18 @@ abstract class Person {
 	
 
 	private boolean addAbsence(Absence absence) {
-		if(this.absence.containsKey(absence)) {
-			return false;
+		boolean applicable = true;
+		Iterator<Absence> it = this.absence.keys().asIterator();
+		while(it.hasNext()) {
+			if(absence.isOverlapping(it.next())) {
+				applicable = false;
+				break;
+			}
 		}
-		this.absence.put(absence, "nicht genehmigt");
-		return true;
+		if(applicable) {
+			this.absence.put(absence, "nicht genehmigt");
+		}
+		return applicable;
 	}
 	
 
@@ -271,9 +279,16 @@ abstract class Person {
 	}
 	
 	
-//	protected Absence getAbsence() {
-//		
-//	}
+	public Absence getAbsence(Date begin, Date end) {
+		Iterator<Absence> it = this.absence.keys().asIterator();
+		while(it.hasNext()) {
+			Absence abs = it.next();
+			if(abs.getBegin() == begin && abs.getEnd() == end) {
+				return abs;
+			}
+		}
+		return null;
+	}
 	//getter und setter Block ende
 	//_________________________________________________________________________________________________________________________________
 

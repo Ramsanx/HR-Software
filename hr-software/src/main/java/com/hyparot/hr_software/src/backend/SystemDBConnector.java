@@ -9,6 +9,7 @@ import com.hyparot.hr_software.src.db.db_connect;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employee.HR;
 import com.hyparot.hr_software.src.employee.Superior;
+import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Date;
 
@@ -88,7 +89,7 @@ public class SystemDBConnector {
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}
@@ -99,7 +100,7 @@ public class SystemDBConnector {
 		Iterator<Integer> toStore = changes.keys().asIterator();
 		while(toStore.hasNext()) {
 			int persNr = toStore.next();
-			Employee employee = BusinessIntellegent.getEmployeeByID(persNr);
+			Employee employee = BusinessIntelligence.getEmployeeByID(persNr);
 
 			if(changes.get(persNr).equals("created")) {
 				db_connect.create_user(employee.getPersNr(),
@@ -154,5 +155,31 @@ public class SystemDBConnector {
 			}
 		}
 		return true;
+	}
+	
+	protected static Hashtable<Absence, String> getAbsenceOf(Employee User) {
+		Hashtable<Absence, String> abs = new Hashtable<Absence, String>();
+		ResultSet rs = db_connect.read_table("t_urlaub_krankheit");
+		
+		//TODO
+		//rs auslesen und alle Abwesenheiten des User zum Hashtable hinzufügen
+		
+//		while(true) { //statt true hasNext oder sonst etwas für alles Abwesenheiten
+//			Absence absence = ;
+//			String acceptance;
+//			if(absence.isAccepted()) {
+//				acceptance = "genehmight";
+//			}else {
+//				acceptance = "nicht genehmigt";
+//			}
+//			abs.put(absence, acceptance);
+//			break;
+//		}
+//		
+		return abs;
+	}
+	
+	protected static void saveAbsence(Absence abs) {
+		db_connect.new_vacation_sick(abs.getPersNr(), abs.getBegin().toString(), abs.getEnd().toString(), abs.isSick(), abs.isAccepted());
 	}
 }

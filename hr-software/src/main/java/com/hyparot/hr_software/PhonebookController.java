@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-import com.hyparot.hr_software.src.backend.BusinessIntellegent;
+import com.hyparot.hr_software.src.backend.BusinessIntelligence;
 import com.hyparot.hr_software.src.backend.LocalStorage;
 import com.hyparot.hr_software.src.employee.Employee;
 

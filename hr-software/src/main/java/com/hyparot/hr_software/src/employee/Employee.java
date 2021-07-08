@@ -1,5 +1,7 @@
 package com.hyparot.hr_software.src.employee;
 
+import java.util.Hashtable;
+
 import com.hyparot.hr_software.src.backend.*;
 import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;
@@ -65,9 +67,9 @@ public class Employee extends Person implements employee{
 	public boolean applyForVacation(Date firstDayOfVac, Date lastDayOfVac) {
 		// TODO Auto-generated method stub
 		
-		BIConnect bic = new BIConnect();
-		bic.applyForVacation(firstDayOfVac, lastDayOfVac);
-		return false;
+		BIConnect bic = new BIConnect(this.getPersNr());
+		return bic.applyForVacation(firstDayOfVac, lastDayOfVac);
+		
 	}
 
 
@@ -83,11 +85,10 @@ public class Employee extends Person implements employee{
 
 
 	@Override
-	public void getVacationOverview() {
+	public Hashtable<Absence, String> getVacationOverview() {
 		
 		BIConnect bic = new BIConnect(this.getPersNr());
-		bic.getVacationOverview();
-		
+		return bic.getVacationOverview();
 	}
 
 

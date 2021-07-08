@@ -122,4 +122,15 @@ public class Date {
 
 		return days;
 	}
+	
+	public int compare(Date date) {
+		if(this.year == date.year && this.month == date.month && this.day == date.day) {
+			return 0;
+		}
+		if(this.isGreater(date)) {
+			return 1;
+		}else {
+			return -1;
+		}
+	}
 }

@@ -1,11 +1,12 @@
 package com.hyparot.hr_software.src.backend;
 
 import com.hyparot.hr_software.src.employee.*;
+import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Date;
 import java.util.*;
 
-public class BusinessIntellegent {
+public class BusinessIntelligence {
 
 	
 	protected static Employee getEmployeeByName(String username) {
@@ -130,4 +131,11 @@ public class BusinessIntellegent {
 		}
 	}
 
+	protected static Hashtable<Absence, String> getAbsenceOf(Employee User){
+		return SystemDBConnector.getAbsenceOf(User);
+	}
+	
+	protected static void saveAbsence(Absence abs) {
+		SystemDBConnector.saveAbsence(abs);
+	}
 }

@@ -1,5 +1,8 @@
 package com.hyparot.hr_software.src.employeedata;
 
+import com.hyparot.hr_software.src.backend.BIConnect;
+import com.hyparot.hr_software.src.employee.Employee;
+
 public class Absence {
 	//Klasse für die Objekte der Abwesenheit (Urlaub und Krankheit)
 	
@@ -62,5 +65,13 @@ public class Absence {
 
 	public void setAccepted(boolean isAccepted) {
 		this.isAccepted = isAccepted;
+	}
+	
+	public boolean isOverlapping(Absence abs) {
+		if(this.getBegin().compare(abs.getEnd()) == 1 || this.getEnd().compare(abs.getBegin()) == -1) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 }
