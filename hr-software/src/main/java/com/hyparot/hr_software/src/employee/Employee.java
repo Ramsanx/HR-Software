@@ -120,6 +120,7 @@ public class Employee extends Person implements employee{
 	}
 
 
+	//Könnte prinzipiell gelöscht werden, da die Funktion in der Software alternativ umgesetzt ist
 	@Override
 	public Contract getContract() {
 		

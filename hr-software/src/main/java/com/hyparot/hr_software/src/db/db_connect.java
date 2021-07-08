@@ -86,6 +86,7 @@ public class db_connect {
 			System.out.println(e.getMessage());
 		}
 	}
+	
 	public static String read_str_value(String table, String value, int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
@@ -168,6 +169,28 @@ public class db_connect {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return -1;
+		}
+	}
+	
+	public static void deleteAbsence(int absenceID) {
+		try {
+			Connection con = DriverManager.getConnection(db_url, user, pass);
+			Statement stm_loeschen = con.createStatement();
+			stm_loeschen.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE UK_ID = "+absenceID+"");
+
+		} catch (SQLException e) {
+		}
+	}
+	
+	//TODO
+	//prüfen ob das funktioniert
+	public static void acceptVacation(int absenceID) {
+		try {
+			Connection con = DriverManager.getConnection(db_url, user, pass);
+			Statement stm_update = con.createStatement();
+			stm_update.executeUpdate("UPDATE t_urlaub_krankheit SET is_akzeptiert 1 WHERE UK_ID = "+absenceID+"");
+
+		} catch (SQLException e) {
 		}
 	}
 

@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.Iterator;
-
 import com.hyparot.hr_software.src.db.db_connect;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employee.HR;
@@ -98,6 +97,7 @@ public class SystemDBConnector {
 	public static boolean loadLocalDataToDB() {
 		Hashtable<Integer, String> changes = LocalStorage.getChangeTable();
 		Iterator<Integer> toStore = changes.keys().asIterator();
+		boolean answered = false;
 		while(toStore.hasNext()) {
 			int persNr = toStore.next();
 			Employee employee = BusinessIntelligence.getEmployeeByID(persNr);
@@ -153,33 +153,57 @@ public class SystemDBConnector {
 				db_connect.delete_user(persNr);
 				LocalStorage.removeFromChanges(persNr);
 			}
+			answered = true;
 		}
-		return true;
+		return answered;
 	}
 	
+	//TODO
+	//Spaltennamen an die der Datenbank anpassen
 	protected static Hashtable<Absence, String> getAbsenceOf(Employee User) {
-		Hashtable<Absence, String> abs = new Hashtable<Absence, String>();
-		ResultSet rs = db_connect.read_table("t_urlaub_krankheit");
+		try {
+			Hashtable<Absence, String> abs = new Hashtable<Absence, String>();
+			ResultSet rs = db_connect.read_table("t_urlaub_krankheit");
 		
-		//TODO
-		//rs auslesen und alle Abwesenheiten des User zum Hashtable hinzufügen
+			int id = User.getPersNr();
+			Absence absence;
+			String acceptance;
 		
-//		while(true) { //statt true hasNext oder sonst etwas für alles Abwesenheiten
-//			Absence absence = ;
-//			String acceptance;
-//			if(absence.isAccepted()) {
-//				acceptance = "genehmight";
-//			}else {
-//				acceptance = "nicht genehmigt";
-//			}
-//			abs.put(absence, acceptance);
-//			break;
-//		}
-//		
-		return abs;
+			while(rs.next()) { 
+				rs.moveToCurrentRow();
+				if(rs.getInt("persNr") == id) {
+					absence = new Absence(id, new Date(rs.getString("Anfang")), new Date(rs.getString("Ende")), rs.getBoolean("Krank"));
+					if(absence.isAccepted()) {
+						acceptance = "genehmigt";
+					}else {
+						acceptance = "nicht genehmigt";
+					}
+					abs.put(absence, acceptance);
+				}
+			}
+			return abs;
+		}
+		catch(Exception e) {
+			return null;
+		}
+		
 	}
 	
 	protected static void saveAbsence(Absence abs) {
 		db_connect.new_vacation_sick(abs.getPersNr(), abs.getBegin().toString(), abs.getEnd().toString(), abs.isSick(), abs.isAccepted());
 	}
+	
+	protected static boolean cancelVacation(Employee employ, Absence vacation) {
+		Hashtable<Absence, String> abs = getAbsenceOf(employ);
+		if(abs.containsKey(vacation)) {
+			db_connect.deleteAbsence(vacation.getAbsenceID());
+			return true;
+		}
+		return false;
+	}
+	
+	protected static void acceptVacation(Absence vacation) {
+		db_connect.acceptVacation(vacation.getAbsenceID());
+	}
+
 }

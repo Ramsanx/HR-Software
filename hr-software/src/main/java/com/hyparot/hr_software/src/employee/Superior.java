@@ -1,5 +1,7 @@
 package com.hyparot.hr_software.src.employee;
 
+import com.hyparot.hr_software.src.backend.BIConnect;
+import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Date;
 import com.hyparot.hr_software.src.sst.superior;
@@ -18,11 +20,9 @@ public class Superior extends Employee implements superior{
 	}
 
 	@Override
-	public boolean acceptVacation(String doYouAccept) {
-		// TODO Auto-generated method stub
-		if(doYouAccept.equals("Ja")) {
-			return true;
-		}
-		return false;
+	public boolean acceptVacation(Absence vacation) {
+		
+		BIConnect bic = new BIConnect();
+		return bic.acceptVacation(vacation);
 	}
 }

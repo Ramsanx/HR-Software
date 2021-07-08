@@ -1,12 +1,11 @@
 package com.hyparot.hr_software.src.employeedata;
 
-import com.hyparot.hr_software.src.backend.BIConnect;
-import com.hyparot.hr_software.src.employee.Employee;
 
 public class Absence {
 	//Klasse für die Objekte der Abwesenheit (Urlaub und Krankheit)
 	
 	private int persNr;
+	private int absenceID;
 	private Date begin;
 	private Date end;
 	private boolean isSick;
@@ -41,6 +40,14 @@ public class Absence {
 
 	public void setPersNr(int persNr) {
 		this.persNr = persNr;
+	}
+
+	public int getAbsenceID() {
+		return absenceID;
+	}
+
+	public void setAbsenceID(int absenceID) {
+		this.absenceID = absenceID;
 	}
 
 	public boolean isSick() {

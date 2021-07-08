@@ -138,4 +138,22 @@ public class BusinessIntelligence {
 	protected static void saveAbsence(Absence abs) {
 		SystemDBConnector.saveAbsence(abs);
 	}
+	
+	protected static Vector<Employee> getPhonebook(){
+		return LocalStorage.getStorage();
+	}
+	
+	protected static boolean cancelVacation(Absence vacation){
+		Employee user = getEmployeeByID(vacation.getPersNr());
+		return SystemDBConnector.cancelVacation(user, vacation);
+	}
+	
+	protected static boolean acceptVacation(Absence vacation) {
+		if(getAbsenceOf(getEmployeeByID(vacation.getPersNr())).containsKey(vacation)) {
+			SystemDBConnector.acceptVacation(vacation);
+			return true;
+		}
+		return false;
+	}
+
 }

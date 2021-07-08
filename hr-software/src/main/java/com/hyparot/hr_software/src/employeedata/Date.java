@@ -1,5 +1,6 @@
 package com.hyparot.hr_software.src.employeedata;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -9,7 +10,9 @@ public class Date {
 	private int month;
 	private int day;
 	
-	
+	public static void main (String[] args) {
+		System.out.println(LocalDateTime.now().plusDays(6));
+	}
 	public Date(int year, int month, int day) {
 		this.setYear(year);
 		this.setMonth(month);
@@ -45,6 +48,13 @@ public class Date {
 		this.day = day;
 	}
 	
+	public static Date getToday() {
+		return new Date(LocalDateTime.now().toString().substring(0, 10));
+	}
+	
+	public static Date getFutureDate(long daysFromNow) {
+		return new Date(LocalDateTime.now().plusDays(daysFromNow).toString().substring(0, 10));
+	}
 	
 	public Date(String date) {
 		try{
