@@ -9,7 +9,7 @@ public class Absence {
 	private Date begin;
 	private Date end;
 	private boolean isSick;
-	private boolean isAccepted;
+	private boolean isAccepted = false;
 	
 	public Absence(int persNr, Date begin, Date end, boolean isSick) {
 		this.setPersNr(persNr);

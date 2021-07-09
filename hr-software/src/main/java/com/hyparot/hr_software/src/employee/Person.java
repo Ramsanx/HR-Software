@@ -3,9 +3,6 @@ package com.hyparot.hr_software.src.employee;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Contract;
 import com.hyparot.hr_software.src.employeedata.Date;
-import com.hyparot.hr_software.src.employeedata.Absence;
-import java.util.Hashtable;
-import java.util.Iterator;
 
 
 public abstract class Person {
@@ -35,8 +32,7 @@ public abstract class Person {
 	private Adress adress; 
 	
 	private Contract contract;
-	
-	private Hashtable<Absence, String> absence= new Hashtable<Absence, String>();
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -45,9 +41,10 @@ public abstract class Person {
 	
 	
 	public Person(String firstname, String lastname, String jobTitle,
-					   String phoneNumber, int persNr, int workingTime_contract,  
-					   Date birthday, Date startDate,
-					   Adress adress) {
+				  String phoneNumber, int persNr, int workingTime_contract,  
+				  Date birthday, Date startDate,
+				  Adress adress) {
+		
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
 		this.setEMail(firstname.substring(0, 1).toLowerCase() + "." + lastname.toLowerCase() + "@unsere-firma.de");
@@ -247,48 +244,6 @@ public abstract class Person {
 		this.contract = contract;
 	}
 	
-
-	private boolean addAbsence(Absence absence) {
-		boolean applicable = true;
-		Iterator<Absence> it = this.absence.keys().asIterator();
-		while(it.hasNext()) {
-			if(absence.isOverlapping(it.next())) {
-				applicable = false;
-				break;
-			}
-		}
-		if(applicable) {
-			this.absence.put(absence, "nicht genehmigt");
-		}
-		return applicable;
-	}
-	
-
-	protected Hashtable<Absence, String> getAbsencesa(){
-		return this.absence;
-	}
-	
-
-	public boolean newAbsence(Date begin, Date end, boolean isSick) {
-		return addAbsence(new Absence(this.persNr, begin, end, isSick));
-	}
-	
-	
-	public void cancelAbsence(Absence absence) {
-		this.absence.remove(absence);
-	}
-	
-	
-	public Absence getAbsence(Date begin, Date end) {
-		Iterator<Absence> it = this.absence.keys().asIterator();
-		while(it.hasNext()) {
-			Absence abs = it.next();
-			if(abs.getBegin() == begin && abs.getEnd() == end) {
-				return abs;
-			}
-		}
-		return null;
-	}
 	//getter und setter Block ende
 	//_________________________________________________________________________________________________________________________________
 

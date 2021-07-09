@@ -147,7 +147,6 @@ public class db_connect {
 			Statement stm_tabelle_auslesen = con.createStatement();
 		
 			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+table+";");
-			
 			return rs_tabelle;
 			
 		}catch(SQLException e) {
@@ -172,25 +171,30 @@ public class db_connect {
 		}
 	}
 	
-	public static void deleteAbsence(int absenceID) {
+	public static boolean deleteAbsence(int absenceID) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
-			Statement stm_loeschen = con.createStatement();
-			stm_loeschen.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE UK_ID = "+absenceID+"");
+			Statement stm_delete = con.createStatement();
+			stm_delete.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE UK_ID = "+absenceID+"");
+			return true;
 
 		} catch (SQLException e) {
+			return false;
 		}
 	}
 	
-	//TODO
-	//prüfen ob das funktioniert
-	public static void acceptVacation(int absenceID) {
+
+	public static boolean acceptVacation(int absenceID) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_update = con.createStatement();
-			stm_update.executeUpdate("UPDATE t_urlaub_krankheit SET is_akzeptiert 1 WHERE UK_ID = "+absenceID+"");
-
+			stm_update.executeUpdate("UPDATE t_urlaub_krankheit SET genemigt = 1 WHERE UK_ID = "+absenceID+"");
+			System.out.println("ja");
+			return true;
+			
 		} catch (SQLException e) {
+			System.out.println("nein");
+			return false;
 		}
 	}
 

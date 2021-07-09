@@ -65,7 +65,6 @@ public class Employee extends Person implements employee{
 
 	@Override
 	public boolean applyForVacation(Date firstDayOfVac, Date lastDayOfVac) {
-		// TODO Auto-generated method stub
 		
 		BIConnect bic = new BIConnect(this.getPersNr());
 		return bic.applyForVacation(firstDayOfVac, lastDayOfVac);
@@ -75,12 +74,10 @@ public class Employee extends Person implements employee{
 
 	@Override
 	public boolean cancelVacation(Absence vacation) {
-		// TODO Auto-generated method stub
 		
-		BIConnect bic = new BIConnect();
-		bic.cancelVacation(vacation);
-		
-		return false;
+		BIConnect bic = new BIConnect(this.getPersNr());
+		return bic.cancelVacation(vacation);
+	
 	}
 
 
@@ -137,7 +134,8 @@ public class Employee extends Person implements employee{
 		
 	}
 
-
+//TODO
+	//sollte das gemacht werden wird noch eine Variable salary benötigt
 	@Override
 	public void getPayroll() {
 		// TODO Auto-generated method stub
@@ -147,7 +145,7 @@ public class Employee extends Person implements employee{
 		
 	}
 
-
+//TODO
 	@Override
 	public void sendMailinfo() {
 		// TODO Auto-generated method stub
@@ -163,7 +161,8 @@ public class Employee extends Person implements employee{
 				"\nNachname: " + this.getLastname() +
 				"\nE-Mail-Adresse: " + this.getEMail() +
 				"\nTelefonnummer: " + this.getPhoneNumber() +
-				"\nStellenbeschreibung: " + this.getJobTitle());
+				"\nStellenbeschreibung: " + this.getJobTitle() +
+				"\nGruppe: " + this.getClass().getSimpleName());
 	}
 
 

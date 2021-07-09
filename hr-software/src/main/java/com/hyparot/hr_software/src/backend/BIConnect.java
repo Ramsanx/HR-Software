@@ -86,9 +86,7 @@ public class BIConnect implements employee, hr, superior{
 	//_____________________________________________________________________________________________________________________________________
 	@Override
 	public boolean applyForVacation(Date firstDayOfVac, Date lastDayOfVac) {
-		Employee employ = this.getEmployeeByID(operatingUserID);
-		if(employ.newAbsence(firstDayOfVac, lastDayOfVac, false)) {
-			BusinessIntelligence.saveAbsence(employ.getAbsence(firstDayOfVac, lastDayOfVac));
+		if(BusinessIntelligence.newAbsence(operatingUserID, firstDayOfVac, lastDayOfVac, false)) {
 			return true;
 		}
 		return false;
@@ -96,18 +94,15 @@ public class BIConnect implements employee, hr, superior{
 
 	@Override
 	public boolean cancelVacation(Absence vacation) {
-		// TODO Auto-generated method stub
 		
 		return BusinessIntelligence.cancelVacation(vacation);
 	}
 
 	@Override
 	public Hashtable<Absence, String> getVacationOverview() {
-		// TODO Auto-generated method stub
 		
-		Hashtable<Absence, String> absence = BusinessIntelligence.getAbsenceOf(this.getEmployeeByID(operatingUserID));
-		
-		//TODO
+		Employee user = this.getEmployeeByID(operatingUserID);
+		Hashtable<Absence, String> absence = BusinessIntelligence.getVacationOverview(user);
 		
 		return absence;
 	}
@@ -115,11 +110,8 @@ public class BIConnect implements employee, hr, superior{
 	@Override
 	public void setSick(int duration) {
 		
-		Employee employ = this.getEmployeeByID(this.operatingUserID);
-		if(employ.newAbsence(Date.getToday(), Date.getFutureDate(duration), true)) {
-			BusinessIntelligence.saveAbsence(employ.getAbsence(Date.getToday(), Date.getFutureDate(duration)));
-		}
-		
+		BusinessIntelligence.newAbsence(operatingUserID, Date.getToday(), Date.getFutureDate(duration), true);
+
 	}
 
 	@Override
@@ -148,6 +140,8 @@ public class BIConnect implements employee, hr, superior{
 		}
 	}
 
+	//TODO
+	//Variable salary benötigt
 	@Override
 	public void getPayroll() {
 		// TODO Auto-generated method stub

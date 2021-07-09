@@ -39,7 +39,7 @@ public class BusinessIntelligence {
 			return 1000;
 		}
 		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
-		int persNr = employee.next().getPersNr(); //wirft eine Exception
+		int persNr = employee.next().getPersNr(); 
 		while(employee.hasNext()) {
 			Employee user = employee.next();
 			if(user.getPersNr() > persNr) {
@@ -131,8 +131,26 @@ public class BusinessIntelligence {
 		}
 	}
 
-	protected static Hashtable<Absence, String> getAbsenceOf(Employee User){
-		return SystemDBConnector.getAbsenceOf(User);
+	protected static Hashtable<Absence, String> getAbsenceOf(Employee employ){
+		return SystemDBConnector.getAbsenceOf(employ);
+	}
+	
+	protected static Hashtable<Absence, String> getVacationOverview(Employee employ){
+		Hashtable<Absence, String> vac = new Hashtable<Absence, String>();
+		Iterator<Absence> it = getAbsenceOf(employ).keys().asIterator();
+		while(it.hasNext()) {
+			Absence abs = it.next();
+			if(!abs.isSick()) {
+				String acceptance;
+				if(abs.isAccepted()) {
+					acceptance = "genehmigt";
+				}else {
+					acceptance = "nicht genehmigt";
+				}
+				vac.put(abs, acceptance);
+			}
+		}
+		return vac;
 	}
 	
 	protected static void saveAbsence(Absence abs) {
@@ -144,16 +162,44 @@ public class BusinessIntelligence {
 	}
 	
 	protected static boolean cancelVacation(Absence vacation){
-		Employee user = getEmployeeByID(vacation.getPersNr());
-		return SystemDBConnector.cancelVacation(user, vacation);
+		return SystemDBConnector.cancelVacation(vacation);
 	}
 	
 	protected static boolean acceptVacation(Absence vacation) {
-		if(getAbsenceOf(getEmployeeByID(vacation.getPersNr())).containsKey(vacation)) {
-			SystemDBConnector.acceptVacation(vacation);
-			return true;
+		return SystemDBConnector.acceptVacation(vacation);
+		
+	}
+	
+	
+	private static boolean addAbsence(Absence absence) {
+		if(!absence.isSick()) {
+			Iterator<Absence> it = getAbsenceOf(getEmployeeByID(absence.getPersNr())).keys().asIterator();
+			while(it.hasNext()) {
+				Absence abs = it.next();
+				if(absence.isOverlapping(abs)) {
+					return false;
+				}
+			}
 		}
-		return false;
+		saveAbsence(absence);
+		return true;
+	}
+	
+
+	protected static boolean newAbsence(int persNr, Date begin, Date end, boolean isSick) {
+		return addAbsence(new Absence(persNr, begin, end, isSick));
+	}
+	
+	
+	protected static Absence getAbsenceByDate(int persNr, Date begin, Date end) {
+		Iterator<Absence> it = getAbsenceOf(getEmployeeByID(persNr)).keys().asIterator();
+		while(it.hasNext()) {
+			Absence abs = it.next();
+			if(abs.getBegin().compare(begin) == 0 && abs.getEnd().compare(end) == 0) {
+				return abs;
+			}
+		}
+		return null;
 	}
 
 }

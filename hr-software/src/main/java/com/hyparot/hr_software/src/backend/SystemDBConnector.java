@@ -44,7 +44,7 @@ public class SystemDBConnector {
 						LocalStorage.addToEmployees(employee);
 
 
-					}else if(classType.equals("Vorgesetzter")) {
+					}else if(classType.equals("Superior")) {
 						Superior employee = new Superior(db_connect.read_str_value("t_zugaenge", "Nutzername", data.getInt("PersNr")),
 								db_connect.read_str_value("t_zugaenge", "Passwort", data.getInt("PersNr")),
 								data.getString("Vorname"), 
@@ -65,7 +65,7 @@ public class SystemDBConnector {
 						LocalStorage.addToEmployees(employee);
 
 
-					}else if(classType.equals("Angestellte")) {
+					}else if(classType.equals("Employee")) {
 						Employee employee = new Employee(db_connect.read_str_value("t_zugaenge", "Nutzername", data.getInt("PersNr")),
 								db_connect.read_str_value("t_zugaenge", "Passwort", data.getInt("PersNr")),
 								data.getString("Vorname"), 
@@ -87,8 +87,7 @@ public class SystemDBConnector {
 					}
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				
 			}
 		}
 	}
@@ -158,8 +157,7 @@ public class SystemDBConnector {
 		return answered;
 	}
 	
-	//TODO
-	//Spaltennamen an die der Datenbank anpassen
+
 	protected static Hashtable<Absence, String> getAbsenceOf(Employee User) {
 		try {
 			Hashtable<Absence, String> abs = new Hashtable<Absence, String>();
@@ -168,19 +166,24 @@ public class SystemDBConnector {
 			int id = User.getPersNr();
 			Absence absence;
 			String acceptance;
-		
-			while(rs.next()) { 
-				rs.moveToCurrentRow();
-				if(rs.getInt("persNr") == id) {
-					absence = new Absence(id, new Date(rs.getString("Anfang")), new Date(rs.getString("Ende")), rs.getBoolean("Krank"));
-					if(absence.isAccepted()) {
+			
+			while(rs.next()) { ;
+				if(rs.getInt("PersNr") == id) {
+					boolean sick = false;
+					if(rs.getInt("krank") == 1) {
+						sick = true;
+					}
+					absence = new Absence(id, new Date(rs.getString("Von")), new Date(rs.getString("Bis")), sick);;
+					if(rs.getInt("genemigt") == 1) {
 						acceptance = "genehmigt";
+						absence.setAccepted(true);
 					}else {
 						acceptance = "nicht genehmigt";
 					}
+					absence.setAbsenceID(rs.getInt("UK_ID"));
 					abs.put(absence, acceptance);
 				}
-			}
+			}	
 			return abs;
 		}
 		catch(Exception e) {
@@ -193,17 +196,15 @@ public class SystemDBConnector {
 		db_connect.new_vacation_sick(abs.getPersNr(), abs.getBegin().toString(), abs.getEnd().toString(), abs.isSick(), abs.isAccepted());
 	}
 	
-	protected static boolean cancelVacation(Employee employ, Absence vacation) {
-		Hashtable<Absence, String> abs = getAbsenceOf(employ);
-		if(abs.containsKey(vacation)) {
-			db_connect.deleteAbsence(vacation.getAbsenceID());
-			return true;
-		}
-		return false;
+	protected static boolean cancelVacation(Absence vacation) {
+		System.out.println(vacation.getAbsenceID());
+		return db_connect.deleteAbsence(vacation.getAbsenceID());
+
+
 	}
 	
-	protected static void acceptVacation(Absence vacation) {
-		db_connect.acceptVacation(vacation.getAbsenceID());
+	protected static boolean acceptVacation(Absence vacation) {
+		return db_connect.acceptVacation(vacation.getAbsenceID());
 	}
 
 }
