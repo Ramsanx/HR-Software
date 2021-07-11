@@ -129,25 +129,25 @@ public class FRController {
 		changeSceneTime(user);
 	}
 
-	@FXML
-	void initialize() {
-		assert BZeiterfassung != null : "fx:id=\"BZeiterfassung\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert BPhonebook != null : "fx:id=\"BPhonebook\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert BVacatiobRequests != null : "fx:id=\"BVacatiobRequests\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert CBGroup != null : "fx:id=\"CBGroup\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert BCreateUser != null : "fx:id=\"BCreateUser\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert BEditOtherEmployee != null : "fx:id=\"BEditOtherEmployee\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TFPersnr != null : "fx:id=\"TFPersnr\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert BPersonalData != null : "fx:id=\"BPersonalData\" was not injected: check your FXML file 'afterLogin.fxml'.";
-		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
+    @FXML
+    void initialize() {
+        assert BZeiterfassung != null : "fx:id=\"BZeiterfassung\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert BPhonebook != null : "fx:id=\"BPhonebook\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert BVacatiobRequests != null : "fx:id=\"BVacatiobRequests\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert BCreateUser != null : "fx:id=\"BCreateUser\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert CBGroup != null : "fx:id=\"CBGroup\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert BEditOtherEmployee != null : "fx:id=\"BEditOtherEmployee\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert TFPersnr != null : "fx:id=\"TFPersnr\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert BPersonalData != null : "fx:id=\"BPersonalData\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
 
-	}
+    }
 
 	private Employee user;
 	private Stage stage;
@@ -171,10 +171,21 @@ public class FRController {
 		if (user.getGroup().equals("HR")) {
 			BEditOtherEmployee.setVisible(true);
 			TFPersnr.setVisible(true);
+			BCreateUser.setVisible(true);
+			CBGroup.setVisible(true);
 		}
 
 		CBGroup.setItems(availableChoices);
 		CBGroup.setValue("Gruppe des Users");
+	}
+	
+	public void confirmCreation() {
+		CBGroup.setValue("Erfolgreich erstellt!");
+	}
+	
+	public void confirmDeletion() {
+		TFPersnr.setText("Erfolgreich gelöscht!");
+		TFPersnr.setStyle("-fx-text-fill: green;");
 	}
 
 
@@ -192,8 +203,9 @@ public class FRController {
 
 	public void changeSceneCreateEmployee(Employee Username) throws IOException {
 		String group = CBGroup.getSelectionModel().getSelectedItem().toString();
-		if (group.equals("Gruppe des Users") || group.equals("Ungültige Eingabe")) {
+		if (group.equals("Gruppe des Users") || group.equals("Ungültige Eingabe") || group.equals("Erfolgreich erstellt!")) {
 			CBGroup.setValue("Ungültige Eingabe");
+			CBGroup.setStyle("-fx-text-fill: red;");
 		} else {
 			var loader = new FXMLLoader();
 			var createUserController = new CreateUserController(stage, Username, group);
@@ -259,4 +271,6 @@ public class FRController {
 		stage.setResizable(false);
 		personalDataController.schreiben();
 	}
+	
+	
 }

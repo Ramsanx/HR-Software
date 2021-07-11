@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
-import com.hyparot.hr_software.src.backend.BusinessIntelligence;
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employee.HR;
@@ -21,31 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.text.Text;
 
 public class CreateUserController {
 
@@ -111,6 +88,9 @@ public class CreateUserController {
 
 	@FXML
 	private Text TStelle;
+	
+	@FXML
+	private Text TWarning;
 
 	@FXML
 	private Text TTelefonnummer;
@@ -138,7 +118,7 @@ public class CreateUserController {
 
 	@FXML
 	void verwerfen(ActionEvent event) throws IOException {
-		changeSceneVerwerfen(user);
+		changeSceneVerwerfen(user, false);
 	}
 
 	@FXML
@@ -213,7 +193,7 @@ public class CreateUserController {
 		stage.setResizable(false);
 	}
 
-	public void changeSceneVerwerfen(Employee Username) throws IOException {
+	public void changeSceneVerwerfen(Employee Username, Boolean created) throws IOException {
 		var loader = new FXMLLoader();
 		var fRController = new FRController(stage, Username);
 		loader.setLocation(getClass().getResource("/afterLogin.fxml"));
@@ -224,6 +204,9 @@ public class CreateUserController {
 		stage.centerOnScreen();
 		stage.setResizable(false);
 		fRController.schreiben();
+		if (created == true) {
+			fRController.confirmCreation();
+		}
 	}
 
 	public void createEmployee() throws IOException {
@@ -238,11 +221,20 @@ public class CreateUserController {
 		String phonenumberNew = TFTelefonnummer.getText();
 		String usernameNew = TUsername.getText();
 		String passwordNew = TFPasswort.getText();
-		
 
+		if (firstNameNew.isBlank() || lastNameNew.isBlank() || jobTitleNew.isBlank() || countryNew.isBlank() 
+				|| cityNew.isBlank() || streetNew.isBlank() || stelleNew.isBlank() ||
+				phonenumberNew.isBlank() || passwordNew.isBlank()) {
+			TWarning.setText("Bitte ausfüllen!");
+			return;
+		} TWarning.setText("");
+		
+		
+		//Arbeitszeit
 		String workingTimeNew2 = CBArbeitszeit.getSelectionModel().getSelectedItem().toString();
 		if (workingTimeNew2.equals("Arbeitszeit") || workingTimeNew2.equals("Ungültige Auswahl")) {
 			CBArbeitszeit.setValue("Ungültige Auswahl");
+			return;
 		}
 		int workingTimeNew = Integer.parseInt(workingTimeNew2);
 
@@ -251,43 +243,73 @@ public class CreateUserController {
 		Date birthdayNew;
 		Adress adressNew;
 
-		if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
-			birthdayNew = new Date(TFGeburtstag.getText());
+		//Geburtstag
+		if (!TFGeburtstag.getText().isBlank()) {
+			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10 && !TFGeburtstag.getText().equals("jjjj-mm-tt")) {
+				birthdayNew = new Date(TFGeburtstag.getText());
+				TFGeburtstag.setStyle("-fx-text-fill: black;");
+			} else {
+				TFGeburtstag.setStyle("-fx-text-fill: red;");
+				TFGeburtstag.setText("Falsches Format!");
+				return;
+			}
 		} else {
 			TFGeburtstag.setStyle("-fx-text-fill: red;");
-			TFGeburtstag.setText("Falsches Format!");
+			TFGeburtstag.setText("jjjj-mm-tt");
 			return;
 		}
 
-		try {
-			postCodeNew = Integer.parseInt(TFPLZ.getText());
-		} catch (Exception E) {
+		//Postleitzahl
+		if (!TFPLZ.getText().isBlank()) {
+			try {
+				postCodeNew = Integer.parseInt(TFPLZ.getText());
+				TFPLZ.setStyle("-fx-text-fill: black;");
+			} catch (Exception E) {
+				TFPLZ.setStyle("-fx-text-fill: red;");
+				TFPLZ.setText("Falscher Eingabetyp!");
+				return;
+			} 
+		} else {
 			TFPLZ.setStyle("-fx-text-fill: red;");
-			TFPLZ.setText("Falscher Eingabetyp!");
+			TFPLZ.setText("Bitte ausfüllen!");
 			return;
 		}
 
-		try {
-			housenrNew = Integer.parseInt(TFHausnummer.getText());
-		} catch (Exception E) {
+		//Hausnummer
+		if (!TFHausnummer.getText().isBlank()) {
+			try {
+				housenrNew = Integer.parseInt(TFHausnummer.getText());
+				TFHausnummer.setStyle("-fx-text-fill: black;");
+			} catch (Exception E) {
+				TFHausnummer.setStyle("-fx-text-fill: red;");
+				TFHausnummer.setText("Falscher Eingabetyp!");
+				return;
+			}
+		} else {
 			TFHausnummer.setStyle("-fx-text-fill: red;");
-			TFHausnummer.setText("Falscher Eingabetyp!");
+			TFHausnummer.setText("Bitte ausfüllen!");
 			return;
 		}
 
+		//Zusatz
 		if (housenrSupplementNew == null) {
 			adressNew = new Adress(countryNew, postCodeNew, cityNew, streetNew, housenrNew);
 		} else {
 			adressNew = new Adress(countryNew, postCodeNew, cityNew, streetNew, housenrNew, housenrSupplementNew);
 		}
-		
+
+		//Einstellungsdatum (Heute)
 		Calendar today = new GregorianCalendar();
 		Date startDateNew = new Date(today.get(Calendar.YEAR), today.get(Calendar.MONTH)+1, today.get(Calendar.DAY_OF_MONTH));
 
+		
+		//Erstellen
+		TWarning.setStyle("-fx-text-fill: green;");
+		TWarning.setText("Erfolgreich!");
 		user.setNewEmployee(group, usernameNew, passwordNew, firstNameNew, lastNameNew, jobTitleNew, phonenumberNew, workingTimeNew, birthdayNew, startDateNew, adressNew);
 		SystemDBConnector.loadLocalDataToDB();
 
-		changeSceneVerwerfen(user);
+		changeSceneVerwerfen(user, true);
 
 	}
 }

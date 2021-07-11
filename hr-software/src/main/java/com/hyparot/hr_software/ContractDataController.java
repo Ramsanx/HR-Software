@@ -43,9 +43,6 @@ public class ContractDataController {
     private Text TEinstellungsdatumData;
 
     @FXML
-    private Text TGehaltData;
-
-    @FXML
     private Text TArbeitszeitData;
 
     @FXML
@@ -116,7 +113,6 @@ public class ContractDataController {
         assert TPersonalnummerData != null : "fx:id=\"TPersonalnummerData\" was not injected: check your FXML file 'ContractData.fxml'.";
         assert TGeburtstagData != null : "fx:id=\"TGeburtstagData\" was not injected: check your FXML file 'ContractData.fxml'.";
         assert TEinstellungsdatumData != null : "fx:id=\"TEinstellungsdatumData\" was not injected: check your FXML file 'ContractData.fxml'.";
-        assert TGehaltData != null : "fx:id=\"TGehaltData\" was not injected: check your FXML file 'ContractData.fxml'.";
         assert TArbeitszeitData != null : "fx:id=\"TArbeitszeitData\" was not injected: check your FXML file 'ContractData.fxml'.";
         assert TLandData != null : "fx:id=\"TLandData\" was not injected: check your FXML file 'ContractData.fxml'.";
         assert TPLZData != null : "fx:id=\"TPLZData\" was not injected: check your FXML file 'ContractData.fxml'.";
@@ -182,8 +178,6 @@ public class ContractDataController {
 		} else {
 			TZusatzData.setText(userC.getAdress().getHousenumberSupplement());
 		}
-		//------------------------------------------------------------------------
-		TGehaltData.setText("ERGÄNZEN!");
 		TArbeitszeitData.setText(String.valueOf(userC.getWorkingTime_contract()));
 		TUrlaubstageData.setText(String.valueOf(userC.getVacation_contract()));
 	}

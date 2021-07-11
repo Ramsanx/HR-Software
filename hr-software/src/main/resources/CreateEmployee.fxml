@@ -162,7 +162,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="214.0">
                                  <children>
-                                    <TextField fx:id="TFGeburtstag" promptText="Geburtstag">
+                                    <TextField fx:id="TFGeburtstag" promptText="jjjj-mm-tt">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
@@ -339,7 +339,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="190.0">
                                  <children>
-                                    <Label text="Zusatz:">
+                                    <Label text="(Zusatz:)">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -383,7 +383,14 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="427.0" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="427.0">
+                           <children>
+                              <Text fx:id="TWarning" fill="#f20000" strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                           </children></HBox>
                      </children></VBox>
 					</children>
 				</HBox>

@@ -54,6 +54,9 @@
                                  <HBox.margin>
                                     <Insets right="30.0" />
                                  </HBox.margin>
+                                 <image>
+                                    <Image url="@Icon_phonebook.png" />
+                                 </image>
                               </ImageView>
                               <Button fx:id="BPhonebook" mnemonicParsing="false" onAction="#phonebook" prefWidth="200.0" text="Telefonbuch">
                                  <font>
@@ -68,6 +71,9 @@
                                  <HBox.margin>
                                     <Insets right="30.0" />
                                  </HBox.margin>
+                                 <image>
+                                    <Image url="@Icon_vacationRequest.png" />
+                                 </image>
                               </ImageView>
                               <Button fx:id="BVacatiobRequests" mnemonicParsing="false" onAction="#VacationRequests" prefWidth="200.0" text="Urlaubsanträge">
                                  <font>
@@ -85,12 +91,12 @@
                               </ImageView>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="BCreateUser" mnemonicParsing="false" onAction="#createUser" prefWidth="200.0" text="Nutzer anlegen">
+                                    <Button fx:id="BCreateUser" mnemonicParsing="false" onAction="#createUser" prefWidth="200.0" text="Nutzer anlegen" visible="false">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Button>
-                                    <ChoiceBox fx:id="CBGroup" prefWidth="150.0">
+                                    <ChoiceBox fx:id="CBGroup" prefWidth="150.0" visible="false">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>

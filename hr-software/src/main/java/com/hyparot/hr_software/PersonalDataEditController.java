@@ -85,6 +85,9 @@ public class PersonalDataEditController {
 	private Text TE_Mail;
 
 	@FXML
+	private Text TWarning;
+
+	@FXML
 	private Button BVerwerfen;
 
 	@FXML
@@ -212,32 +215,62 @@ public class PersonalDataEditController {
 		int housenrNew;
 		Date birthdayNew;
 
-		if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
-			birthdayNew = new Date(TFGeburtstag.getText());
+		if (firstNameNew.isBlank() || lastNameNew.isBlank() || countryNew.isBlank() 
+				|| cityNew.isBlank() || streetNew.isBlank()) {
+			TWarning.setText("Bitte ausfüllen!");
+			return;
+		} TWarning.setText("");
+
+		//Geburtstag
+		if (!TFGeburtstag.getText().isBlank()) {
+			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10 && !TFGeburtstag.getText().equals("jjjj-mm-tt")) {
+				birthdayNew = new Date(TFGeburtstag.getText());
+				TFGeburtstag.setStyle("-fx-text-fill: black;");
+			} else {
+				TFGeburtstag.setStyle("-fx-text-fill: red;");
+				TFGeburtstag.setText("Falsches Format!");
+				return;
+			}
 		} else {
 			TFGeburtstag.setStyle("-fx-text-fill: red;");
-			TFGeburtstag.setText("Falsches Format!");
+			TFGeburtstag.setText("jjjj-mm-tt");
 			return;
 		}
 
-		try {
-			postCodeNew = Integer.parseInt(TFPLZ.getText());
-		} catch (Exception E) {
+		//PLZ
+		if (!TFPLZ.getText().isBlank()) {
+			try {
+				postCodeNew = Integer.parseInt(TFPLZ.getText());
+				TFPLZ.setStyle("-fx-text-fill: black;");
+			} catch (Exception E) {
+				TFPLZ.setStyle("-fx-text-fill: red;");
+				TFPLZ.setText("Falscher Eingabetyp!");
+				return;
+			} 
+		} else {
 			TFPLZ.setStyle("-fx-text-fill: red;");
-			TFPLZ.setText("Falscher Eingabetyp!");
+			TFPLZ.setText("Bitte ausfüllen!");
 			return;
 		}
 
+		//Hausnummer
+		if (!TFPLZ.getText().isBlank()) {
 		try {
 			housenrNew = Integer.parseInt(TFHausnummer.getText());
+			TFHausnummer.setStyle("-fx-text-fill: black;");
 		} catch (Exception E) {
 			TFHausnummer.setStyle("-fx-text-fill: red;");
 			TFHausnummer.setText("Falscher Eingabetyp!");
 			return;
 		}
+		} else {
+			TFHausnummer.setStyle("-fx-text-fill: red;");
+			TFHausnummer.setText("Bitte ausfüllen!");
+			return;
+		}
 
 
-
+		//Erstellen
 		user.setPersonaldata(firstNameNew, lastNameNew, user.getEMail(), user.getPhoneNumber(), birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
 		SystemDBConnector.loadLocalDataToDB();
 

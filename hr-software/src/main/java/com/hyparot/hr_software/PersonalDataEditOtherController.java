@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hyparot.hr_software.src.backend.BIConnect;
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
 import com.hyparot.hr_software.src.employeedata.Date;
 import com.hyparot.hr_software.src.employee.Employee;
@@ -85,10 +86,24 @@ public class PersonalDataEditOtherController {
 	private Text TE_Mail;
 
 	@FXML
+	private Text TWarning;
+
+	@FXML
 	private Button BVerwerfen;
 
 	@FXML
+	private Button BDeleteUser;
+
+	@FXML
 	private Button BLogout;
+
+	@FXML
+	void deleteUser(ActionEvent event) throws IOException {
+		BIConnect bi = new BIConnect();
+		bi.deleteEmployee(userEdit.getPersNr());
+		SystemDBConnector.loadLocalDataToDB();
+		changeSceneDeleteUser(user);
+	}
 
 	@FXML
 	void logout(ActionEvent event) throws IOException {
@@ -121,6 +136,7 @@ public class PersonalDataEditOtherController {
 		assert TFStraße != null : "fx:id=\"TFStraße\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
 		assert TFHausnummer != null : "fx:id=\"TFHausnummer\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
 		assert TFZusatz != null : "fx:id=\"TFZusatz\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
+		assert BDeleteUser != null : "fx:id=\"BDeleteUser\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
 		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
 		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
 		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
@@ -203,6 +219,20 @@ public class PersonalDataEditOtherController {
 		personalDataController.schreiben();
 	}
 
+	public void changeSceneDeleteUser(Employee Username) throws IOException {
+		var loader = new FXMLLoader();
+		var fRController = new FRController(stage, Username);
+		loader.setLocation(getClass().getResource("/afterLogin.fxml"));
+		loader.setController(fRController);
+		stage.getScene().setRoot(loader.load());
+		stage.setWidth(1280);
+		stage.setHeight(720);
+		stage.centerOnScreen();
+		stage.setResizable(false);
+		fRController.schreiben();
+		fRController.confirmDeletion();
+	}
+
 	public void saveChanges() throws IOException {
 		String firstNameNew = TFVorname.getText();
 		String lastNameNew = TFNachname.getText();
@@ -218,31 +248,61 @@ public class PersonalDataEditOtherController {
 		int housenrNew;
 		Date birthdayNew;
 
-		if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
-			birthdayNew = new Date(TFGeburtstag.getText());
+		if (firstNameNew.isBlank() || lastNameNew.isBlank() || countryNew.isBlank() 
+				|| cityNew.isBlank() || streetNew.isBlank() || stelleNew.isBlank()) {
+			TWarning.setText("Bitte ausfüllen!");
+			return;
+		} TWarning.setText("");
+
+		//Geburtstag
+		if (!TFGeburtstag.getText().isBlank()) {
+			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10 && !TFGeburtstag.getText().equals("jjjj-mm-tt")) {
+				birthdayNew = new Date(TFGeburtstag.getText());
+				TFGeburtstag.setStyle("-fx-text-fill: black;");
+			} else {
+				TFGeburtstag.setStyle("-fx-text-fill: red;");
+				TFGeburtstag.setText("Falsches Format!");
+				return;
+			}
 		} else {
 			TFGeburtstag.setStyle("-fx-text-fill: red;");
-			TFGeburtstag.setText("Falsches Format!");
+			TFGeburtstag.setText("jjjj-mm-tt");
 			return;
 		}
 
-		try {
-			postCodeNew = Integer.parseInt(TFPLZ.getText());
-		} catch (Exception E) {
+		//PLZ
+		if (!TFGeburtstag.getText().isBlank()) {
+			try {
+				postCodeNew = Integer.parseInt(TFPLZ.getText());
+				TFPLZ.setStyle("-fx-text-fill: black;");
+			} catch (Exception E) {
+				TFPLZ.setStyle("-fx-text-fill: red;");
+				TFPLZ.setText("Falscher Eingabetyp!");
+				return;
+			} 
+		} else {
 			TFPLZ.setStyle("-fx-text-fill: red;");
-			TFPLZ.setText("Falscher Eingabetyp!");
+			TFPLZ.setText("Bitte ausfüllen!");
 			return;
 		}
 
-		try {
-			housenrNew = Integer.parseInt(TFHausnummer.getText());
-		} catch (Exception E) {
+		//Hausnummer
+		if (!TFGeburtstag.getText().isBlank()) {
+			try {
+				housenrNew = Integer.parseInt(TFHausnummer.getText());
+				TFHausnummer.setStyle("-fx-text-fill: black;");
+			} catch (Exception E) {
+				TFHausnummer.setStyle("-fx-text-fill: red;");
+				TFHausnummer.setText("Falscher Eingabetyp!");
+				return;
+			}
+		} else {
 			TFHausnummer.setStyle("-fx-text-fill: red;");
-			TFHausnummer.setText("Falscher Eingabetyp!");
+			TFHausnummer.setText("Bitte ausfüllen!");
 			return;
 		}
 
-
+		//Erstellen
 		userEdit.setPersonaldata(firstNameNew, lastNameNew, user.getEMail(), telefonnummerNew, birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
 		SystemDBConnector.loadLocalDataToDB();
 

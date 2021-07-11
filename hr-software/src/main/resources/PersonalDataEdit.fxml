@@ -170,7 +170,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="214.0">
                                  <children>
-                                    <TextField fx:id="TFGeburtstag" text="GeburtstagText">
+                                    <TextField fx:id="TFGeburtstag" promptText="jjjj-mm-tt" text="GeburtstagText">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
@@ -373,7 +373,14 @@
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="214.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="427.0" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="427.0">
+                           <children>
+                              <Text fx:id="TWarning" fill="#dc0101" strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                           </children></HBox>
                      </children></VBox>
 					</children>
 				</HBox>
