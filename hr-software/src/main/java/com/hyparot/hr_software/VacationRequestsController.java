@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hyparot.hr_software.src.backend.BIConnect;
 import com.hyparot.hr_software.src.employee.Employee;
 
 import javafx.event.ActionEvent;
@@ -160,6 +161,7 @@ public class VacationRequestsController {
 	}
 	
 	public void acceptDeclineRequest(boolean decision) {
+		//Hier müsste man die Daten des Antragenden ausgeben
 		
 	}
 

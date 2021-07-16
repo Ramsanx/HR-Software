@@ -116,10 +116,10 @@ public class SystemDBConnector {
 						employee.getEMail(),
 						employee.getJobTitle(),
 						employee.getGroup(),
-						0,//v_day_left
+						employee.getVacation_contract(), //v_day_left
 						0,//ill_days
-						0,//w_time_left
-						employee.getStartDate().toString(), 
+						employee.getWorkingTime_contract(), //w_time_left
+						employee.getStartDate().toString(),
 						employee.getPersNr(), 
 						employee.getUsername(), 
 						employee.getPassword(), 

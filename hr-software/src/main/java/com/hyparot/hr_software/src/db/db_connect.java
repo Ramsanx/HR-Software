@@ -197,5 +197,22 @@ public class db_connect {
 			return false;
 		}
 	}
+	
+//	public static void showVacationRequest(int absenceID) {
+//		try {
+//			Connection con = DriverManager.getConnection(db_url, user, pass);
+//			Statement stm_show = con.createStatement();
+//			ResultSet rs_showValue = stm_show.executeQuery("SELECT * FROM t_urlaub_krankheit;");
+//			while (rs_showValue.next()) {
+//				if (rs_showValue.getInt("PersNr") == 0) {
+//					String v1 = rs_showValue.getString("PersNr");
+//				}
+//				
+//			}
+//		} catch (SQLException e) {
+//			
+//			System.out.println("1");
+//		}
+//	}
 
 }

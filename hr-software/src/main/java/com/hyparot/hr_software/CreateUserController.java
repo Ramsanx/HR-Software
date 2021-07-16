@@ -88,7 +88,7 @@ public class CreateUserController {
 
 	@FXML
 	private Text TStelle;
-	
+
 	@FXML
 	private Text TWarning;
 
@@ -178,7 +178,7 @@ public class CreateUserController {
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 
 		CBArbeitszeit.setItems(availableChoices);
-		CBArbeitszeit.setValue("Arbeitszeit");
+		CBArbeitszeit.setValue("Wochenstunden");
 	}
 
 	public void changeSceneLogout() throws IOException {
@@ -228,11 +228,11 @@ public class CreateUserController {
 			TWarning.setText("Bitte ausfüllen!");
 			return;
 		} TWarning.setText("");
-		
-		
+
+
 		//Arbeitszeit
 		String workingTimeNew2 = CBArbeitszeit.getSelectionModel().getSelectedItem().toString();
-		if (workingTimeNew2.equals("Arbeitszeit") || workingTimeNew2.equals("Ungültige Auswahl")) {
+		if (workingTimeNew2.equals("Wochenstunden") || workingTimeNew2.equals("Ungültige Auswahl")) {
 			CBArbeitszeit.setValue("Ungültige Auswahl");
 			return;
 		}
@@ -244,18 +244,24 @@ public class CreateUserController {
 		Adress adressNew;
 
 		//Geburtstag
-		if (!TFGeburtstag.getText().isBlank()) {
-			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10 && !TFGeburtstag.getText().equals("jjjj-mm-tt")) {
-				birthdayNew = new Date(TFGeburtstag.getText());
-				TFGeburtstag.setStyle("-fx-text-fill: black;");
+		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() >= 4) {
+			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
+				try {
+					birthdayNew = new Date(TFGeburtstag.getText());
+					TFGeburtstag.setStyle("-fx-text-fill: black;");
+				} catch (Exception e) {
+					TFGeburtstag.setStyle("-fx-text-fill: red;");
+					TFGeburtstag.setText("Format: jjjj-mm-dd");
+					return;
+				}
 			} else {
 				TFGeburtstag.setStyle("-fx-text-fill: red;");
-				TFGeburtstag.setText("Falsches Format!");
+				TFGeburtstag.setText("Format: jjjj-mm-dd");
 				return;
 			}
 		} else {
 			TFGeburtstag.setStyle("-fx-text-fill: red;");
-			TFGeburtstag.setText("jjjj-mm-tt");
+			TFGeburtstag.setText("Format: jjjj-mm-dd");
 			return;
 		}
 
@@ -302,11 +308,11 @@ public class CreateUserController {
 		Calendar today = new GregorianCalendar();
 		Date startDateNew = new Date(today.get(Calendar.YEAR), today.get(Calendar.MONTH)+1, today.get(Calendar.DAY_OF_MONTH));
 
-		
+
 		//Erstellen
 		TWarning.setStyle("-fx-text-fill: green;");
 		TWarning.setText("Erfolgreich!");
-		user.setNewEmployee(group, usernameNew, passwordNew, firstNameNew, lastNameNew, jobTitleNew, phonenumberNew, workingTimeNew, birthdayNew, startDateNew, adressNew);
+		user.setNewEmployee(group, usernameNew, passwordNew, firstNameNew, lastNameNew, jobTitleNew, phonenumberNew, workingTimeNew*4, birthdayNew, startDateNew, adressNew);
 		SystemDBConnector.loadLocalDataToDB();
 
 		changeSceneVerwerfen(user, true);
