@@ -255,18 +255,24 @@ public class PersonalDataEditOtherController {
 		} TWarning.setText("");
 
 		//Geburtstag
-		if (!TFGeburtstag.getText().isBlank()) {
-			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10 && !TFGeburtstag.getText().equals("jjjj-mm-tt")) {
-				birthdayNew = new Date(TFGeburtstag.getText());
-				TFGeburtstag.setStyle("-fx-text-fill: black;");
+		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() >= 4) {
+			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
+				try {
+					birthdayNew = new Date(TFGeburtstag.getText());
+					TFGeburtstag.setStyle("-fx-text-fill: black;");
+				} catch (Exception e) {
+					TFGeburtstag.setStyle("-fx-text-fill: red;");
+					TFGeburtstag.setText("Format: jjjj-mm-tt");
+					return;
+				}
 			} else {
 				TFGeburtstag.setStyle("-fx-text-fill: red;");
-				TFGeburtstag.setText("Falsches Format!");
+				TFGeburtstag.setText("Format: jjjj-mm-tt");
 				return;
 			}
 		} else {
 			TFGeburtstag.setStyle("-fx-text-fill: red;");
-			TFGeburtstag.setText("jjjj-mm-tt");
+			TFGeburtstag.setText("Format: jjjj-mm-tt");
 			return;
 		}
 

@@ -5,11 +5,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hyparot.hr_software.src.employee.Employee;
+import com.hyparot.hr_software.src.employeedata.Date;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -35,8 +37,17 @@ public class TimeController {
 	private Button BKrankmelden;
 
 	@FXML
+	private TextField TFVon;
+
+	@FXML
+	private TextField TFBis;
+
+	@FXML
 	private Button BUrlaubBeantragen;
 
+	@FXML
+	private Text TErfolgreich;
+	
 	@FXML
 	private Text TKuerzel;
 
@@ -72,10 +83,18 @@ public class TimeController {
 	}
 
 	@FXML
+	void requestVacation(ActionEvent event) {
+		requestVacation1();
+
+	}
+
+	@FXML
 	void initialize() {
 		assert TResturlaubstage != null : "fx:id=\"TResturlaubstage\" was not injected: check your FXML file 'Time.fxml'.";
 		assert BArbeitszeitErfassen != null : "fx:id=\"BArbeitszeitErfassen\" was not injected: check your FXML file 'Time.fxml'.";
 		assert BKrankmelden != null : "fx:id=\"BKrankmelden\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TFVon != null : "fx:id=\"TFVon\" was not injected: check your FXML file 'Time.fxml'.";
+		assert TFBis != null : "fx:id=\"TFBis\" was not injected: check your FXML file 'Time.fxml'.";
 		assert BUrlaubBeantragen != null : "fx:id=\"BUrlaubBeantragen\" was not injected: check your FXML file 'Time.fxml'.";
 		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'Time.fxml'.";
 		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'Time.fxml'.";
@@ -126,5 +145,68 @@ public class TimeController {
 		stage.setHeight(500);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+	}
+
+	public void requestVacation1() {
+		Date VacationFrom;
+		Date VacationUntil;
+		TErfolgreich.setText("");
+
+		//Vacation FROM Textfield
+		if (!TFVon.getText().isBlank() && TFVon.getText().length() >= 4) {
+			if (TFVon.getText().charAt(4) == '-' && TFVon.getText().charAt(7) == '-' && TFVon.getText().length() == 10) {
+				//Get Vacation FROM
+				try {
+					VacationFrom = new Date(TFVon.getText());
+					TFVon.setStyle("-fx-text-fill: black;");
+				} catch (Exception e) {
+					TFVon.setStyle("-fx-text-fill: red;");
+					TFVon.setText("Format: jjjj-mm-tt");
+					return;
+				}
+			} else {
+				TFVon.setStyle("-fx-text-fill: red;");
+				TFVon.setText("Format: jjjj-mm-tt");
+				return;
+			}
+		} else {
+			TFVon.setStyle("-fx-text-fill: red;");
+			TFVon.setText("Format: jjjj-mm-tt");
+			return;
+		}
+
+
+		//Vacation UNTIL Textfield
+		if (!TFBis.getText().isBlank() && TFBis.getText().length() >= 4) {
+			if (TFBis.getText().charAt(4) == '-' && TFBis.getText().charAt(7) == '-' && TFVon.getText().length() == 10) {
+				//Get Vacation UNTIL
+				try {
+					VacationUntil = new Date(TFBis.getText());
+					TFBis.setStyle("-fx-text-fill: black;");
+				} catch (Exception e) {
+					TFBis.setStyle("-fx-text-fill: red;");
+					TFBis.setText("Format: jjjj-mm-tt");
+					return;
+				}
+			} else {
+				TFBis.setStyle("-fx-text-fill: red;");
+				TFBis.setText("Format: jjjj-mm-tt");
+				return;
+			}
+		} else {
+			TFBis.setStyle("-fx-text-fill: red;");
+			TFBis.setText("Format: jjjj-mm-tt");
+			return;
+		}
+
+		if (VacationUntil.isGreater(VacationFrom)) {
+		TFVon.clear();
+		TFBis.clear();
+		TErfolgreich.setText("Erfolgreich beantragt!");
+		user.applyForVacation(VacationFrom, VacationUntil);
+		} else {
+			TFVon.setText("Von!");
+			TFBis.setText("Bis!");
+		}
 	}
 }

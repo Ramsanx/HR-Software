@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -55,6 +56,12 @@ public class FRController {
 
 	@FXML
 	private TextField TFPersnr;
+	
+    @FXML
+    private ImageView IVCreateUser;
+    
+    @FXML
+    private ImageView IVEditUser;
 
 	@FXML
 	private Text TKuerzel;
@@ -83,8 +90,8 @@ public class FRController {
 	ObservableList<String> availableChoices = FXCollections.observableArrayList("HR", "Superior", "Employee"); 
 
 	@FXML
-	void VacationRequests(ActionEvent event) {
-
+	void VacationRequests(ActionEvent event) throws IOException {
+		changeSceneVacationRequests(user);
 	}
 
 	@FXML
@@ -171,8 +178,11 @@ public class FRController {
 		if (user.getGroup().equals("HR")) {
 			BEditOtherEmployee.setVisible(true);
 			TFPersnr.setVisible(true);
+			IVEditUser.setVisible(true);
+			
 			BCreateUser.setVisible(true);
 			CBGroup.setVisible(true);
+			IVCreateUser.setVisible(true);
 		}
 
 		CBGroup.setItems(availableChoices);
@@ -270,6 +280,19 @@ public class FRController {
 		stage.centerOnScreen();
 		stage.setResizable(false);
 		personalDataController.schreiben();
+	}
+	
+	public void changeSceneVacationRequests(Employee Username) throws IOException {
+		var loader = new FXMLLoader();
+		var vacationRequestsController = new VacationRequestsController(stage, Username);
+		loader.setLocation(getClass().getResource("/VacationRequests.fxml"));
+		loader.setController(vacationRequestsController);
+		stage.getScene().setRoot(loader.load());
+		stage.setWidth(1280);
+		stage.setHeight(720);
+		stage.centerOnScreen();
+		stage.setResizable(false);
+		vacationRequestsController.schreiben();
 	}
 	
 	

@@ -57,14 +57,15 @@ public class Date {
 	}
 	
 	public Date(String date) {
-		try{
+		//Ramzan: Von mir entfernt, um beim erstellen des Objektes (TimeController z.B.) den Fehler werfen zu können
+//		try{
 			String[] parts = date.split("-");
 			this.setYear(Integer.parseInt(parts[0]));
 			this.setMonth(Integer.parseInt(parts[1]));
 			this.setDay(Integer.parseInt(parts[2]));
-		}catch(Exception e) {
-			
-		}
+//		}catch(Exception e) {
+//			
+//		}
 		
 	}
 	
