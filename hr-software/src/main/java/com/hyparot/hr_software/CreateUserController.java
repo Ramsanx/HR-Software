@@ -12,6 +12,7 @@ import com.hyparot.hr_software.src.employee.HR;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Date;
 
+import impl.com.calendarfx.view.NumericTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,7 +43,7 @@ public class CreateUserController {
 	private TextField TFStelle;
 
 	@FXML
-	private TextField TFTelefonnummer;
+	private NumericTextField TFTelefonnummer;
 
 	@FXML
 	private ChoiceBox<String> CBArbeitszeit;
@@ -60,7 +61,7 @@ public class CreateUserController {
 	private TextField TFLand;
 
 	@FXML
-	private TextField TFPLZ;
+	private NumericTextField TFPLZ;
 
 	@FXML
 	private TextField TFStadt;
@@ -69,13 +70,16 @@ public class CreateUserController {
 	private TextField TFStraße;
 
 	@FXML
-	private TextField TFHausnummer;
+	private NumericTextField TFHausnummer;
 
 	@FXML
 	private TextField TFZusatz;
 
 	@FXML
 	private TextField TFPasswort;
+
+	@FXML
+	private Text TWarning;
 
 	@FXML
 	private Text TKuerzel;
@@ -88,9 +92,6 @@ public class CreateUserController {
 
 	@FXML
 	private Text TStelle;
-
-	@FXML
-	private Text TWarning;
 
 	@FXML
 	private Text TTelefonnummer;
@@ -222,6 +223,21 @@ public class CreateUserController {
 		String usernameNew = TUsername.getText();
 		String passwordNew = TFPasswort.getText();
 
+		int postCodeNew;
+		int housenrNew;
+		Date birthdayNew;
+		Adress adressNew;
+		
+		//Falls NumericFields blank sind (Workaround mit try-catch)
+		try {
+			postCodeNew = Integer.parseInt(TFPLZ.getText().toString());
+			housenrNew = Integer.parseInt(TFHausnummer.getText().toString());
+		} catch (Exception e) {
+			TWarning.setText("Bitte alles ausfüllen!");
+			return;
+		}
+
+		//Check ob Blank beim Rest
 		if (firstNameNew.isBlank() || lastNameNew.isBlank() || jobTitleNew.isBlank() || countryNew.isBlank() 
 				|| cityNew.isBlank() || streetNew.isBlank() || stelleNew.isBlank() ||
 				phonenumberNew.isBlank() || passwordNew.isBlank()) {
@@ -238,13 +254,10 @@ public class CreateUserController {
 		}
 		int workingTimeNew = Integer.parseInt(workingTimeNew2);
 
-		int postCodeNew;
-		int housenrNew;
-		Date birthdayNew;
-		Adress adressNew;
+		
 
 		//Geburtstag
-		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() >= 4) {
+		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() > 7) {
 			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
 				try {
 					birthdayNew = new Date(TFGeburtstag.getText());
@@ -265,37 +278,37 @@ public class CreateUserController {
 			return;
 		}
 
-		//Postleitzahl
-		if (!TFPLZ.getText().isBlank()) {
-			try {
-				postCodeNew = Integer.parseInt(TFPLZ.getText());
-				TFPLZ.setStyle("-fx-text-fill: black;");
-			} catch (Exception E) {
-				TFPLZ.setStyle("-fx-text-fill: red;");
-				TFPLZ.setText("Falscher Eingabetyp!");
-				return;
-			} 
-		} else {
-			TFPLZ.setStyle("-fx-text-fill: red;");
-			TFPLZ.setText("Bitte ausfüllen!");
-			return;
-		}
-
-		//Hausnummer
-		if (!TFHausnummer.getText().isBlank()) {
-			try {
-				housenrNew = Integer.parseInt(TFHausnummer.getText());
-				TFHausnummer.setStyle("-fx-text-fill: black;");
-			} catch (Exception E) {
-				TFHausnummer.setStyle("-fx-text-fill: red;");
-				TFHausnummer.setText("Falscher Eingabetyp!");
-				return;
-			}
-		} else {
-			TFHausnummer.setStyle("-fx-text-fill: red;");
-			TFHausnummer.setText("Bitte ausfüllen!");
-			return;
-		}
+//		//Postleitzahl
+//		if (!TFPLZ.getText().isBlank()) {
+//			try {
+//				postCodeNew = Integer.parseInt(TFPLZ.getText());
+//				TFPLZ.setStyle("-fx-text-fill: black;");
+//			} catch (Exception E) {
+//				TFPLZ.setStyle("-fx-text-fill: red;");
+//				TFPLZ.setText("Falscher Eingabetyp!");
+//				return;
+//			} 
+//		} else {
+//			TFPLZ.setStyle("-fx-text-fill: red;");
+//			TFPLZ.setText("Bitte ausfüllen!");
+//			return;
+//		}
+//
+//		//Hausnummer
+//		if (!TFHausnummer.getText().isBlank()) {
+//			try {
+//				housenrNew = Integer.parseInt(TFHausnummer.getText());
+//				TFHausnummer.setStyle("-fx-text-fill: black;");
+//			} catch (Exception E) {
+//				TFHausnummer.setStyle("-fx-text-fill: red;");
+//				TFHausnummer.setText("Falscher Eingabetyp!");
+//				return;
+//			}
+//		} else {
+//			TFHausnummer.setStyle("-fx-text-fill: red;");
+//			TFHausnummer.setText("Bitte ausfüllen!");
+//			return;
+//		}
 
 		//Zusatz
 		if (housenrSupplementNew == null) {

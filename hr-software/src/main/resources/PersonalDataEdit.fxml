@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import impl.com.calendarfx.view.NumericTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -266,7 +267,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="237.0">
                                  <children>
-                                    <TextField fx:id="TFPLZ" text="PLZText" />
+                                    <NumericTextField fx:id="TFPLZ" text="PLZText" />
                                  </children>
                               </HBox>
                            </children>
@@ -338,7 +339,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="237.0">
                                  <children>
-                                    <TextField fx:id="TFHausnummer" text="HausnummerText" />
+                                    <NumericTextField fx:id="TFHausnummer" text="HausnummerText" />
                                  </children>
                               </HBox>
                            </children>
@@ -362,7 +363,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="237.0">
                                  <children>
-                                    <TextField fx:id="TFZusatz" text="ZusatzText" />
+                                    <TextField fx:id="TFZusatz" promptText="freiwillig!" text="ZusatzText" />
                                  </children>
                               </HBox>
                            </children>

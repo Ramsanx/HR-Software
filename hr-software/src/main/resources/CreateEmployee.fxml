@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import impl.com.calendarfx.view.NumericTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -112,11 +113,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="214.0">
                                  <children>
-                                    <TextField fx:id="TFTelefonnummer" promptText="Telefonnummer">
+                                    <NumericTextField fx:id="TFTelefonnummer" promptText="Telefonnummer">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
-                                    </TextField>
+                                    </NumericTextField>
                                  </children>
                               </HBox>
                            </children>
@@ -258,7 +259,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="237.0">
                                  <children>
-                                    <TextField fx:id="TFPLZ" promptText="PLZ" />
+                                    <NumericTextField fx:id="TFPLZ" promptText="PLZ" />
                                  </children>
                               </HBox>
                            </children>
@@ -330,7 +331,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="237.0">
                                  <children>
-                                    <TextField fx:id="TFHausnummer" promptText="Hausnummer" />
+                                    <NumericTextField fx:id="TFHausnummer" promptText="Hausnummer" />
                                  </children>
                               </HBox>
                            </children>
@@ -354,7 +355,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="237.0">
                                  <children>
-                                    <TextField fx:id="TFZusatz" promptText="Zusatz" />
+                                    <TextField fx:id="TFZusatz" promptText="Zusatz (freiwillig)" />
                                  </children>
                               </HBox>
                            </children>

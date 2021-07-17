@@ -7,11 +7,13 @@ import java.util.ResourceBundle;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employeedata.Date;
 
+import impl.com.calendarfx.view.NumericTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -31,10 +33,34 @@ public class TimeController {
 	private Text TResturlaubstage;
 
 	@FXML
+	private Text TReststunden;
+
+	@FXML
+	private NumericTextField TFVonH;
+
+	@FXML
+	private NumericTextField TFVonM;
+
+	@FXML
+	private NumericTextField TFBisH;
+
+	@FXML
+	private NumericTextField TFBisM;
+
+	@FXML
 	private Button BArbeitszeitErfassen;
 
 	@FXML
+	private Text TErfolgreichArbeitszeit;
+
+	@FXML
+	private NumericTextField TFKrankmeldenTage;
+
+	@FXML
 	private Button BKrankmelden;
+
+	@FXML
+	private Text TErfolgreichKrank;
 
 	@FXML
 	private TextField TFVon;
@@ -47,7 +73,7 @@ public class TimeController {
 
 	@FXML
 	private Text TErfolgreich;
-	
+
 	@FXML
 	private Text TKuerzel;
 
@@ -73,6 +99,16 @@ public class TimeController {
 	private Button BLogout;
 
 	@FXML
+	void arbeitszeitErfassen(ActionEvent event) {
+		setWorkingTime();
+	}
+
+	@FXML
+	void krankmelden(ActionEvent event) {
+		setSick();
+	}
+
+	@FXML
 	void logout(ActionEvent event) throws IOException {
 		changeSceneLogout();
 	}
@@ -86,6 +122,26 @@ public class TimeController {
 	void requestVacation(ActionEvent event) {
 		requestVacation1();
 
+	}
+
+	@FXML
+	void restrictLength(KeyEvent event) {
+		if (TFVonH.getText().length() > 1) {
+			TFVonH.setText(TFVonH.getText().substring(0,2));
+			TFVonH.positionCaret(2);
+		}
+		if (TFVonM.getText().length() > 1) {
+			TFVonM.setText(TFVonM.getText().substring(0,2));
+			TFVonM.positionCaret(2);
+		}
+		if (TFBisH.getText().length() > 1) {
+			TFBisH.setText(TFBisH.getText().substring(0,2));
+			TFBisH.positionCaret(2);
+		}
+		if (TFBisM.getText().length() > 1) {
+			TFBisM.setText(TFBisM.getText().substring(0,2));
+			TFBisM.positionCaret(2);
+		}
 	}
 
 	@FXML
@@ -119,6 +175,8 @@ public class TimeController {
 		TTelefonnummer.setText(user.getPhoneNumber());
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
+		TReststunden.setText(String.valueOf(user.getWorkingTime_left()));
+		TResturlaubstage.setText(String.valueOf(user.getVacation_left()));
 	}
 
 
@@ -147,13 +205,53 @@ public class TimeController {
 		stage.setResizable(false);
 	}
 
+	public void setWorkingTime() {
+		int VonH = Integer.parseInt(TFVonH.getText().toString());
+		int VonM = Integer.parseInt(TFVonM.getText().toString());
+		int BisH = Integer.parseInt(TFBisH.getText().toString());
+		int BisM = Integer.parseInt(TFBisM.getText().toString());
+
+		if (VonH <= 24 && VonH >= 0 && VonM >= 0 && VonM <= 60 &&
+				BisH <= 24 && BisH >= 0 && BisM >= 0 && BisM <= 60) {
+			if ((BisH*60 + BisM) - (VonH*60 + VonM) > 0) {
+				if ((BisH*60 + BisM) - (VonH*60 + VonM) <= 720) {
+					int workedTime = Math.round(((BisH*60 + BisM) - (VonH*60 + VonM))/60);
+					TErfolgreichArbeitszeit.setStyle("-fx-text-fill: #36c740;");
+					TErfolgreichArbeitszeit.setText("Arbeitsstunden erfolgreich erfasst: " + workedTime + "h.");
+					
+					user.setWorkingTime_left(user.getWorkingTime_left()-workedTime);
+					TReststunden.setText(String.valueOf(user.getWorkingTime_left()));
+				} else {
+					TErfolgreichArbeitszeit.setStyle("-fx-text-fill: red;");
+					TErfolgreichArbeitszeit.setText("Sie können nicht über 12h arbeiten!");
+				}
+			} else {
+				TErfolgreichArbeitszeit.setStyle("-fx-text-fill: red;");
+				TErfolgreichArbeitszeit.setText("Sie können nicht über Nacht arbeiten!");
+			}
+		} else {
+			TErfolgreichArbeitszeit.setStyle("-fx-text-fill: red;");
+			TErfolgreichArbeitszeit.setText("Bitte korrekte Uhrzeiten angeben!");
+		}
+	}
+
+	//Krankmelden
+	public void setSick() {
+		int duration = Integer.parseInt(TFKrankmeldenTage.getText());
+		user.setSick(duration);
+		TFKrankmeldenTage.clear();
+		TErfolgreichKrank.setText("Erfolgreich eingetragen!");
+	}
+
+	//Urlaub beantragen
 	public void requestVacation1() {
 		Date VacationFrom;
 		Date VacationUntil;
 		TErfolgreich.setText("");
+		TErfolgreichKrank.setText("");
 
 		//Vacation FROM Textfield
-		if (!TFVon.getText().isBlank() && TFVon.getText().length() >= 4) {
+		if (!TFVon.getText().isBlank() && TFVon.getText().length() > 7) {
 			if (TFVon.getText().charAt(4) == '-' && TFVon.getText().charAt(7) == '-' && TFVon.getText().length() == 10) {
 				//Get Vacation FROM
 				try {
@@ -177,7 +275,7 @@ public class TimeController {
 
 
 		//Vacation UNTIL Textfield
-		if (!TFBis.getText().isBlank() && TFBis.getText().length() >= 4) {
+		if (!TFBis.getText().isBlank() && TFBis.getText().length() > 7) {
 			if (TFBis.getText().charAt(4) == '-' && TFBis.getText().charAt(7) == '-' && TFVon.getText().length() == 10) {
 				//Get Vacation UNTIL
 				try {
@@ -200,10 +298,10 @@ public class TimeController {
 		}
 
 		if (VacationUntil.isGreater(VacationFrom)) {
-		TFVon.clear();
-		TFBis.clear();
-		TErfolgreich.setText("Erfolgreich beantragt!");
-		user.applyForVacation(VacationFrom, VacationUntil);
+			TFVon.clear();
+			TFBis.clear();
+			TErfolgreich.setText("Erfolgreich beantragt!");
+			user.applyForVacation(VacationFrom, VacationUntil);
 		} else {
 			TFVon.setText("Von!");
 			TFBis.setText("Bis!");

@@ -57,7 +57,7 @@ public class Date {
 	}
 	
 	public Date(String date) {
-		//Ramzan: Von mir entfernt, um beim erstellen des Objektes (TimeController z.B.) den Fehler werfen zu können
+		//Ramzan: Von mir entfernt, um beim erstellen des Date-Objektes (z.B. Geburtstageingabe) den Fehler abfangen zu können
 //		try{
 			String[] parts = date.split("-");
 			this.setYear(Integer.parseInt(parts[0]));

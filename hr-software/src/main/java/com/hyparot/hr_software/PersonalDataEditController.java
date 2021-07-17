@@ -6,6 +6,9 @@ import java.util.ResourceBundle;
 
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
 import com.hyparot.hr_software.src.employeedata.Date;
+
+import impl.com.calendarfx.view.NumericTextField;
+
 import com.hyparot.hr_software.src.employee.Employee;
 
 import javafx.event.ActionEvent;
@@ -13,85 +16,86 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PersonalDataEditController {
 
 	@FXML
-	private ResourceBundle resources;
+    private ResourceBundle resources;
 
-	@FXML
-	private URL location;
+    @FXML
+    private URL location;
 
-	@FXML
-	private TextField TFVorname;
+    @FXML
+    private TextField TFVorname;
 
-	@FXML
-	private TextField TFNachname;
+    @FXML
+    private TextField TFNachname;
 
-	@FXML
-	private Text TStelleData;
+    @FXML
+    private Text TStelleData;
 
-	@FXML
-	private Text TTelefonnummerData;
+    @FXML
+    private Text TTelefonnummerData;
 
-	@FXML
-	private Text TPersonalnummerData;
+    @FXML
+    private Text TPersonalnummerData;
 
-	@FXML
-	private TextField TFGeburtstag;
+    @FXML
+    private TextField TFGeburtstag;
 
-	@FXML
-	private Text TEinstellungsdatumData;
+    @FXML
+    private Text TEinstellungsdatumData;
 
-	@FXML
-	private Button BSpeichern;
+    @FXML
+    private Button BSpeichern;
 
-	@FXML
-	private TextField TFLand;
+    @FXML
+    private TextField TFLand;
 
-	@FXML
-	private TextField TFPLZ;
+    @FXML
+    private NumericTextField TFPLZ;
 
-	@FXML
-	private TextField TFStadt;
+    @FXML
+    private TextField TFStadt;
 
-	@FXML
-	private TextField TFStraße;
+    @FXML
+    private TextField TFStraße;
 
-	@FXML
-	private TextField TFHausnummer;
+    @FXML
+    private NumericTextField TFHausnummer;
 
-	@FXML
-	private TextField TFZusatz;
+    @FXML
+    private TextField TFZusatz;
 
-	@FXML
-	private Text TKuerzel;
+    @FXML
+    private Text TWarning;
 
-	@FXML
-	private Text TVorname_Nachname;
+    @FXML
+    private Text TKuerzel;
 
-	@FXML
-	private Text TPersonalnummer;
+    @FXML
+    private Text TVorname_Nachname;
 
-	@FXML
-	private Text TStelle;
+    @FXML
+    private Text TPersonalnummer;
 
-	@FXML
-	private Text TTelefonnummer;
+    @FXML
+    private Text TStelle;
 
-	@FXML
-	private Text TE_Mail;
+    @FXML
+    private Text TTelefonnummer;
 
-	@FXML
-	private Text TWarning;
+    @FXML
+    private Text TE_Mail;
 
-	@FXML
-	private Button BVerwerfen;
+    @FXML
+    private Button BVerwerfen;
 
-	@FXML
-	private Button BLogout;
+    @FXML
+    private Button BLogout;
 
 	@FXML
 	void logout(ActionEvent event) throws IOException {
@@ -215,6 +219,15 @@ public class PersonalDataEditController {
 		int housenrNew;
 		Date birthdayNew;
 
+		//Falls NumericFields blank sind (Workaround mit try-catch)
+		try {
+			postCodeNew = Integer.parseInt(TFPLZ.getText().toString());
+			housenrNew = Integer.parseInt(TFHausnummer.getText().toString());
+		} catch (Exception e) {
+			TWarning.setText("Bitte alles ausfüllen!");
+			return;
+		}
+		
 		if (firstNameNew.isBlank() || lastNameNew.isBlank() || countryNew.isBlank() 
 				|| cityNew.isBlank() || streetNew.isBlank()) {
 			TWarning.setText("Bitte ausfüllen!");
@@ -222,7 +235,7 @@ public class PersonalDataEditController {
 		} TWarning.setText("");
 
 		//Geburtstag
-		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() >= 4) {
+		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() > 7) {
 			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
 				try {
 					birthdayNew = new Date(TFGeburtstag.getText());
@@ -243,37 +256,37 @@ public class PersonalDataEditController {
 			return;
 		}
 
-		//PLZ
-		if (!TFPLZ.getText().isBlank()) {
-			try {
-				postCodeNew = Integer.parseInt(TFPLZ.getText());
-				TFPLZ.setStyle("-fx-text-fill: black;");
-			} catch (Exception E) {
-				TFPLZ.setStyle("-fx-text-fill: red;");
-				TFPLZ.setText("Falscher Eingabetyp!");
-				return;
-			} 
-		} else {
-			TFPLZ.setStyle("-fx-text-fill: red;");
-			TFPLZ.setText("Bitte ausfüllen!");
-			return;
-		}
-
-		//Hausnummer
-		if (!TFPLZ.getText().isBlank()) {
-			try {
-				housenrNew = Integer.parseInt(TFHausnummer.getText());
-				TFHausnummer.setStyle("-fx-text-fill: black;");
-			} catch (Exception E) {
-				TFHausnummer.setStyle("-fx-text-fill: red;");
-				TFHausnummer.setText("Falscher Eingabetyp!");
-				return;
-			}
-		} else {
-			TFHausnummer.setStyle("-fx-text-fill: red;");
-			TFHausnummer.setText("Bitte ausfüllen!");
-			return;
-		}
+//		//PLZ
+//		if (!TFPLZ.getText().isBlank()) {
+//			try {
+//				postCodeNew = Integer.parseInt(TFPLZ.getText());
+//				TFPLZ.setStyle("-fx-text-fill: black;");
+//			} catch (Exception E) {
+//				TFPLZ.setStyle("-fx-text-fill: red;");
+//				TFPLZ.setText("Falscher Eingabetyp!");
+//				return;
+//			} 
+//		} else {
+//			TFPLZ.setStyle("-fx-text-fill: red;");
+//			TFPLZ.setText("Bitte ausfüllen!");
+//			return;
+//		}
+//
+//		//Hausnummer
+//		if (!TFHausnummer.getText().isBlank()) {
+//			try {
+//				housenrNew = Integer.parseInt(TFHausnummer.getText());
+//				TFHausnummer.setStyle("-fx-text-fill: black;");
+//			} catch (Exception E) {
+//				TFHausnummer.setStyle("-fx-text-fill: red;");
+//				TFHausnummer.setText("Falscher Eingabetyp!");
+//				return;
+//			}
+//		} else {
+//			TFHausnummer.setStyle("-fx-text-fill: red;");
+//			TFHausnummer.setText("Bitte ausfüllen!");
+//			return;
+//		}
 
 
 		//Erstellen
