@@ -138,33 +138,58 @@ public class VacationRequestsController {
 		//TVornameData.setText(null);
 
 		//Absence
-		BIConnect bic = new BIConnect(user.getPersNr());
+		BIConnect bic = new BIConnect();
 
-		Iterator<Absence> it = bic.getVacationOverview().keys().asIterator();
+		Iterator<Absence> it = bic.getVacationRequests().iterator();
 
-
-		if (it.hasNext() && it.next().isAccepted() == false) {
+		if (it.hasNext()) {
 			Absence abs = it.next();
-			TPersnrData.setText(String.valueOf(abs.getPersNr()));
-			TVornameData.setText(bic.getEmployeeByID(abs.getPersNr()).getFirstname());
-			TNachnameData.setText(bic.getEmployeeByID(abs.getPersNr()).getLastname());
-			TVonData.setText(abs.getBegin().toString());
-			TBisData.setText(abs.getEnd().toString());
 
-			this.vacation = abs;
-		} else if (it.hasNext() && it.next().isAccepted() == true) {
-			Absence abs;
-			while (it.hasNext() && it.next().isAccepted() == true) {
-				abs = it.next();	
-			}
+			if (abs.isAccepted() == false) {
+				TPersnrData.setText(String.valueOf(abs.getPersNr()));
+				TVornameData.setText(bic.getEmployeeByID(abs.getPersNr()).getFirstname());
+				TNachnameData.setText(bic.getEmployeeByID(abs.getPersNr()).getLastname());
+				TVonData.setText(abs.getBegin().toString());
+				TBisData.setText(abs.getEnd().toString());
+
+				this.vacation = abs;
+			} 
+			else if (abs.isAccepted() == true) {
+				while (abs.isAccepted() == true) {
+					
+					if (!it.hasNext()) {
+						System.out.println("0");
+						clearEntries();
+						return;
+					}
+					abs = it.next();
+				}
+				System.out.println("1");
+				TPersnrData.setText(String.valueOf(abs.getPersNr()));
+				TVornameData.setText(bic.getEmployeeByID(abs.getPersNr()).getFirstname());
+				TNachnameData.setText(bic.getEmployeeByID(abs.getPersNr()).getLastname());
+				TVonData.setText(abs.getBegin().toString());
+				TBisData.setText(abs.getEnd().toString());
+
+				this.vacation = abs;
+			} else {
+				System.out.println("2");
+				clearEntries();
+			} 
 		} else {
-			TPersnrData.setVisible(false);
-			TVornameData.setVisible(false);
-			TNachnameData.setVisible(false);
-			TVonData.setVisible(false);
-			TBisData.setVisible(false);
+			System.out.println("3");
+			clearEntries();
 		}
 	}
+
+	public void clearEntries() {
+		TPersnrData.setVisible(false);
+		TVornameData.setVisible(false);
+		TNachnameData.setVisible(false);
+		TVonData.setVisible(false);
+		TBisData.setVisible(false);
+	}
+
 
 
 	public void changeSceneLogout() throws IOException {

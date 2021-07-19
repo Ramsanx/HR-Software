@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Vector;
+
 import com.hyparot.hr_software.src.db.db_connect;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employee.HR;
@@ -191,8 +193,47 @@ public class SystemDBConnector {
 			System.out.print("Fehler return null");
 			return null;
 		}
-		
 	}
+	
+	
+	//Ram
+		protected static Vector<Absence> getAbsenceTable() {
+			try {
+				Vector<Absence> abs = new Vector<Absence>();
+				ResultSet rs = db_connect.read_table("t_urlaub_krankheit");
+
+				int id;
+				Absence absence;
+				String acceptance;
+				boolean sick;
+
+				while(rs.next()) {
+					id = rs.getInt("PersNr");
+
+					if(rs.getInt("krank") == 1) {
+						sick = true;
+					} else {
+						sick = false;
+					}
+					absence = new Absence(id, new Date(rs.getString("Von")), new Date(rs.getString("Bis")), sick);
+					if(rs.getInt("genemigt") == 1) {
+						acceptance = "genehmigt";
+						absence.setAccepted(true);
+					}else {
+						acceptance = "nicht genehmigt";
+						absence.setAccepted(false);
+					}
+					absence.setAbsenceID(rs.getInt("UK_ID"));
+					abs.add(absence);
+				}
+				return abs;
+			}
+			catch(Exception e) {
+				System.out.print("Fehler return null");
+				return null;
+			}
+		}
+
 	
 	protected static void saveAbsence(Absence abs) {
 		db_connect.new_vacation_sick(abs.getPersNr(), abs.getBegin().toString(), abs.getEnd().toString(), abs.isSick(), abs.isAccepted());

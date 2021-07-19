@@ -153,6 +153,33 @@ public class BusinessIntelligence {
 		return vac;
 	}
 	
+	
+	//Ram
+		protected static Vector<Absence> getAbsenceTable(){
+			return SystemDBConnector.getAbsenceTable();
+		}
+		
+		//Ram
+		protected static Vector<Absence> getVacationRequests(){
+			Vector<Absence> vac = new Vector<Absence>();
+			Iterator<Absence> it = getAbsenceTable().iterator();
+			
+			while(it.hasNext()) {
+				Absence abs = it.next();
+				if(!abs.isSick()) {
+					String acceptance;
+					if(abs.isAccepted()) {
+						acceptance = "genehmigt";
+					}else {
+						acceptance = "nicht genehmigt";
+					}
+					vac.add(abs);
+				}
+			}
+			return vac;
+		}
+
+	
 	protected static void saveAbsence(Absence abs) {
 		SystemDBConnector.saveAbsence(abs);
 	}

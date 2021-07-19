@@ -2,6 +2,7 @@ package com.hyparot.hr_software.src.backend;
 
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Vector;
 
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employeedata.Absence;
@@ -106,6 +107,14 @@ public class BIConnect implements employee, hr, superior{
 		
 		return absence;
 	}
+
+	//Ram
+		public Vector<Absence> getVacationRequests() {
+			Vector<Absence> absence = BusinessIntelligence.getVacationRequests();
+			
+			return absence;
+		}
+
 
 	@Override
 	public void setSick(int duration) {
