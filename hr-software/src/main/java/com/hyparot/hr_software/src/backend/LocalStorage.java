@@ -9,7 +9,7 @@ import java.util.Hashtable;
 
 public class LocalStorage {
 
-	private static Vector<Employee> employees = new Vector<Employee>();
+	public static Vector<Employee> employees = new Vector<Employee>();
 	private static Hashtable<Integer, String> changes = new Hashtable<Integer, String>();
 	
 	
