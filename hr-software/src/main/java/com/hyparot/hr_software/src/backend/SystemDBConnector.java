@@ -162,18 +162,19 @@ public class SystemDBConnector {
 		try {
 			Hashtable<Absence, String> abs = new Hashtable<Absence, String>();
 			ResultSet rs = db_connect.read_table("t_urlaub_krankheit");
-		
+			
 			int id = User.getPersNr();
 			Absence absence;
 			String acceptance;
 			
-			while(rs.next()) { ;
+			
+			while(rs.next()) {
 				if(rs.getInt("PersNr") == id) {
 					boolean sick = false;
 					if(rs.getInt("krank") == 1) {
 						sick = true;
 					}
-					absence = new Absence(id, new Date(rs.getString("Von")), new Date(rs.getString("Bis")), sick);;
+					absence = new Absence(id, new Date(rs.getString("Von")), new Date(rs.getString("Bis")), sick);
 					if(rs.getInt("genemigt") == 1) {
 						acceptance = "genehmigt";
 						absence.setAccepted(true);
@@ -183,10 +184,11 @@ public class SystemDBConnector {
 					absence.setAbsenceID(rs.getInt("UK_ID"));
 					abs.put(absence, acceptance);
 				}
-			}	
+			}
 			return abs;
 		}
 		catch(Exception e) {
+			System.out.print("Fehler return null");
 			return null;
 		}
 		

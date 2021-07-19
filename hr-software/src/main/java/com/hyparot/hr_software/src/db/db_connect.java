@@ -106,7 +106,7 @@ public class db_connect {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_update = con.createStatement();
-			stm_update.executeUpdate("UPDATE "+tabelle+" SET "+spalte+" = '"+wert_neu+"' WHERE PersNr = "+persNr+"");
+			stm_update.executeUpdate("UPDATE "+tabelle+" SET "+spalte+" = '"+wert_neu+"' WHERE PersNr = "+persNr+";");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich geändert");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -149,7 +149,8 @@ public class db_connect {
 			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+table+";");
 			return rs_tabelle;
 			
-		}catch(SQLException e) {
+		}catch (SQLException e) {
+			System.out.println("READ_TABLE_FEHLER");
 			System.out.println(e.getMessage());
 			return null;
 		}
@@ -175,7 +176,7 @@ public class db_connect {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_delete = con.createStatement();
-			stm_delete.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE UK_ID = "+absenceID+"");
+			stm_delete.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE UK_ID = "+absenceID+";");
 			return true;
 
 		} catch (SQLException e) {
@@ -188,7 +189,7 @@ public class db_connect {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_update = con.createStatement();
-			stm_update.executeUpdate("UPDATE t_urlaub_krankheit SET genemigt = 1 WHERE UK_ID = "+absenceID+"");
+			stm_update.executeUpdate("UPDATE t_urlaub_krankheit SET genemigt = 1 WHERE UK_ID = "+absenceID+";");
 			System.out.println("ja");
 			return true;
 			
