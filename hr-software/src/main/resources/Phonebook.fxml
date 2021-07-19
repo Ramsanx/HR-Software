@@ -28,10 +28,12 @@
                                  <children>
                                     <TableView fx:id="TableView" prefHeight="692.0" prefWidth="853.0">
                                       <columns>
-                                        <TableColumn fx:id="TCName" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="250.0" text="Name" />
-                                          <TableColumn fx:id="TCMail" minWidth="0.0" prefWidth="224.0" text="E-Mail" />
-                                          <TableColumn fx:id="TCphonenumber" minWidth="0.0" prefWidth="190.0" text="Telefonnummer" />
-                                          <TableColumn fx:id="TCJobTitle" minWidth="0.0" prefWidth="190.0" text="Stelle" />
+                                          <TableColumn fx:id="TCPersNr" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="50.0" text="PersNr" />
+                                        <TableColumn fx:id="TCSName" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="140.0" text="Vorname" />
+                                          <TableColumn fx:id="TCLName" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="140.0" text="Nachname" />
+                                          <TableColumn fx:id="TCMail" minWidth="0.0" prefWidth="200.0" text="E-Mail" />
+                                          <TableColumn fx:id="TCphonenumber" minWidth="0.0" prefWidth="170.0" text="Telefonnummer" />
+                                          <TableColumn fx:id="TCJobTitle" minWidth="0.0" prefWidth="150.0" text="Stelle" />
                                       </columns>
                                     </TableView>
                                  </children>
