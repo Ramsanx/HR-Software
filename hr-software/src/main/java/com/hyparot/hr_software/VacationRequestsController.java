@@ -228,7 +228,7 @@ public class VacationRequestsController {
 			traverseVacations();
 			System.out.println("ACCEPTED");
 		} else {
-			bic.cancelVacation(vacation);
+			bic.cancelVacation(vacation.getAbsenceID());
 			traverseVacations();
 			System.out.println("DECLINED");
 		}

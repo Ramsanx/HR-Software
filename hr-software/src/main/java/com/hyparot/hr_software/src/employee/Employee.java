@@ -1,6 +1,7 @@
 package com.hyparot.hr_software.src.employee;
 
 import java.util.Hashtable;
+import java.util.Vector;
 
 import com.hyparot.hr_software.src.backend.*;
 import com.hyparot.hr_software.src.employeedata.Absence;
@@ -73,7 +74,7 @@ public class Employee extends Person implements employee{
 
 
 	@Override
-	public boolean cancelVacation(Absence vacation) {
+	public boolean cancelVacation(Integer vacation) {
 		
 		BIConnect bic = new BIConnect(this.getPersNr());
 		return bic.cancelVacation(vacation);
@@ -82,7 +83,7 @@ public class Employee extends Person implements employee{
 
 
 	@Override
-	public Hashtable<Absence, String> getVacationOverview() {
+	public Vector<Absence> getVacationOverview() {
 		
 		BIConnect bic = new BIConnect(this.getPersNr());
 		return bic.getVacationOverview();

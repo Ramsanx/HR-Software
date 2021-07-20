@@ -160,14 +160,13 @@ public class SystemDBConnector {
 	}
 	
 
-	protected static Hashtable<Absence, String> getAbsenceOf(Employee User) {
+	protected static Vector<Absence> getAbsenceOf(Employee User) {
 		try {
-			Hashtable<Absence, String> abs = new Hashtable<Absence, String>();
+			Vector<Absence> abs = new Vector<Absence>();
 			ResultSet rs = db_connect.read_table("t_urlaub_krankheit");
 			
 			int id = User.getPersNr();
 			Absence absence;
-			String acceptance;
 			
 			
 			while(rs.next()) {
@@ -178,13 +177,12 @@ public class SystemDBConnector {
 					}
 					absence = new Absence(id, new Date(rs.getString("Von")), new Date(rs.getString("Bis")), sick);
 					if(rs.getInt("genemigt") == 1) {
-						acceptance = "genehmigt";
 						absence.setAccepted(true);
 					}else {
-						acceptance = "nicht genehmigt";
+						absence.setAccepted(false);
 					}
 					absence.setAbsenceID(rs.getInt("UK_ID"));
-					abs.put(absence, acceptance);
+					abs.add(absence);
 				}
 			}
 			return abs;
@@ -239,15 +237,15 @@ public class SystemDBConnector {
 		db_connect.new_vacation_sick(abs.getPersNr(), abs.getBegin().toString(), abs.getEnd().toString(), abs.isSick(), abs.isAccepted());
 	}
 	
-	protected static boolean cancelVacation(Absence vacation) {
-		System.out.println(vacation.getAbsenceID());
-		return db_connect.deleteAbsence(vacation.getAbsenceID());
-
-
+	protected static boolean cancelVacation(Integer vacation) {
+		System.out.println(vacation);
+		return db_connect.deleteAbsence(vacation);
 	}
 	
 	protected static boolean acceptVacation(Absence vacation) {
 		return db_connect.acceptVacation(vacation.getAbsenceID());
 	}
+	
+	
 
 }

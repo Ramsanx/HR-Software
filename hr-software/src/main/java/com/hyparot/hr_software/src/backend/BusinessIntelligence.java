@@ -131,23 +131,23 @@ public class BusinessIntelligence {
 		}
 	}
 	// Erik - auf public gesetzt
-	public static Hashtable<Absence, String> getAbsenceOf(Employee employ){
+	protected static Vector<Absence> getAbsenceOf(Employee employ){
 		return SystemDBConnector.getAbsenceOf(employ);
 	}
 	
-	protected static Hashtable<Absence, String> getVacationOverview(Employee employ){
-		Hashtable<Absence, String> vac = new Hashtable<Absence, String>();
-		Iterator<Absence> it = getAbsenceOf(employ).keys().asIterator();
+	protected static Vector<Absence> getVacationOverview(Employee employ){
+		Vector<Absence> vac = new Vector<Absence>();
+		Iterator<Absence> it = getAbsenceOf(employ).iterator();
 		while(it.hasNext()) {
 			Absence abs = it.next();
 			if(!abs.isSick()) {
 				String acceptance;
-				if(abs.isAccepted()) {
-					acceptance = "genehmigt";
-				}else {
-					acceptance = "nicht genehmigt";
-				}
-				vac.put(abs, acceptance);
+//				if(abs.isAccepted()) {
+//					acceptance = "genehmigt";
+//				}else {
+//					acceptance = "nicht genehmigt";
+//				}
+				vac.add(abs);
 			}
 		}
 		return vac;
@@ -188,7 +188,7 @@ public class BusinessIntelligence {
 		return LocalStorage.getStorage();
 	}
 	
-	protected static boolean cancelVacation(Absence vacation){
+	protected static boolean cancelVacation(Integer vacation){
 		return SystemDBConnector.cancelVacation(vacation);
 	}
 	
@@ -200,7 +200,7 @@ public class BusinessIntelligence {
 	
 	private static boolean addAbsence(Absence absence) {
 		if(!absence.isSick()) {
-			Iterator<Absence> it = getAbsenceOf(getEmployeeByID(absence.getPersNr())).keys().asIterator();
+			Iterator<Absence> it = getAbsenceOf(getEmployeeByID(absence.getPersNr())).iterator();
 			while(it.hasNext()) {
 				Absence abs = it.next();
 				if(absence.isOverlapping(abs)) {
@@ -219,7 +219,7 @@ public class BusinessIntelligence {
 	
 	
 	protected static Absence getAbsenceByDate(int persNr, Date begin, Date end) {
-		Iterator<Absence> it = getAbsenceOf(getEmployeeByID(persNr)).keys().asIterator();
+		Iterator<Absence> it = getAbsenceOf(getEmployeeByID(persNr)).iterator();
 		while(it.hasNext()) {
 			Absence abs = it.next();
 			if(abs.getBegin().compare(begin) == 0 && abs.getEnd().compare(end) == 0) {

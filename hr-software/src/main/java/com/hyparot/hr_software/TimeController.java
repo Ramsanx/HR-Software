@@ -2,10 +2,14 @@ package com.hyparot.hr_software;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import com.hyparot.hr_software.src.backend.BIConnect;
 import com.hyparot.hr_software.src.backend.BusinessIntelligence;
 import com.hyparot.hr_software.src.backend.LocalStorage;
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
@@ -21,6 +25,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -59,6 +66,9 @@ public class TimeController {
 	private Button BArbeitszeitErfassen;
 
 	@FXML
+	private Button BCancelVacation;
+
+	@FXML
 	private Text TErfolgreichArbeitszeit;
 
 	@FXML
@@ -71,10 +81,28 @@ public class TimeController {
 	private Text TErfolgreichKrank;
 
 	@FXML
+	private Text TErfolgreichStornieren;
+
+	@FXML
 	private TextField TFVon;
 
 	@FXML
 	private TextField TFBis;
+
+	@FXML
+	private TableView<Absence> TableView;
+
+	@FXML
+	private TableColumn<Absence, Integer> TCAbsenceID;
+
+	@FXML
+	private TableColumn<Absence, Date> TCBeginDate;
+
+	@FXML
+	private TableColumn<Absence, Date> TCEndDate;
+
+	@FXML
+	private NumericTextField TFCancelVacationID;
 
 	@FXML
 	private Button BUrlaubBeantragen;
@@ -133,6 +161,12 @@ public class TimeController {
 	}
 
 	@FXML
+	void cancelVacationByID(ActionEvent event) {
+		cancelVacationByID2();
+	}
+
+
+	@FXML
 	void restrictLength(KeyEvent event) {
 		if (TFVonH.getText().length() > 1) {
 			TFVonH.setText(TFVonH.getText().substring(0,2));
@@ -168,16 +202,16 @@ public class TimeController {
 		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'Time.fxml'.";
 		assert Bzurueck != null : "fx:id=\"Bzurueck\" was not injected: check your FXML file 'Time.fxml'.";
 		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'Time.fxml'.";
-		
-		Hashtable<Absence, String> absenceTable = BusinessIntelligence.getAbsenceOf(user);
-		
-//		TableView.setItems(FXCollections.observableList(absenceTable));
-//		
-//		TCAbsenceID.setCellValueFactory(new PropertyValueFactory<>("absenceID"));
-//		TCBeginDate.setCellValueFactory(new PropertyValueFactory<>("begin"));
-//		TCEndDate.setCellValueFactory(new PropertyValueFactory<>("end"));
-//		TCIsAccepted.setCellValueFactory(new PropertyValueFactory<>("isAccepted"));
 
+		BIConnect bic = new BIConnect(this.user.getPersNr());
+
+		Vector<Absence> absenceTable = bic.getVacationOverview();
+
+		TableView.setItems(FXCollections.observableList(absenceTable));
+
+		TCAbsenceID.setCellValueFactory(new PropertyValueFactory<>("absenceID"));
+		TCBeginDate.setCellValueFactory(new PropertyValueFactory<>("begin"));
+		TCEndDate.setCellValueFactory(new PropertyValueFactory<>("end"));
 	}
 
 	public TimeController(Stage stage, Employee username) {
@@ -222,6 +256,29 @@ public class TimeController {
 		stage.setResizable(false);
 	}
 
+	public void cancelVacationByID2() {
+		BIConnect bic = new BIConnect(this.user.getPersNr());
+		Calendar c = new GregorianCalendar();
+		Absence abs;
+		String today = String.valueOf(c.get(Calendar.YEAR))+"-"+String.valueOf(c.get(Calendar.MONTH)+1)+"-"+String.valueOf(c.get(Calendar.DAY_OF_MONTH));
+
+		Vector<Absence> vac = new Vector<Absence>();
+		Iterator<Absence> it = bic.getVacationOverview().iterator();
+
+		while(it.hasNext()) {
+			abs = it.next();
+			if (abs.getAbsenceID() == Integer.parseInt(TFCancelVacationID.getText())) {
+
+				if (!abs.getBegin().toString().equals(today)) {
+					bic.cancelVacation(Integer.parseInt(TFCancelVacationID.getText()));
+					TErfolgreichStornieren.setText("Erfolgreich storniert!");
+				} else {
+					TErfolgreichStornieren.setText("Zu Spät, min Jung!");
+				}
+			}
+		}
+	}
+
 	public void setWorkingTime() {
 		int VonH = Integer.parseInt(TFVonH.getText().toString());
 		int VonM = Integer.parseInt(TFVonM.getText().toString());
@@ -235,7 +292,7 @@ public class TimeController {
 					int workedTime = Math.round(((BisH*60 + BisM) - (VonH*60 + VonM))/60);
 					TErfolgreichArbeitszeit.setStyle("-fx-text-fill: #36c740;");
 					TErfolgreichArbeitszeit.setText("Arbeitsstunden erfolgreich erfasst: " + workedTime + "h.");
-					
+
 					user.setWorkingTime_left(user.getWorkingTime_left()-workedTime);
 					TReststunden.setText(String.valueOf(user.getWorkingTime_left()));
 				} else {
@@ -314,11 +371,15 @@ public class TimeController {
 			return;
 		}
 
-		if (VacationUntil.isGreater(VacationFrom)) {
-			TFVon.clear();
-			TFBis.clear();
-			TErfolgreich.setText("Erfolgreich beantragt!");
-			user.applyForVacation(VacationFrom, VacationUntil);
+		if (VacationUntil.isGreater(VacationFrom) || VacationUntil.toString().equals(VacationUntil.toString())) {
+			if (user.applyForVacation(VacationFrom, VacationUntil)) {
+				TFVon.clear();
+				TFBis.clear();
+				TErfolgreich.setText("Erfolgreich beantragt!");
+			} else {
+				TErfolgreich.setText("Überlappender Urlaub!");
+			}
+
 		} else {
 			TFVon.setText("Von!");
 			TFBis.setText("Bis!");

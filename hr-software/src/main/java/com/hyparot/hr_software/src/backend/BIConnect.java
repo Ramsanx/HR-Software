@@ -94,16 +94,15 @@ public class BIConnect implements employee, hr, superior{
 	}
 
 	@Override
-	public boolean cancelVacation(Absence vacation) {
+	public boolean cancelVacation(Integer vacation) {
 		
 		return BusinessIntelligence.cancelVacation(vacation);
 	}
 
 	@Override
-	public Hashtable<Absence, String> getVacationOverview() {
-		
+	public Vector<Absence> getVacationOverview() {
 		Employee user = this.getEmployeeByID(operatingUserID);
-		Hashtable<Absence, String> absence = BusinessIntelligence.getVacationOverview(user);
+		Vector<Absence> absence = BusinessIntelligence.getVacationOverview(user);
 		
 		return absence;
 	}

@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -21,7 +23,7 @@
 			<children>
 				<HBox prefHeight="695.0" prefWidth="854.0" style="-fx-background-color: #424a48;">
 					<children>
-						<VBox prefHeight="695.0" prefWidth="400.0" style="-fx-border-color: black;">
+						<VBox alignment="TOP_CENTER" prefHeight="695.0" prefWidth="400.0" style="-fx-border-color: black;">
                      <children>
                         <HBox prefHeight="50.0" prefWidth="200.0">
                            <children>
@@ -43,132 +45,51 @@
                               </Text>
                            </children>
                         </HBox>
-                        <ScrollPane prefHeight="3600.0" prefWidth="200.0">
+                        <ScrollPane prefHeight="450.0" prefWidth="380.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3600.0" prefWidth="398.4" style="-fx-background-color: #424a48;">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="383.0" style="-fx-background-color: #424a48;">
                                  <children>
-                                    <VBox prefHeight="3600.0" prefWidth="398.4">
+                                    <VBox prefHeight="645.0" prefWidth="398.4">
                                        <children>
-                                          <VBox prefHeight="120.0" prefWidth="398.4">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="70.0" prefWidth="373.0">
-                                                   <children>
-                                                      <Label text="Vom:">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets right="20.0" />
-                                                         </HBox.margin>
-                                                      </Label>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                                                         <HBox.margin>
-                                                            <Insets right="60.0" />
-                                                         </HBox.margin>
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Label text="Bis:">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets right="20.0" />
-                                                         </HBox.margin>
-                                                      </Label>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets right="50.0" />
-                                                         </HBox.margin>
-                                                      </Text>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
-                                                   <children>
-                                                      <Button mnemonicParsing="false" prefWidth="100.0" text="Stornieren">
-                                                         <HBox.margin>
-                                                            <Insets right="50.0" />
-                                                         </HBox.margin>
-                                                         <font>
-                                                            <Font name="Dubai Regular" size="14.0" />
-                                                         </font>
-                                                      </Button>
-                                                      <Button mnemonicParsing="false" prefWidth="100.0" text="Ändern">
-                                                         <font>
-                                                            <Font name="Dubai Regular" size="14.0" />
-                                                         </font>
-                                                      </Button>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                          <VBox prefHeight="120.0" prefWidth="398.4">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="70.0" prefWidth="373.0">
-                                                   <children>
-                                                      <Label text="Vom:">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets right="20.0" />
-                                                         </HBox.margin>
-                                                      </Label>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets right="60.0" />
-                                                         </HBox.margin>
-                                                      </Text>
-                                                      <Label text="Bis:">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets right="20.0" />
-                                                         </HBox.margin>
-                                                      </Label>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets right="50.0" />
-                                                         </HBox.margin>
-                                                      </Text>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="150.0">
-                                                   <children>
-                                                      <Button mnemonicParsing="false" prefWidth="100.0" text="Stornieren">
-                                                         <HBox.margin>
-                                                            <Insets right="50.0" />
-                                                         </HBox.margin>
-                                                         <font>
-                                                            <Font name="Dubai Regular" size="14.0" />
-                                                         </font>
-                                                      </Button>
-                                                      <Button mnemonicParsing="false" prefWidth="100.0" text="Ändern">
-                                                         <font>
-                                                            <Font name="Dubai Regular" size="14.0" />
-                                                         </font>
-                                                      </Button>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
+                                          <TableView fx:id="TableView" prefHeight="1000.0" prefWidth="370.0">
+                                            <columns>
+                                              <TableColumn fx:id="TCAbsenceID" prefWidth="100.0" text="ID" />
+                                              <TableColumn fx:id="TCBeginDate" prefWidth="150.0" text="Von" />
+                                                <TableColumn fx:id="TCEndDate" prefWidth="150.0" text="Bis" />
+                                            </columns>
+                                          </TableView>
                                        </children>
                                     </VBox>
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Urlaub stornieren">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </Text>
+                        <NumericTextField fx:id="TFCancelVacationID" maxWidth="140.0" prefWidth="140.0" promptText="ID">
+                           <VBox.margin>
+                              <Insets top="23.0" />
+                           </VBox.margin>
+                        </NumericTextField>
+                        <Button fx:id="BCancelVacation" mnemonicParsing="false" onAction="#cancelVacationByID" prefHeight="30.0" prefWidth="200.0" text="Stornieren">
+                           <VBox.margin>
+                              <Insets top="22.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="TErfolgreichStornieren" fill="#36c740" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children></VBox>
 						<VBox alignment="TOP_CENTER" prefHeight="645.0" prefWidth="454.0">
                      <children>

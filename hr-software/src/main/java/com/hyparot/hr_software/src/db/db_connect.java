@@ -199,6 +199,20 @@ public class db_connect {
 		}
 	}
 	
+//	public static boolean getAbsenceByID(int absenceID) {
+//		try {
+//			Connection con = DriverManager.getConnection(db_url, user, pass);
+//			Statement stm_update = con.createStatement();
+//			stm_update.executeUpdate("SELECT 'Von' FROM 't_urlaub_krankheit' WHERE UK_ID='"+absenceID+"';");
+//			System.out.println("ja");
+//			return true;
+//			
+//		} catch (SQLException e) {
+//			System.out.println("nein");
+//			return false;
+//		}
+//	}
+	
 //	public static void showVacationRequest(int absenceID) {
 //		try {
 //			Connection con = DriverManager.getConnection(db_url, user, pass);
