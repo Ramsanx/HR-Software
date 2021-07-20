@@ -125,8 +125,8 @@ public class PhonebookController {
         assert BPersonalData != null : "fx:id=\"BPersonalData\" was not injected: check your FXML file 'Phonebook.fxml'.";
         assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'Phonebook.fxml'.";
 	
-		Vector<Employee> table = LocalStorage.employees;
-		TableView.setItems(FXCollections.observableList(table));
+		Vector<Employee> employeeTable = LocalStorage.employees;
+		TableView.setItems(FXCollections.observableList(employeeTable));
 		
 		TCPersNr.setCellValueFactory(new PropertyValueFactory<>("persNr"));
 		TCSName.setCellValueFactory(new PropertyValueFactory<>("firstname"));

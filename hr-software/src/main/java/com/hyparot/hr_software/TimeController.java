@@ -2,17 +2,25 @@ package com.hyparot.hr_software;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
+import com.hyparot.hr_software.src.backend.BusinessIntelligence;
+import com.hyparot.hr_software.src.backend.LocalStorage;
+import com.hyparot.hr_software.src.backend.SystemDBConnector;
 import com.hyparot.hr_software.src.employee.Employee;
+import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Date;
 
 import impl.com.calendarfx.view.NumericTextField;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -160,6 +168,15 @@ public class TimeController {
 		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'Time.fxml'.";
 		assert Bzurueck != null : "fx:id=\"Bzurueck\" was not injected: check your FXML file 'Time.fxml'.";
 		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'Time.fxml'.";
+		
+		Hashtable<Absence, String> absenceTable = BusinessIntelligence.getAbsenceOf(user);
+		
+//		TableView.setItems(FXCollections.observableList(absenceTable));
+//		
+//		TCPersNr.setCellValueFactory(new PropertyValueFactory<>("absenceID"));
+//		TCSName.setCellValueFactory(new PropertyValueFactory<>("begin"));
+//		TCLName.setCellValueFactory(new PropertyValueFactory<>("end"));
+//		TCMail.setCellValueFactory(new PropertyValueFactory<>("isAccepted"));
 
 	}
 

@@ -130,8 +130,8 @@ public class BusinessIntelligence {
 			return true;
 		}
 	}
-
-	protected static Hashtable<Absence, String> getAbsenceOf(Employee employ){
+	// Erik - auf public gesetzt
+	public static Hashtable<Absence, String> getAbsenceOf(Employee employ){
 		return SystemDBConnector.getAbsenceOf(employ);
 	}
 	
