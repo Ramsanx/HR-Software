@@ -173,10 +173,10 @@ public class TimeController {
 		
 //		TableView.setItems(FXCollections.observableList(absenceTable));
 //		
-//		TCPersNr.setCellValueFactory(new PropertyValueFactory<>("absenceID"));
-//		TCSName.setCellValueFactory(new PropertyValueFactory<>("begin"));
-//		TCLName.setCellValueFactory(new PropertyValueFactory<>("end"));
-//		TCMail.setCellValueFactory(new PropertyValueFactory<>("isAccepted"));
+//		TCAbsenceID.setCellValueFactory(new PropertyValueFactory<>("absenceID"));
+//		TCBeginDate.setCellValueFactory(new PropertyValueFactory<>("begin"));
+//		TCEndDate.setCellValueFactory(new PropertyValueFactory<>("end"));
+//		TCIsAccepted.setCellValueFactory(new PropertyValueFactory<>("isAccepted"));
 
 	}
 
