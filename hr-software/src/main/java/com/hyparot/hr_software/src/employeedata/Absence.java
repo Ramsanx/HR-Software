@@ -18,6 +18,14 @@ public class Absence {
 		this.setSick(isSick);
 	}
 
+	public void setIsAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+	
+	public boolean getIsAccepted() {
+		return isAccepted;
+	}
+	
 	public Date getBegin() {
 		return begin;
 	}

@@ -33,7 +33,9 @@ public class SystemDBConnector {
 								data.getString("bezeichnung"),
 								data.getString("TelNr"), 
 								data.getInt("PersNr"),
-								db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
+								db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")),
+								db_connect.read_int_value("t_mitarbeiter", "Arbeitszeit_Ist", data.getInt("PersNr")), 
+								db_connect.read_int_value("t_mitarbeiter", "Urlaubstage_verbleibend", data.getInt("PersNr")), 
 								new Date(data.getString("Geburtstag")), 
 								new Date(data.getString("eingestellt_am")),
 								new Adress(data.getString("Land"), 
@@ -54,7 +56,9 @@ public class SystemDBConnector {
 								data.getString("bezeichnung"),
 								data.getString("TelNr"),
 								data.getInt("PersNr"),
-								db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
+								db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")),
+								db_connect.read_int_value("t_mitarbeiter", "Arbeitszeit_Ist", data.getInt("PersNr")),
+								db_connect.read_int_value("t_mitarbeiter", "Urlaubstage_verbleibend", data.getInt("PersNr")), 
 								new Date(data.getString("Geburtstag")), 
 								new Date(data.getString("eingestellt_am")),
 								new Adress(data.getString("Land"), 
@@ -75,7 +79,9 @@ public class SystemDBConnector {
 								data.getString("bezeichnung"),
 								data.getString("TelNr"), 
 								data.getInt("PersNr"),
-								db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")), 
+								db_connect.read_int_value("t_vertragsdaten", "Arbeitsstunden", data.getInt("PersNr")),
+								db_connect.read_int_value("t_mitarbeiter", "Arbeitszeit_Ist", data.getInt("PersNr")),
+								db_connect.read_int_value("t_mitarbeiter", "Urlaubstage_verbleibend", data.getInt("PersNr")), 
 								new Date(data.getString("Geburtstag")), 
 								new Date(data.getString("eingestellt_am")),
 								new Adress(data.getString("Land"), 
@@ -134,6 +140,7 @@ public class SystemDBConnector {
 				LocalStorage.removeFromChanges(persNr);
 
 			}else if(changes.get(persNr).equals("changed")) {
+				System.out.println("Hallo");
 				db_connect.value_update("t_mitarbeiter", "Bezeichnung", employee.getJobTitle(), persNr);
 				db_connect.value_update("t_mitarbeiter", "Mail", employee.getEMail(), persNr);
 				db_connect.value_update("t_mitarbeiter", "eingestellt_am", employee.getStartDate().toString(), persNr);
@@ -146,12 +153,18 @@ public class SystemDBConnector {
 				db_connect.value_update("t_mitarbeiter", "Ort", employee.getAdress().getCity(), persNr);
 				db_connect.value_update("t_mitarbeiter", "TelNr", employee.getPhoneNumber(), persNr);
 				db_connect.value_update("t_mitarbeiter", "Vorname", employee.getFirstname(), persNr);
+//				db_connect.value_update("t_mitarbeiter", "Arbeitszeit_Ist", String.valueOf(employee.getWorkingTime_left()), persNr);
 
 				LocalStorage.removeFromChanges(persNr);
 
 			}else if(changes.get(persNr).equals("deleted")) {
 
 				db_connect.delete_user(persNr);
+				LocalStorage.removeFromChanges(persNr);
+			} else if(changes.get(persNr).equals("workingTimeChange")) {
+				db_connect.value_update("t_mitarbeiter", "Arbeitszeit_Ist", String.valueOf(employee.getWorkingTime_left()), persNr);
+				db_connect.value_update("t_mitarbeiter", "Urlaubstage_verbleibend", String.valueOf(employee.getVacation_left()), persNr);
+				
 				LocalStorage.removeFromChanges(persNr);
 			}
 			answered = true;

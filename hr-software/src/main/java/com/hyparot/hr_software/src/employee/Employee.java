@@ -27,11 +27,11 @@ public class Employee extends Person implements employee{
 	
 	public Employee(String username, String password, String firstname, String lastname, String jobTitle,
 			   String phoneNumber, int persNr, int workingTime_contract,  
-			   Date birthday, Date startDate,
+			   int workingTime_left, int vacation_left, Date birthday, Date startDate,
 			   Adress adress) {
 		
-		super(firstname, lastname, jobTitle, phoneNumber, persNr, workingTime_contract,  
-			  birthday, startDate,
+		super(firstname, lastname, jobTitle, phoneNumber, persNr, workingTime_contract, workingTime_left,
+			  vacation_left, birthday, startDate,
 			  adress);
 		this.setUsername(username);
 		this.setPassword(password);

@@ -204,6 +204,7 @@ public class PersonalDataController {
 		stage.setWidth(800);
 		stage.setHeight(500);
 		stage.centerOnScreen();
+		stage.setTitle("HyparRot - HR Software");
 		stage.setResizable(false);
 	}
 
@@ -217,6 +218,7 @@ public class PersonalDataController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		fRController.schreiben();
 	}
 
@@ -230,6 +232,7 @@ public class PersonalDataController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		personalDataEditController.schreiben();
 	}
 	
@@ -243,6 +246,7 @@ public class PersonalDataController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		personalDataEditOtherController.schreiben();
 	}
 
@@ -256,6 +260,7 @@ public class PersonalDataController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		contractDataController.schreiben();
 	}
 
@@ -269,6 +274,7 @@ public class PersonalDataController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		contractDataController.schreiben();
 	}
 }

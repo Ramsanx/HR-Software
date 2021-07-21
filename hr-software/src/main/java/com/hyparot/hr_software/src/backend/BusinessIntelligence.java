@@ -52,8 +52,8 @@ public class BusinessIntelligence {
 	
 	
 	protected static void createEmployee(String group, String username, String password, String firstname, String lastname, 
-									  String jobTitle, String phoneNumber, int workingTime_contract, 
-									  Date birthday, Date startDate,
+									  String jobTitle, String phoneNumber, int workingTime_contract, int workingTime_left,
+									  int vacation_left, Date birthday, Date startDate,
 									  Adress adress) {
 		
 		Iterator<Employee> employee = LocalStorage.getStorage().iterator();
@@ -67,18 +67,18 @@ public class BusinessIntelligence {
 			Employee user = null;
 			if(group.equals("HR")) {
 				user = new HR(username, password, firstname, lastname, 
-							  jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract,
-							  birthday, startDate,
+							  jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, workingTime_left,
+							  vacation_left, birthday, startDate,
 							  adress);
 			}else if(group.equals("Superior")) {
 				user = new Superior(username, password, firstname, lastname, 
-									jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, 
-									birthday, startDate,
+									jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, workingTime_left, 
+									vacation_left, birthday, startDate,
 									adress);
 			}else if(group.equals("Employee")){
 				user = new Employee(username, password, firstname, lastname, 
-									jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, 
-									birthday, startDate,
+									jobTitle, phoneNumber, findHighestPersNr()+1, workingTime_contract, workingTime_left, 
+									vacation_left, birthday, startDate,
 									adress);
 			}
 			LocalStorage.addToEmployees(user);
@@ -130,6 +130,12 @@ public class BusinessIntelligence {
 			return true;
 		}
 	}
+	
+	//Ram u.a.
+	protected static void addToChanges(int persNr) {
+		LocalStorage.addToChanges(persNr, "workingTimeChange");
+	}
+	
 	// Erik - auf public gesetzt
 	protected static Vector<Absence> getAbsenceOf(Employee employ){
 		return SystemDBConnector.getAbsenceOf(employ);
@@ -154,7 +160,7 @@ public class BusinessIntelligence {
 	}
 	
 	
-	//Ram
+		//Ram
 		protected static Vector<Absence> getAbsenceTable(){
 			return SystemDBConnector.getAbsenceTable();
 		}

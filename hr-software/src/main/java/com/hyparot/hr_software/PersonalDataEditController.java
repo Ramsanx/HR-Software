@@ -189,6 +189,7 @@ public class PersonalDataEditController {
 		stage.setWidth(800);
 		stage.setHeight(500);
 		stage.centerOnScreen();
+		stage.setTitle("HyparRot - HR Software");
 		stage.setResizable(false);
 	}
 
@@ -203,6 +204,7 @@ public class PersonalDataEditController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 

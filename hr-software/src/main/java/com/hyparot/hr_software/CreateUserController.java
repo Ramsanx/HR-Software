@@ -192,6 +192,7 @@ public class CreateUserController {
 		stage.setHeight(500);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 	}
 
 	public void changeSceneVerwerfen(Employee Username, Boolean created) throws IOException {
@@ -204,6 +205,7 @@ public class CreateUserController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		fRController.schreiben();
 		if (created == true) {
 			fRController.confirmCreation();
@@ -322,12 +324,17 @@ public class CreateUserController {
 		Date startDateNew = new Date(today.get(Calendar.YEAR), today.get(Calendar.MONTH)+1, today.get(Calendar.DAY_OF_MONTH));
 
 
-		//Erstellen
+		
 		TWarning.setStyle("-fx-text-fill: green;");
 		TWarning.setText("Erfolgreich!");
-		user.setNewEmployee(group, usernameNew, passwordNew, firstNameNew, lastNameNew, jobTitleNew, phonenumberNew, workingTimeNew*4, birthdayNew, startDateNew, adressNew);
+		//Capitalized Firstname and Lastname
+		String firstNameNewCap = firstNameNew.substring(0, 1).toUpperCase() + firstNameNew.substring(1);
+		String lastNameNewCap = lastNameNew.substring(0, 1).toUpperCase() + lastNameNew.substring(1);
+		//Erstellen
+		user.setNewEmployee(group, usernameNew, passwordNew, firstNameNewCap, lastNameNewCap, jobTitleNew, phonenumberNew, workingTimeNew*4, workingTimeNew*4, 30, birthdayNew, startDateNew, adressNew);
 		SystemDBConnector.loadLocalDataToDB();
 
+		//Changescene back to Main
 		changeSceneVerwerfen(user, true);
 
 	}

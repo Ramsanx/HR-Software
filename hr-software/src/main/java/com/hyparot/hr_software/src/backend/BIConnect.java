@@ -63,11 +63,11 @@ public class BIConnect implements employee, hr, superior{
 
 	@Override
 	public void setNewEmployee(String group, String username, String password, String firstname, String lastname,
-			String jobTitle, String phoneNumber, int workingTime_contract, Date birthday, Date startDate,
+			String jobTitle, String phoneNumber, int workingTime_contract, int workingTime_left, int vacation_left, Date birthday, Date startDate,
 			Adress adress){
 		
 		BusinessIntelligence.createEmployee(group, username, password, firstname, lastname,
-										   jobTitle, phoneNumber, workingTime_contract, birthday, startDate,
+										   jobTitle, phoneNumber, workingTime_contract, workingTime_left, vacation_left, birthday, startDate,
 										   adress);
 	}
 
@@ -126,6 +126,11 @@ public class BIConnect implements employee, hr, superior{
 	public void setWorkTime() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	public void addToChanges(int persNr) {
+		BusinessIntelligence.addToChanges(persNr);
 	}
 
 

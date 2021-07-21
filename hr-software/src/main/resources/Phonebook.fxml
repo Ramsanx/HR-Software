@@ -50,8 +50,8 @@
 							<children>
 								<StackPane prefHeight="250.0" prefWidth="426.0">
 									<children>
-										<Circle fill="#eae290" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-										<Text fx:id="TKuerzel" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
+										<Circle fill="#ff5d5d" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+										<Text fx:id="TKuerzel" fill="#4a0000" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
 											<font>
 												<Font size="84.0" />
 											</font>

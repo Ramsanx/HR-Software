@@ -41,8 +41,8 @@ public abstract class Person {
 	
 	
 	public Person(String firstname, String lastname, String jobTitle,
-				  String phoneNumber, int persNr, int workingTime_contract,  
-				  Date birthday, Date startDate,
+				  String phoneNumber, int persNr, int workingTime_contract, int workingTime_left,
+				  int vacation_left, Date birthday, Date startDate,
 				  Adress adress) {
 		
 		this.setFirstname(firstname);
@@ -59,6 +59,8 @@ public abstract class Person {
 		}else {
 			this.setVacation_contract(26);
 		}
+		this.workingTime_left = workingTime_left;
+		this.vacation_left = vacation_left;
 		
 		this.setBirthday(birthday);
 		this.setStartDate(startDate);

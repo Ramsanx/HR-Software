@@ -103,9 +103,13 @@ public class PersonalDataEditOtherController {
 	@FXML
 	void deleteUser(ActionEvent event) throws IOException {
 		BIConnect bi = new BIConnect();
-		bi.deleteEmployee(userEdit.getPersNr());
-		SystemDBConnector.loadLocalDataToDB();
-		changeSceneDeleteUser(user);
+		if (user.getPersNr() != userEdit.getPersNr()) {
+			bi.deleteEmployee(userEdit.getPersNr());
+			SystemDBConnector.loadLocalDataToDB();
+			changeSceneDeleteUser(user);
+		} else {
+			TWarning.setText("Selbst löschen nicht möglich!");
+		}
 	}
 
 	@FXML
@@ -206,6 +210,7 @@ public class PersonalDataEditOtherController {
 		stage.setWidth(800);
 		stage.setHeight(500);
 		stage.centerOnScreen();
+		stage.setTitle("HyparRot - HR Software");
 		stage.setResizable(false);
 	}
 
@@ -219,6 +224,7 @@ public class PersonalDataEditOtherController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 
@@ -232,6 +238,7 @@ public class PersonalDataEditOtherController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		fRController.schreiben();
 		fRController.confirmDeletion();
 	}

@@ -25,7 +25,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Vorname:">
+                                    <Label text="Vorname:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -50,7 +50,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Nachname:">
+                                    <Label text="Nachname:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -75,7 +75,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Stelle:">
+                                    <Label text="Stelle:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -103,7 +103,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Telefonnummer:">
+                                    <Label text="Telefonnummer:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -131,7 +131,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Personalnummer:">
+                                    <Label text="Personalnummer:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -159,7 +159,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Geburtstag:">
+                                    <Label text="Geburtstag:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -184,7 +184,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Einstellungsdatum:">
+                                    <Label text="Einstellungsdatum:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -228,7 +228,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="190.0">
                                  <children>
-                                    <Label text="Land:">
+                                    <Label text="Land:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -252,7 +252,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="190.0">
                                  <children>
-                                    <Label text="Postleitzahl:">
+                                    <Label text="Postleitzahl:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -276,7 +276,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="190.0">
                                  <children>
-                                    <Label text="Stadt:">
+                                    <Label text="Stadt:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -300,7 +300,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="190.0">
                                  <children>
-                                    <Label text="Straße:">
+                                    <Label text="Straße:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -324,7 +324,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="190.0">
                                  <children>
-                                    <Label text="Hausnummer:">
+                                    <Label text="Hausnummer:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -348,7 +348,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="190.0">
                                  <children>
-                                    <Label text="Zusatz:">
+                                    <Label text="Zusatz:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -391,8 +391,8 @@
 							<children>
 								<StackPane prefHeight="250.0" prefWidth="426.0">
 									<children>
-										<Circle fill="#eae290" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-										<Text fx:id="TKuerzel" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
+										<Circle fill="#ff5d5d" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+										<Text fx:id="TKuerzel" fill="#4a0000" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
 											<font>
 												<Font size="84.0" />
 											</font>

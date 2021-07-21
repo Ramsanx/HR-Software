@@ -47,6 +47,9 @@ public class VacationRequestsController {
 	private Button BAblehnen;
 
 	@FXML
+	private Text TEmpty;
+	
+	@FXML
 	private Text TKuerzel;
 
 	@FXML
@@ -183,11 +186,14 @@ public class VacationRequestsController {
 	}
 
 	public void clearEntries() {
-		TPersnrData.setVisible(false);
-		TVornameData.setVisible(false);
-		TNachnameData.setVisible(false);
-		TVonData.setVisible(false);
-		TBisData.setVisible(false);
+		TPersnrData.setText("-");
+		TVornameData.setText("-");
+		TNachnameData.setText("-");
+		TVonData.setText("-");
+		TBisData.setText("-");
+		TEmpty.setVisible(true);
+		BGenehmigen.setDisable(true);
+		BAblehnen.setDisable(true);
 	}
 
 
@@ -201,6 +207,7 @@ public class VacationRequestsController {
 		stage.setWidth(800);
 		stage.setHeight(500);
 		stage.centerOnScreen();
+		stage.setTitle("HyparRot - HR Software");
 		stage.setResizable(false);
 	}
 
@@ -215,6 +222,7 @@ public class VacationRequestsController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		fRController.schreiben();
 
 
@@ -229,6 +237,7 @@ public class VacationRequestsController {
 			System.out.println("ACCEPTED");
 		} else {
 			bic.cancelVacation(vacation.getAbsenceID());
+			bic.getEmployeeByID(vacation.getPersNr()).setVacation_left(bic.getEmployeeByID(vacation.getPersNr()).getVacation_left() + vacation.getAbsenceDuration());
 			traverseVacations();
 			System.out.println("DECLINED");
 		}

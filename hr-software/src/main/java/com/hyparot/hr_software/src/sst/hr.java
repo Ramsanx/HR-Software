@@ -9,8 +9,8 @@ public interface hr {
 	public void getPayroll(int persNr);
 	
 	public void setNewEmployee(String group, String username, String password, String firstname, String lastname, 
-							   String jobTitle, String phoneNumber, int workingTime_contract, 
-							   Date birthday, Date startDate,
+							   String jobTitle, String phoneNumber, int workingTime_contract, int workingTime_left, 
+							   int vacation_left, Date birthday, Date startDate,
 							   Adress adress);
 	
 	public boolean deleteEmployee(int persNr);

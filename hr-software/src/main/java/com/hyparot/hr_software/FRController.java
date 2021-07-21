@@ -43,7 +43,7 @@ public class FRController {
 	private Button BPhonebook;
 
 	@FXML
-	private Button BVacatiobRequests;
+	private Button BVacationRequests;
 
 	@FXML
 	private ChoiceBox<String> CBGroup;
@@ -62,6 +62,9 @@ public class FRController {
     
     @FXML
     private ImageView IVEditUser;
+    
+    @FXML
+    private ImageView IVVacationRequests;
 
 	@FXML
 	private Text TKuerzel;
@@ -140,7 +143,7 @@ public class FRController {
     void initialize() {
         assert BZeiterfassung != null : "fx:id=\"BZeiterfassung\" was not injected: check your FXML file 'afterLogin.fxml'.";
         assert BPhonebook != null : "fx:id=\"BPhonebook\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BVacatiobRequests != null : "fx:id=\"BVacatiobRequests\" was not injected: check your FXML file 'afterLogin.fxml'.";
+        assert BVacationRequests != null : "fx:id=\"BVacationRequests\" was not injected: check your FXML file 'afterLogin.fxml'.";
         assert BCreateUser != null : "fx:id=\"BCreateUser\" was not injected: check your FXML file 'afterLogin.fxml'.";
         assert CBGroup != null : "fx:id=\"CBGroup\" was not injected: check your FXML file 'afterLogin.fxml'.";
         assert BEditOtherEmployee != null : "fx:id=\"BEditOtherEmployee\" was not injected: check your FXML file 'afterLogin.fxml'.";
@@ -183,6 +186,14 @@ public class FRController {
 			BCreateUser.setVisible(true);
 			CBGroup.setVisible(true);
 			IVCreateUser.setVisible(true);
+			
+			BVacationRequests.setVisible(true);
+			IVVacationRequests.setVisible(true);
+		}
+		if (user.getGroup().equals("Superior")) {
+			BVacationRequests.setVisible(true);
+			IVVacationRequests.setVisible(true);
+			BVacationRequests.setDisable(false);
 		}
 
 		CBGroup.setItems(availableChoices);
@@ -209,6 +220,7 @@ public class FRController {
 		stage.setHeight(500);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 	}
 
 	public void changeSceneCreateEmployee(Employee Username) throws IOException {
@@ -226,6 +238,7 @@ public class FRController {
 			stage.setHeight(720);
 			stage.centerOnScreen();
 			stage.setResizable(false);
+			stage.setTitle("HyparRot - HR Software");
 			createUserController.schreiben();
 		}
 	}
@@ -240,6 +253,7 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		phonebookController.schreiben();
 	}
 
@@ -253,6 +267,7 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		timeController.schreiben();
 	}
 
@@ -266,6 +281,7 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 
@@ -279,6 +295,7 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 	
@@ -292,6 +309,7 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
+		stage.setTitle("HyparRot - HR Software");
 		vacationRequestsController.schreiben();
 	}
 	

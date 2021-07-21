@@ -23,7 +23,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Vorname:">
+                                    <Label text="Vorname:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -57,7 +57,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Nachname:">
+                                    <Label text="Nachname:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -85,7 +85,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Personalnr.:">
+                                    <Label text="Personalnr.:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -113,7 +113,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Von:">
+                                    <Label text="Von:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -141,7 +141,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0">
                                  <children>
-                                    <Label text="Bis:">
+                                    <Label text="Bis:" textFill="#000001">
                                        <font>
                                           <Font name="System Bold" size="19.0" />
                                        </font>
@@ -165,10 +165,13 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <HBox alignment="TOP_CENTER" prefHeight="85.0" prefWidth="427.0">
+                        <HBox alignment="CENTER" prefHeight="85.0" prefWidth="427.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="213.0" />
-                              <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="214.0" />
+                              <Text fx:id="TEmpty" fill="#1fff4d" strokeType="OUTSIDE" strokeWidth="0.0" text="Zurzeit sind keine neuen Urlaubsanträge vorhanden!" visible="false">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="85.0" prefWidth="427.0">
@@ -207,8 +210,8 @@
 							<children>
 								<StackPane prefHeight="250.0" prefWidth="426.0">
 									<children>
-										<Circle fill="#eae290" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-										<Text fx:id="TKuerzel" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
+										<Circle fill="#ff5d5d" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+										<Text fx:id="TKuerzel" fill="#4a0000" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
 											<font>
 												<Font size="84.0" />
 											</font>

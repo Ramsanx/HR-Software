@@ -9,12 +9,12 @@ import com.hyparot.hr_software.src.sst.hr;
 public class HR extends Employee implements hr {
 
 	public HR(String username, String password, String firstname, String lastname, String jobTitle,
-			  String phoneNumber, int workingTime_contract, int persNr, 
+			  String phoneNumber, int workingTime_contract, int workingTime_left, int vacation_left, int persNr, 
 			  Date birthday, Date startDate,
 			  Adress adress) {
 		
 		super(username, password, firstname, lastname, jobTitle,
-				phoneNumber, workingTime_contract, persNr,
+				phoneNumber, workingTime_contract, workingTime_left, vacation_left, persNr,
 				birthday, startDate,
 				adress);
 	}
@@ -27,14 +27,14 @@ public class HR extends Employee implements hr {
 
 	@Override
 	public void setNewEmployee(String group, String username, String password, String firstname, String lastname, 
-							   String jobTitle, String phoneNumber, int workingTime_contract, 
-							   Date birthday, Date startDate,
+							   String jobTitle, String phoneNumber, int workingTime_contract, int workingTime_left,
+							   int vacation_left, Date birthday, Date startDate,
 							   Adress adress) {
 		
 		BIConnect bic = new BIConnect();
 		bic.setNewEmployee(group, username, password, firstname, lastname,
-					       jobTitle, phoneNumber, workingTime_contract, 
-						   birthday, startDate,
+					       jobTitle, phoneNumber, workingTime_contract, workingTime_left,
+					       vacation_left, birthday, startDate,
 						   adress);	
 	}
 

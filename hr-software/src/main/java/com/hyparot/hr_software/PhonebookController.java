@@ -159,9 +159,7 @@ public class PhonebookController {
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 
-			final ObservableList<Employee> data = FXCollections.observableArrayList(
-					
-					);
+			final ObservableList<Employee> data = FXCollections.observableArrayList();
 	
 		
 		}
@@ -176,6 +174,7 @@ public class PhonebookController {
 			stage.setWidth(800);
 			stage.setHeight(500);
 			stage.centerOnScreen();
+			stage.setTitle("HyparRot - HR Software");
 			stage.setResizable(false);
 
 		}
@@ -190,6 +189,7 @@ public class PhonebookController {
 			stage.setHeight(720);
 			stage.centerOnScreen();
 			stage.setResizable(false);
+			stage.setTitle("HyparRot - HR Software");
 			fRController.schreiben();
 		}
 	}

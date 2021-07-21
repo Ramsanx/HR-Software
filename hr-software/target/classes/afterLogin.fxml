@@ -19,17 +19,18 @@
 	<items>
 		<HBox alignment="TOP_RIGHT" prefHeight="695.0" prefWidth="1280.0">
 			<children>
-				<HBox prefHeight="695.0" prefWidth="854.0" style="-fx-background-color: #424a48;">
+				<HBox prefHeight="695.0" prefWidth="854.0" style="-fx-background-color: #575555;">
 					<children>
 						<VBox alignment="BOTTOM_CENTER" prefHeight="695.0" prefWidth="400.0" style="-fx-border-color: black;">
 							<children>
 								<ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-									<image>
-										<Image url="/HR_Logo.png" />
-									</image>
+									
 									<VBox.margin>
 										<Insets bottom="40.0" />
 									</VBox.margin>
+                           <image>
+                              <Image url="@HR_Logo.png" />
+                           </image>
 								</ImageView>
 								<Button fx:id="BZeiterfassung" mnemonicParsing="false" onAction="#zeiterfassen" prefWidth="230.0" text="Zeiterfassung">
 									<VBox.margin>
@@ -55,8 +56,9 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="/Icon_phonebook.png" />
+                                    <Image url="@Icon_phonebook.png" />
                                  </image>
+                                 
                               </ImageView>
                               <Button fx:id="BPhonebook" mnemonicParsing="false" onAction="#phonebook" prefWidth="200.0" text="Telefonbuch">
                                  <font>
@@ -67,15 +69,16 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="174.0" prefWidth="454.0">
                            <children>
-                              <ImageView fitHeight="68.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="IVVacationRequests" fitHeight="68.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <HBox.margin>
                                     <Insets right="30.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="/Icon_vacationRequest.png" />
+                                    <Image url="@Icon_vacationRequest.png" />
                                  </image>
+                                 
                               </ImageView>
-                              <Button fx:id="BVacatiobRequests" mnemonicParsing="false" onAction="#VacationRequests" prefWidth="200.0" text="Urlaubsanträge">
+                              <Button fx:id="BVacationRequests" disable="true" mnemonicParsing="false" onAction="#VacationRequests" prefWidth="200.0" text="Urlaubsanträge" visible="false">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -89,8 +92,9 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="/Icon_createUser.png" />
+                                    <Image url="@Icon_createUser.png" />
                                  </image>
+                                 
                               </ImageView>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                                  <children>
@@ -115,8 +119,9 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="/Icon_editUser.png" />
+                                    <Image url="@Icon_editUser.png" />
                                  </image>
+                                 
                               </ImageView>
                               <VBox alignment="CENTER" prefHeight="173.0" prefWidth="200.0">
                                  <children>
@@ -140,14 +145,14 @@
                      </children></VBox>
 					</children>
 				</HBox>
-				<VBox alignment="TOP_CENTER" prefHeight="695.0" prefWidth="426.0" style="-fx-background-color: #71807d;">
+				<VBox alignment="TOP_CENTER" prefHeight="695.0" prefWidth="426.0" style="-fx-background-color: #71807e;">
 					<children>
 						<VBox alignment="CENTER" prefHeight="250.0" prefWidth="426.0" style="-fx-border-color: black;">
 							<children>
 								<StackPane prefHeight="250.0" prefWidth="426.0">
 									<children>
-										<Circle fill="#eae290" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-										<Text fx:id="TKuerzel" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
+										<Circle fill="#ff5d5d" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+										<Text fx:id="TKuerzel" fill="#4a0000" strokeType="OUTSIDE" strokeWidth="0.0" text="AB">
 											<font>
 												<Font size="84.0" />
 											</font>
