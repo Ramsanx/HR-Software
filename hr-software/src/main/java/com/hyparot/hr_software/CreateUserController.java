@@ -2,10 +2,13 @@ package com.hyparot.hr_software;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
+import com.hyparot.hr_software.src.backend.BIConnect;
 import com.hyparot.hr_software.src.backend.SystemDBConnector;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employee.HR;
@@ -133,29 +136,6 @@ public class CreateUserController {
 
 	@FXML
 	void initialize() {
-		assert TFVorname != null : "fx:id=\"TFVorname\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFNachname != null : "fx:id=\"TFNachname\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFStelle != null : "fx:id=\"TFStelle\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFTelefonnummer != null : "fx:id=\"TFTelefonnummer\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert CBArbeitszeit != null : "fx:id=\"CBArbeitszeit\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFGeburtstag != null : "fx:id=\"TFGeburtstag\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TUsername != null : "fx:id=\"TUsername\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert BUserErstellen != null : "fx:id=\"BUserErstellen\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFLand != null : "fx:id=\"TFLand\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFPLZ != null : "fx:id=\"TFPLZ\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFStadt != null : "fx:id=\"TFStadt\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFStraße != null : "fx:id=\"TFStraße\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFHausnummer != null : "fx:id=\"TFHausnummer\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFZusatz != null : "fx:id=\"TFZusatz\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TFPasswort != null : "fx:id=\"TFPasswort\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert BVerwerfen != null : "fx:id=\"BVerwerfen\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
-		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'CreateEmployee.fxml'.";
 
 	}
 
@@ -192,7 +172,6 @@ public class CreateUserController {
 		stage.setHeight(500);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 	}
 
 	public void changeSceneVerwerfen(Employee Username, Boolean created) throws IOException {
@@ -205,7 +184,6 @@ public class CreateUserController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		fRController.schreiben();
 		if (created == true) {
 			fRController.confirmCreation();
@@ -229,7 +207,7 @@ public class CreateUserController {
 		int housenrNew;
 		Date birthdayNew;
 		Adress adressNew;
-		
+
 		//Falls NumericFields blank sind (Workaround mit try-catch)
 		try {
 			postCodeNew = Integer.parseInt(TFPLZ.getText().toString());
@@ -256,7 +234,7 @@ public class CreateUserController {
 		}
 		int workingTimeNew = Integer.parseInt(workingTimeNew2);
 
-		
+
 
 		//Geburtstag
 		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() > 7) {
@@ -280,37 +258,16 @@ public class CreateUserController {
 			return;
 		}
 
-//		//Postleitzahl
-//		if (!TFPLZ.getText().isBlank()) {
-//			try {
-//				postCodeNew = Integer.parseInt(TFPLZ.getText());
-//				TFPLZ.setStyle("-fx-text-fill: black;");
-//			} catch (Exception E) {
-//				TFPLZ.setStyle("-fx-text-fill: red;");
-//				TFPLZ.setText("Falscher Eingabetyp!");
-//				return;
-//			} 
-//		} else {
-//			TFPLZ.setStyle("-fx-text-fill: red;");
-//			TFPLZ.setText("Bitte ausfüllen!");
-//			return;
-//		}
-//
-//		//Hausnummer
-//		if (!TFHausnummer.getText().isBlank()) {
-//			try {
-//				housenrNew = Integer.parseInt(TFHausnummer.getText());
-//				TFHausnummer.setStyle("-fx-text-fill: black;");
-//			} catch (Exception E) {
-//				TFHausnummer.setStyle("-fx-text-fill: red;");
-//				TFHausnummer.setText("Falscher Eingabetyp!");
-//				return;
-//			}
-//		} else {
-//			TFHausnummer.setStyle("-fx-text-fill: red;");
-//			TFHausnummer.setText("Bitte ausfüllen!");
-//			return;
-//		}
+		//Check ob gültig
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			format.setLenient(false);
+			format.parse(birthdayNew.toString());		
+		} catch (Exception e) {
+			TFGeburtstag.setStyle("-fx-text-fill: red;");
+			TFGeburtstag.setText("Ungültiges Datum!");
+			return;
+		}
 
 		//Zusatz
 		if (housenrSupplementNew == null) {
@@ -324,7 +281,17 @@ public class CreateUserController {
 		Date startDateNew = new Date(today.get(Calendar.YEAR), today.get(Calendar.MONTH)+1, today.get(Calendar.DAY_OF_MONTH));
 
 
-		
+		//Checken und ersetzen, falls Username bereits existiert
+		BIConnect bic = new BIConnect();
+		String usernameAfterCheck = bic.checkUsername(usernameNew);
+		if (!usernameNew.equals(usernameAfterCheck)) {
+			usernameNew = usernameAfterCheck;
+			TUsername.setText(usernameAfterCheck);
+			TUsername.setStyle("-fx-text-fill: green;");
+			return;
+		}
+
+
 		TWarning.setStyle("-fx-text-fill: green;");
 		TWarning.setText("Erfolgreich!");
 		//Capitalized Firstname and Lastname

@@ -44,61 +44,60 @@ public class LoginController {
 	@FXML
 	private Button BCancel;
 
+	//Button Eingaben zurücksetzen
 	@FXML
 	void cancel(ActionEvent event) throws IOException {
 		cancelLogin();
 	}
 
+	//Button einloggen
 	@FXML
 	void login(ActionEvent event) throws IOException {
 		checkLogin();
 	}
 
+	//Button checken ob Enterknopf gedrückt wird (Zum einloggen)
 	@FXML
 	void loginEnter(KeyEvent event) throws IOException {	
 		if (event.getCode() == KeyCode.ENTER) {
 			checkLogin();
 		}
-
 	}
 
 	@FXML
 	void initialize() {
-		assert TFUsername != null : "fx:id=\"TFUsername\" was not injected: check your FXML file 'Sample.fxml'.";
-		assert PFPassword != null : "fx:id=\"PFPassword\" was not injected: check your FXML file 'Sample.fxml'.";
-		assert TFErrorMessage != null : "fx:id=\"TFErrorMessage\" was not injected: check your FXML file 'Sample.fxml'.";
-		assert BLogin != null : "fx:id=\"BLogin\" was not injected: check your FXML file 'Sample.fxml'.";
-		assert BCancel != null : "fx:id=\"BCancel\" was not injected: check your FXML file 'Sample.fxml'.";
 
 	}
 
+	//Konstruktor
 	public LoginController(Stage stage) {
 		this.stage = stage;
 	}
 
-
+	//Prüfen ob Logindaten korrekt
 	private void checkLogin() throws IOException {
-
 		if (TFUsername.getText() != null && PFPassword.getText() != null) {
 			BIConnect bic = new BIConnect();
+			//Username und Passwort prüfen
 			if(bic.loginUser(TFUsername.getText().toString(), PFPassword.getText().toString())) {
-					changeSceneAfterLogin(bic.getEmployeeByName(TFUsername.getText().toString()));
-//			}
-//			if (TFUsername.getText().toString().equals("u") && PFPassword.getText().toString().equals("p")) {
+				//Falls korrekt: Einloggen
+				changeSceneAfterLogin(bic.getEmployeeByName(TFUsername.getText().toString()));
 			}else {
-					TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
-					//TFUsername.setText(null);
-					PFPassword.setText(null);
+				//Falls inkorrekt: Fehlermeldung
+				TFErrorMessage.setText("Falscher Nutzername oder Passwort.");
+				PFPassword.setText(null);
 			}
 		}
 	}
 
+	//Eingaben zurücksetzen
 	private void cancelLogin() throws IOException {
 		TFUsername.setText(null);
 		PFPassword.setText(null);
 		TFErrorMessage.setText(null);
 	}
 
+	//Szenenwechsel zu Hauptfenster nach Login
 	public void changeSceneAfterLogin(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var frController = new FRController(stage, Username);

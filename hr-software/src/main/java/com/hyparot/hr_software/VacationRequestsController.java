@@ -2,7 +2,6 @@ package com.hyparot.hr_software;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -48,7 +47,7 @@ public class VacationRequestsController {
 
 	@FXML
 	private Text TEmpty;
-	
+
 	@FXML
 	private Text TKuerzel;
 
@@ -73,21 +72,25 @@ public class VacationRequestsController {
 	@FXML
 	private Button BLogout;
 
+	//Button Antrag ablehnen
 	@FXML
 	void ablehnen(ActionEvent event) {
 		acceptDeclineRequest(false);
 	}
 
+	//Button Antrag genehmigen
 	@FXML
 	void genehmigen(ActionEvent event) {
 		acceptDeclineRequest(true);
 	}
 
+	//Button logout - Szenenwechsel
 	@FXML
 	void logout(ActionEvent event) throws IOException {
 		changeSceneLogout();
 	}
 
+	//Button Zurück - Szenenwechsel zum Hauptfenster
 	@FXML
 	void zurueck(ActionEvent event) throws IOException {
 		changeSceneZurueck(user);
@@ -95,37 +98,23 @@ public class VacationRequestsController {
 
 	@FXML
 	void initialize() {
-		assert TVornameData != null : "fx:id=\"TVornameData\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TNachnameData != null : "fx:id=\"TNachnameData\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TPersnrData != null : "fx:id=\"TPersnrData\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TVonData != null : "fx:id=\"TVonData\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TBisData != null : "fx:id=\"TBisData\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert BGenehmigen != null : "fx:id=\"BGenehmigen\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert BAblehnen != null : "fx:id=\"BAblehnen\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert BZurueck != null : "fx:id=\"BZurueck\" was not injected: check your FXML file 'VacationRequests.fxml'.";
-		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'VacationRequests.fxml'.";
 
 	}
 
 	private Stage stage;
 	private Employee user;
+	//Akt. Urlaubsantrag
 	private Absence vacation;
 
+	//Konstruktor
 	public VacationRequestsController(Stage stage, Employee username) {
 		this.stage = stage;
 		this.user = username;
-		//schreiben();
-
 	}
 
+	//Alternative zu Initialize
 	public void schreiben() {
-		//Uneditable Text
+		//Uneditable Text rechts einfügen (Daten des akt. Users)
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
 		TStelle.setText(user.getJobTitle());
@@ -133,40 +122,46 @@ public class VacationRequestsController {
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 
-
+		//Aktuellen Urlaubsantrag anzeigen
 		traverseVacations();
 	}
 
+	//Nicht genehmigte Urlaubsanträge durchlaufen und nächsten anzeigen
 	public void traverseVacations() {
-		//TVornameData.setText(null);
-
 		//Absence
 		BIConnect bic = new BIConnect();
-
+		//Iterator für alle Abwesenheiten initialisieren
 		Iterator<Absence> it = bic.getVacationRequests().iterator();
 
+		//Solange Abwesenheiten vorhanden
 		if (it.hasNext()) {
+			//Abwesenheiten durchlaufen
 			Absence abs = it.next();
 
+			//Falls 1. Eintrag eine noch nicht genehmigte Abwesenheit ist
 			if (abs.isAccepted() == false) {
+				//Urlaubsantragsdaten anzeigen
 				TPersnrData.setText(String.valueOf(abs.getPersNr()));
 				TVornameData.setText(bic.getEmployeeByID(abs.getPersNr()).getFirstname());
 				TNachnameData.setText(bic.getEmployeeByID(abs.getPersNr()).getLastname());
 				TVonData.setText(abs.getBegin().toString());
 				TBisData.setText(abs.getEnd().toString());
 
+				//Aktuellen Antrag benennen, um ihn bestätigen oder ablehnen zu können
 				this.vacation = abs;
 			} 
+			//Falls 1. Eintrag eine genehmigte Abwesenheit ist: Durchlaufen bis nicht genehmigte Abwesenheit gefunden
 			else if (abs.isAccepted() == true) {
 				while (abs.isAccepted() == true) {
-					
+
+					//Falls keine Anträge: Funktion beenden
 					if (!it.hasNext()) {
-						System.out.println("0");
 						clearEntries();
 						return;
 					}
 					abs = it.next();
 				}
+				//Falls letzter Eintrag eine noch nicht genehmigte Abwesenheit ist: Anzeigen
 				System.out.println("1");
 				TPersnrData.setText(String.valueOf(abs.getPersNr()));
 				TVornameData.setText(bic.getEmployeeByID(abs.getPersNr()).getFirstname());
@@ -174,17 +169,17 @@ public class VacationRequestsController {
 				TVonData.setText(abs.getBegin().toString());
 				TBisData.setText(abs.getEnd().toString());
 
+				//Aktuellen Antrag benennen, um ihn bestätigen oder ablehnen zu können
 				this.vacation = abs;
 			} else {
-				System.out.println("2");
 				clearEntries();
 			} 
 		} else {
-			System.out.println("3");
 			clearEntries();
 		}
 	}
 
+	//Unterfunktion zu traverseVacations(): Felder leeren, falls kein aktueller Antrag vorhanden ist
 	public void clearEntries() {
 		TPersnrData.setText("-");
 		TVornameData.setText("-");
@@ -196,8 +191,7 @@ public class VacationRequestsController {
 		BAblehnen.setDisable(true);
 	}
 
-
-
+	//Szenenwechsel: Logout
 	public void changeSceneLogout() throws IOException {
 		var loader = new FXMLLoader();
 		var loginController = new LoginController(stage);
@@ -207,11 +201,10 @@ public class VacationRequestsController {
 		stage.setWidth(800);
 		stage.setHeight(500);
 		stage.centerOnScreen();
-		stage.setTitle("HyparRot - HR Software");
 		stage.setResizable(false);
 	}
 
-
+	//Szenenwechsel: Zurück zum Hauptfenster
 	public void changeSceneZurueck(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var fRController = new FRController(stage, Username);
@@ -222,26 +215,24 @@ public class VacationRequestsController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		fRController.schreiben();
-
-
 	}
 
-
+	//Aktuellen Eintrag genehmigen oder ablehnen
 	public void acceptDeclineRequest(boolean decision) {
 		BIConnect bic = new BIConnect(this.vacation.getPersNr());
-		if (decision) {
+		if (decision) { //Annehmen
 			bic.acceptVacation(vacation);
+			//Nächsten Antrag anzeigen lassen
 			traverseVacations();
 			System.out.println("ACCEPTED");
-		} else {
+		} else { //Ablehnen
 			bic.cancelVacation(vacation.getAbsenceID());
+			//Abgezogene übrige Urlaubstage des Angestellten wieder hinzufügen
 			bic.getEmployeeByID(vacation.getPersNr()).setVacation_left(bic.getEmployeeByID(vacation.getPersNr()).getVacation_left() + vacation.getAbsenceDuration());
+			//Nächsten Antrag anzeigen lassen
 			traverseVacations();
 			System.out.println("DECLINED");
 		}
-
 	}
-
 }

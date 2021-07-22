@@ -167,6 +167,10 @@ public class BIConnect implements employee, hr, superior{
 		
 	}
 	
+	//Ram, Checken ob automatisch erzeugter Username existiert (Für createUserController)
+	public static String checkUsername(String username) {
+		return BusinessIntelligence.checkUsername(username);
+	}
 
 	@Override
 	public void setPersonaldata(String firstname, String lastname, String eMail, String phoneNumber, Date birthday,

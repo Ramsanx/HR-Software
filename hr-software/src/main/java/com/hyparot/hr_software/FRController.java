@@ -19,15 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-
 public class FRController {
 
 	@FXML
@@ -92,48 +83,57 @@ public class FRController {
 
 	ObservableList<String> availableChoices = FXCollections.observableArrayList("HR", "Superior", "Employee"); 
 
+	//Button Urlaub beantragen - Szenenwechsel
 	@FXML
 	void VacationRequests(ActionEvent event) throws IOException {
 		changeSceneVacationRequests(user);
 	}
 
+	//Button User erstellen - Szenenwechsel
 	@FXML
 	void createUser(ActionEvent event) throws IOException {
 		changeSceneCreateEmployee(user);
 	}
 
+	//Button anderen User bearbeiten - Szenenwechsel
 	@FXML
 	void editOtherEmployee(ActionEvent event) throws IOException {
 		try {
 			BIConnect bic = new BIConnect();
+			//Wenn User mit eingegebener Persnr. existiert
 			if (bic.getEmployeeByID(Integer.parseInt(TFPersnr.getText().toString())) != null) {
 				Employee userEdit = bic.getEmployeeByID(Integer.parseInt(TFPersnr.getText().toString()));
+				//Szenenwechsel mit anderen User als Parameter (userEdit)
 				changeScenePersonalDataOther(user, userEdit);
 			} else {
+				//Ansonsten Fehlermeldung
 				TFPersnr.setText("Falsche Persnummer!");
 				TFPersnr.setStyle("-fx-text-fill: red;");
 			}
-		} catch (Exception E) {
+		} catch (Exception E) { 
 			TFPersnr.setText("Falsche Persnummer!");
 		}
 	}
 
+	//Button logout - Szenenwechsel
 	@FXML
 	void logout(ActionEvent event) throws IOException {
 		changeSceneLogout();
 	}
 
+	//Button persönliche Daten - Szenenwechsel
 	@FXML
 	void personalData(ActionEvent event) throws IOException {
 		changeScenePersonalData(user);
 	}
 
-
+	//Button Telefonbuch - Szenenwechsel
 	@FXML
 	void phonebook(ActionEvent event) throws IOException {
 		changeScenePhonebook(user);
 	}
 
+	//Button Zeiten verwalten - Szenenwechsel
 	@FXML
 	void zeiterfassen(ActionEvent event) throws IOException {
 		changeSceneTime(user);
@@ -141,36 +141,21 @@ public class FRController {
 
     @FXML
     void initialize() {
-        assert BZeiterfassung != null : "fx:id=\"BZeiterfassung\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BPhonebook != null : "fx:id=\"BPhonebook\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BVacationRequests != null : "fx:id=\"BVacationRequests\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BCreateUser != null : "fx:id=\"BCreateUser\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert CBGroup != null : "fx:id=\"CBGroup\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BEditOtherEmployee != null : "fx:id=\"BEditOtherEmployee\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TFPersnr != null : "fx:id=\"TFPersnr\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BPersonalData != null : "fx:id=\"BPersonalData\" was not injected: check your FXML file 'afterLogin.fxml'.";
-        assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'afterLogin.fxml'.";
 
     }
 
 	private Employee user;
 	private Stage stage;
 
-
+	//Konstruktor
 	public FRController(Stage stage, Employee username) {
 		this.stage = stage;
 		this.user = username;
-		//schreiben();
-
 	}
 
+	//Alternative zu Initialize
 	public void schreiben() {
+		//Uneditable Text rechts einfügen (Daten des akt. Users)
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
 		TStelle.setText(user.getJobTitle());
@@ -178,7 +163,9 @@ public class FRController {
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 
+		//Falls der User HR ist
 		if (user.getGroup().equals("HR")) {
+			//Andere User bearbeiten und Erstellen sichtbar machen 
 			BEditOtherEmployee.setVisible(true);
 			TFPersnr.setVisible(true);
 			IVEditUser.setVisible(true);
@@ -190,26 +177,31 @@ public class FRController {
 			BVacationRequests.setVisible(true);
 			IVVacationRequests.setVisible(true);
 		}
+		//Falls der User Vorgesetzter ist
 		if (user.getGroup().equals("Superior")) {
+			//Urlaubsanträge einsehen sichtbar machen 
 			BVacationRequests.setVisible(true);
 			IVVacationRequests.setVisible(true);
 			BVacationRequests.setDisable(false);
 		}
-
+		
+		//Auswahlfeld für Erstellen eines Users initialiseren
 		CBGroup.setItems(availableChoices);
 		CBGroup.setValue("Gruppe des Users");
 	}
 	
+	//Aufruf nach erfolgreichem Erstellen eines Users
 	public void confirmCreation() {
 		CBGroup.setValue("Erfolgreich erstellt!");
 	}
 	
+	//Aufruf nach erfolgreichem Löschen eines Users
 	public void confirmDeletion() {
 		TFPersnr.setText("Erfolgreich gelöscht!");
 		TFPersnr.setStyle("-fx-text-fill: green;");
 	}
 
-
+	//Logout Szenenwechsel
 	public void changeSceneLogout() throws IOException {
 		var loader = new FXMLLoader();
 		var loginController = new LoginController(stage);
@@ -220,14 +212,17 @@ public class FRController {
 		stage.setHeight(500);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 	}
 
+	//User erstellen Szenenwechsel
 	public void changeSceneCreateEmployee(Employee Username) throws IOException {
+		//Art des zu Erstellenden Users erfassen: HR, Vorgesetzter oder Mitarbeiter
 		String group = CBGroup.getSelectionModel().getSelectedItem().toString();
+		//Falls ungültige Auswahl: Fehlermeldung
 		if (group.equals("Gruppe des Users") || group.equals("Ungültige Eingabe") || group.equals("Erfolgreich erstellt!")) {
 			CBGroup.setValue("Ungültige Eingabe");
 			CBGroup.setStyle("-fx-text-fill: red;");
+			//Bei richtiger Auswahl: Szenenwechsel
 		} else {
 			var loader = new FXMLLoader();
 			var createUserController = new CreateUserController(stage, Username, group);
@@ -238,7 +233,6 @@ public class FRController {
 			stage.setHeight(720);
 			stage.centerOnScreen();
 			stage.setResizable(false);
-			stage.setTitle("HyparRot - HR Software");
 			createUserController.schreiben();
 		}
 	}
@@ -253,7 +247,6 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		phonebookController.schreiben();
 	}
 
@@ -267,7 +260,6 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		timeController.schreiben();
 	}
 
@@ -281,7 +273,6 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 
@@ -295,7 +286,6 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 	
@@ -309,7 +299,6 @@ public class FRController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		vacationRequestsController.schreiben();
 	}
 	

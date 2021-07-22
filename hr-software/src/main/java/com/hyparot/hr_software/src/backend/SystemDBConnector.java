@@ -153,7 +153,6 @@ public class SystemDBConnector {
 				db_connect.value_update("t_mitarbeiter", "Ort", employee.getAdress().getCity(), persNr);
 				db_connect.value_update("t_mitarbeiter", "TelNr", employee.getPhoneNumber(), persNr);
 				db_connect.value_update("t_mitarbeiter", "Vorname", employee.getFirstname(), persNr);
-//				db_connect.value_update("t_mitarbeiter", "Arbeitszeit_Ist", String.valueOf(employee.getWorkingTime_left()), persNr);
 
 				LocalStorage.removeFromChanges(persNr);
 
@@ -245,6 +244,38 @@ public class SystemDBConnector {
 			}
 		}
 
+		//Ram, Checken ob automatisch erzeugter Username existiert (Für createUserController)
+		protected static String checkUsername(String username) {
+			try {
+				String usernameNew;
+				String usernameOld = username;
+				Boolean check = false;
+				int i = 1;
+
+				while (!check) {
+					ResultSet rs = db_connect.read_table("t_zugaenge");
+					while(rs.next()) {
+						check = true;
+						usernameNew = rs.getString("Nutzername");
+
+						//Falls Username bereits in DB vorhanden
+						if (usernameNew.equals(username)) {
+							//Name um 1 erhöhen
+							username = usernameOld+i;
+							i++;
+							//Nochmal prüfen lassen mit neuem Username
+							check = false;
+						}
+					}
+					return username;
+				}
+			}
+			catch(Exception e) {
+				System.out.print("Fehler return null");
+				return null;
+			}
+			return null;
+		}
 	
 	protected static void saveAbsence(Absence abs) {
 		db_connect.new_vacation_sick(abs.getPersNr(), abs.getBegin().toString(), abs.getEnd().toString(), abs.isSick(), abs.isAccepted());

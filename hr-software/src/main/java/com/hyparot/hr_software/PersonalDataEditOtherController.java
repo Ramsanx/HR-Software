@@ -2,6 +2,8 @@ package com.hyparot.hr_software;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import com.hyparot.hr_software.src.backend.BIConnect;
@@ -100,28 +102,32 @@ public class PersonalDataEditOtherController {
 	@FXML
 	private Button BLogout;
 
+	//Button User löschen mit Szenenwechsel
 	@FXML
 	void deleteUser(ActionEvent event) throws IOException {
 		BIConnect bi = new BIConnect();
-		if (user.getPersNr() != userEdit.getPersNr()) {
-			bi.deleteEmployee(userEdit.getPersNr());
-			SystemDBConnector.loadLocalDataToDB();
-			changeSceneDeleteUser(user);
+		if (user.getPersNr() != userEdit.getPersNr()) { //Selbst löschen nicht möglich
+			bi.deleteEmployee(userEdit.getPersNr()); //User löschen
+			SystemDBConnector.loadLocalDataToDB(); //In Datenbank hochladen
+			changeSceneDeleteUser(user); //Szenenwechsel: Zurück zum Hauptfenster
 		} else {
 			TWarning.setText("Selbst löschen nicht möglich!");
 		}
 	}
 
+	//Button: Logout - Szenenwechsel
 	@FXML
 	void logout(ActionEvent event) throws IOException {
 		changeSceneLogout();
 	}
 
+	//Button: Änderungen speichern mit Szenenwechsel
 	@FXML
 	void save(ActionEvent event) throws IOException {
 		saveChanges();
 	}
 
+	//Button: Änderungen verwerfen - Szenenwechsel
 	@FXML
 	void verwerfen(ActionEvent event) throws IOException {
 		changeSceneVerwerfen(user, userEdit);
@@ -129,29 +135,6 @@ public class PersonalDataEditOtherController {
 
 	@FXML
 	void initialize() {
-		assert TFVorname != null : "fx:id=\"TFVorname\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFNachname != null : "fx:id=\"TFNachname\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFStelle != null : "fx:id=\"TFStelle\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFTelefonnummer != null : "fx:id=\"TFTelefonnummer\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TPersonalnummerData != null : "fx:id=\"TPersonalnummerData\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFGeburtstag != null : "fx:id=\"TFGeburtstag\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TEinstellungsdatumData != null : "fx:id=\"TEinstellungsdatumData\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert BSpeichern != null : "fx:id=\"BSpeichern\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFLand != null : "fx:id=\"TFLand\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFPLZ != null : "fx:id=\"TFPLZ\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFStadt != null : "fx:id=\"TFStadt\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFStraße != null : "fx:id=\"TFStraße\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFHausnummer != null : "fx:id=\"TFHausnummer\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TFZusatz != null : "fx:id=\"TFZusatz\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert BDeleteUser != null : "fx:id=\"BDeleteUser\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert BVerwerfen != null : "fx:id=\"BVerwerfen\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
-		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'PersonalDataEditOther.fxml'.";
 
 	}
 
@@ -160,36 +143,30 @@ public class PersonalDataEditOtherController {
 	private Employee userEdit;
 	private Employee userC;
 
+	//Konstruktor
 	public PersonalDataEditOtherController(Stage stage, Employee username, Employee userEdit) {
 		this.stage = stage;
 		this.user = username;
-		this.userEdit = userEdit;
-		this.userC = userEdit;
-
-		//schreiben();
+		this.userEdit = userEdit; //fremder zu bearbeitender User
+		this.userC = userEdit; //Hilfsobjekt
 	}
 
+	//Alternative zu Initialize
 	public void schreiben() {
-		//Uneditable Text
+		//Uneditable Text rechts einfügen (Daten des akt. Users)
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
 		TStelle.setText(user.getJobTitle());
 		TTelefonnummer.setText(user.getPhoneNumber());
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
-
-		//		TStelleData.setText(userC.getJobTitle());
-		//		TTelefonnummerData.setText(userC.getPhoneNumber());
 		TPersonalnummerData.setText(String.valueOf(userC.getPersNr()));
 		TEinstellungsdatumData.setText(userC.getStartDate().toString());
 
-		//Editable Textfields
-
+		//Editable Textfelder ausfüllen
 		TFVorname.setText(userC.getFirstname());
 		TFNachname.setText(userC.getLastname());
-
 		TFGeburtstag.setText(userC.getBirthday().toString());
-
 		TFStelle.setText(userC.getJobTitle());
 		TFTelefonnummer.setText(userC.getPhoneNumber());
 		TFLand.setText(userC.getAdress().getCountry());
@@ -201,6 +178,7 @@ public class PersonalDataEditOtherController {
 		TFZusatz.setText(userC.getAdress().getHousenumberSupplement());
 	}
 
+	//Szenenwechsel: Logout
 	public void changeSceneLogout() throws IOException {
 		var loader = new FXMLLoader();
 		var loginController = new LoginController(stage);
@@ -210,10 +188,10 @@ public class PersonalDataEditOtherController {
 		stage.setWidth(800);
 		stage.setHeight(500);
 		stage.centerOnScreen();
-		stage.setTitle("HyparRot - HR Software");
 		stage.setResizable(false);
 	}
 
+	//Szenenwechsel: Änderungen Verwerfen (Zu persönliche Daten des fremden Users)
 	public void changeSceneVerwerfen(Employee Username, Employee userEdit) throws IOException {
 		var loader = new FXMLLoader();
 		var personalDataController = new PersonalDataController(stage, Username, userEdit);
@@ -224,10 +202,10 @@ public class PersonalDataEditOtherController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 
+	//Szenenwechsel: User gelöscht (Zu Hauptfenster)
 	public void changeSceneDeleteUser(Employee Username) throws IOException {
 		var loader = new FXMLLoader();
 		var fRController = new FRController(stage, Username);
@@ -238,16 +216,15 @@ public class PersonalDataEditOtherController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		fRController.schreiben();
 		fRController.confirmDeletion();
 	}
 
+	//Änderungen speichern mit Szenenwechsel
 	public void saveChanges() throws IOException {
+		//Eingegebene Daten erfassen
 		String firstNameNew = TFVorname.getText();
 		String lastNameNew = TFNachname.getText();
-
-
 		String countryNew = TFLand.getText();
 		String cityNew = TFStadt.getText();
 		String streetNew = TFStraße.getText();
@@ -267,7 +244,7 @@ public class PersonalDataEditOtherController {
 			return;
 		}
 
-
+		//Falls die restlichen Eingabefelder leer sind: Warnung
 		if (firstNameNew.isBlank() || lastNameNew.isBlank() || countryNew.isBlank() 
 				|| cityNew.isBlank() || streetNew.isBlank() || stelleNew.isBlank()
 				|| telefonnummerNew.isBlank()) {
@@ -275,41 +252,9 @@ public class PersonalDataEditOtherController {
 			return;
 		} TWarning.setText("");
 
-		////////PLZ ohne NumericField
-		//		if (!TFPLZ.getText().isBlank()) {
-		//			try {
-		//				postCodeNew = Integer.parseInt(TFPLZ.getText());
-		//				TFPLZ.setStyle("-fx-text-fill: black;");
-		//			} catch (Exception E) {
-		//				TFPLZ.setStyle("-fx-text-fill: red;");
-		//				TFPLZ.setText("Falscher Eingabetyp!");
-		//				return;
-		//			} 
-		//		} else {
-		//			TFPLZ.setStyle("-fx-text-fill: red;");
-		//			TFPLZ.setText("Bitte ausfüllen!");
-		//			return;
-		//		}
-
-		/////////Hausnummer ohne NumericField
-		//				if (!TFHausnummer.getText().isBlank()) {
-		//					try {
-		//						housenrNew = Integer.parseInt(TFHausnummer.getText());
-		//						TFHausnummer.setStyle("-fx-text-fill: black;");
-		//					} catch (Exception E) {
-		//						TFHausnummer.setStyle("-fx-text-fill: red;");
-		//						TFHausnummer.setText("Falscher Eingabetyp!");
-		//						return;
-		//					}
-		//				} else {
-		//					TFHausnummer.setStyle("-fx-text-fill: red;");
-		//					TFHausnummer.setText("Bitte ausfüllen!");
-		//					return;
-		//				}
-
-		//Geburtstag
-		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() > 7) {
-			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) {
+		//Geburtstag erfassen
+		if (!TFGeburtstag.getText().isBlank() && TFGeburtstag.getText().length() > 7) { //Nicht leer und über 7 Zeichen
+			if (TFGeburtstag.getText().charAt(4) == '-' && TFGeburtstag.getText().charAt(7) == '-' && TFGeburtstag.getText().length() == 10) { //Richtiges Format prüfen
 				try {
 					birthdayNew = new Date(TFGeburtstag.getText());
 					TFGeburtstag.setStyle("-fx-text-fill: black;");
@@ -318,23 +263,37 @@ public class PersonalDataEditOtherController {
 					TFGeburtstag.setText("Format: jjjj-mm-tt");
 					return;
 				}
-			} else {
+			} else { // else von: Richtiges Format prüfen
+				//Warnung
 				TFGeburtstag.setStyle("-fx-text-fill: red;");
 				TFGeburtstag.setText("Format: jjjj-mm-tt");
 				return;
 			}
-		} else {
+		} else { // else von: Nicht leer und über 7 Zeichen
+			//Warnung
 			TFGeburtstag.setStyle("-fx-text-fill: red;");
 			TFGeburtstag.setText("Format: jjjj-mm-tt");
 			return;
 		}
 
+		//Check ob gültiges Datum
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			format.setLenient(false);
+			format.parse(birthdayNew.toString());		
+		} catch (Exception e) {
+			//Warnung
+			TFGeburtstag.setStyle("-fx-text-fill: red;");
+			TFGeburtstag.setText("Ungültiges Datum!");
+			return;
+		}
 
-
-		//Erstellen
+		//User erstellen und überschreiben
 		userEdit.setPersonaldata(firstNameNew, lastNameNew, user.getEMail(), telefonnummerNew, birthdayNew, countryNew, cityNew, postCodeNew, streetNew, housenrNew, housenrSupplementNew);
+		userEdit.setJobTitle(stelleNew); //Stellenbezeichnung separat ändern
+		//In DB hochladen
 		SystemDBConnector.loadLocalDataToDB();
-
+		//Szenenwechsel zu fremde persönliche Daten (Erfolgreiche Änderung)
 		changeSceneVerwerfen(user, userEdit);
 
 	}

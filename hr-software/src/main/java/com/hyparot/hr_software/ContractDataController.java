@@ -109,38 +109,15 @@ public class ContractDataController {
 
 	@FXML
 	void initialize() {
-		assert TVornameData != null : "fx:id=\"TVornameData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TNachnameData != null : "fx:id=\"TNachnameData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TStelleData != null : "fx:id=\"TStelleData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TTelefonnummerData != null : "fx:id=\"TTelefonnummerData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TPersonalnummerData != null : "fx:id=\"TPersonalnummerData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TGeburtstagData != null : "fx:id=\"TGeburtstagData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TEinstellungsdatumData != null : "fx:id=\"TEinstellungsdatumData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TArbeitszeitData != null : "fx:id=\"TArbeitszeitData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TLandData != null : "fx:id=\"TLandData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TPLZData != null : "fx:id=\"TPLZData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TStadtData != null : "fx:id=\"TStadtData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TStrasseData != null : "fx:id=\"TStrasseData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert THausnummerData != null : "fx:id=\"THausnummerData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TZusatzData != null : "fx:id=\"TZusatzData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TUrlaubstageData != null : "fx:id=\"TUrlaubstageData\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TKuerzel != null : "fx:id=\"TKuerzel\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TVorname_Nachname != null : "fx:id=\"TVorname_Nachname\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TPersonalnummer != null : "fx:id=\"TPersonalnummer\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TStelle != null : "fx:id=\"TStelle\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TTelefonnummer != null : "fx:id=\"TTelefonnummer\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert TE_Mail != null : "fx:id=\"TE_Mail\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert Bzurueck != null : "fx:id=\"Bzurueck\" was not injected: check your FXML file 'ContractData.fxml'.";
-		assert BLogout != null : "fx:id=\"BLogout\" was not injected: check your FXML file 'ContractData.fxml'.";
-
+		
 	}
-
+	
 	private Stage stage;
 	private Employee user;
 	private Employee userEdit;
 	private Employee userC;
 
-
+	
 	public ContractDataController(Stage stage, Employee username) {
 		this.stage = stage;
 		this.user = username;
@@ -154,6 +131,7 @@ public class ContractDataController {
 		this.userEdit = userEdit;
 	}
 
+	
 	public void schreiben() {
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
@@ -197,7 +175,6 @@ public class ContractDataController {
 		stage.setHeight(500);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 	}
 
 	public void changeSceneZurueckOther(Employee Username, Employee UserEdit) throws IOException {
@@ -210,7 +187,6 @@ public class ContractDataController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 
@@ -224,7 +200,6 @@ public class ContractDataController {
 		stage.setHeight(720);
 		stage.centerOnScreen();
 		stage.setResizable(false);
-		stage.setTitle("HyparRot - HR Software");
 		personalDataController.schreiben();
 	}
 

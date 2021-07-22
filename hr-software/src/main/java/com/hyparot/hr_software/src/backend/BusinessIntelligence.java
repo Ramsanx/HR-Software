@@ -234,5 +234,10 @@ public class BusinessIntelligence {
 		}
 		return null;
 	}
+	
+	//Ram, Checken ob automatisch erzeugter Username existiert (Für createUserController)
+	protected static String checkUsername(String username) {
+		return SystemDBConnector.checkUsername(username);
+	}
 
 }
