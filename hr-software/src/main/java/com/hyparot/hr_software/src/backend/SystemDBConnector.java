@@ -133,8 +133,6 @@ public class SystemDBConnector {
 						employee.getPassword(), 
 						employee.getVacation_contract(),
 						employee.getPersNr(),
-						0,//Gehalt
-						0,//entgeltabrNr
 						employee.getWorkingTime_contract()
 						);
 				LocalStorage.removeFromChanges(persNr);

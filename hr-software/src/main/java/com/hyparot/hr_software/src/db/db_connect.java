@@ -16,7 +16,7 @@ public class db_connect {
 	static String pass = "pwd4HR-adm";
 	
 	// Funktion zum Anlegen eines neuem Benutzers
-	public static void create_user(int persNr, String firstname, String lastname, String birthday, String street, int houseNr, String housenumberSupplement, String city, int postcode, String country, String phoneNumber, String eMail, String jobTitle,String group, int v_days_left, int ill_days, int w_time_left, String startDate, int z_ID, String username, String pwd, int v_days, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
+	public static void create_user(int persNr, String firstname, String lastname, String birthday, String street, int houseNr, String housenumberSupplement, String city, int postcode, String country, String phoneNumber, String eMail, String jobTitle,String group, int v_days_left, int ill_days, int w_time_left, String startDate, int z_ID, String username, String pwd, int v_days, int v_Nr, int a_Hours){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
 			
@@ -27,7 +27,7 @@ public class db_connect {
 		    // SQL Syntax zum erstellen des neuen Nutzers	
 			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+firstname+"', '"+lastname+"', '"+birthday+"', '"+street+"', '"+houseNr+"', '"+housenumberSupplement+"', '"+city+"', '"+postcode+"', '"+country+"', '"+phoneNumber+"', '"+eMail+"', '"+jobTitle+"', '"+startDate+"', '"+group+"', '"+v_days_left+"', '"+ill_days+"', '"+w_time_left+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+username+"', '"+pwd+"')");
-			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten VALUES ('"+v_Nr+"', '"+persNr+"', '"+a_Stunden +"', '"+gehalt+"', '"+entgeltabrNr+"', '"+v_days+"')");
+			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten VALUES ('"+v_Nr+"', '"+persNr+"', '"+a_Hours +"', '"+v_days+"')");
 			// Schreiben der Aktivität in den Actlog
 			Logging.writeActlog("AUS001", persNr);
 			
@@ -120,11 +120,11 @@ public class db_connect {
 		}
 	}
 	// Funktion zum ändern eines Wertes 
-	public static void value_update(String tabelle, String spalte, String wert_neu, int persNr) {
+	public static void value_update(String table, String column, String value, int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_update = con.createStatement();
-			stm_update.executeUpdate("UPDATE "+tabelle+" SET "+spalte+" = '"+wert_neu+"' WHERE PersNr = "+persNr+";");
+			stm_update.executeUpdate("UPDATE "+table+" SET "+column+" = '"+value+"' WHERE PersNr = "+persNr+";");
 			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich geändert");
 			Logging.writeActlog("AUS002", persNr);
 		} catch (SQLException e) {

@@ -106,3 +106,8 @@
 2021-7-23 (18:18): AUS004 Der Benutzer mit der Personalnummer 1002 konnte ich erfolgreich anmelden
 2021-7-23 (18:18): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
 2021-7-23 (18:18): AUS004 Der Benutzer mit der Personalnummer 1002 konnte ich erfolgreich anmelden
+2021-7-23 (19:43): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (19:44): AUS004 Der Benutzer mit der Personalnummer 1002 konnte ich erfolgreich anmelden
+2021-7-23 (19:45): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (19:45): AUS001 Ein neuer Benutzer mit der Personalnummer 1021 wurde angelegt
+2021-7-23 (19:45): AUS004 Der Benutzer mit der Personalnummer 1002 konnte ich erfolgreich anmelden
