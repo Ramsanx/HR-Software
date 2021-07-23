@@ -1,2 +1,3 @@
 2021-6-18 (10:02): EDB003 Bei der Verbindung mit der Datenbank des Nutzers 1234gab es einen Fehler
 2021-6-18 (10:02): EDB003 Bei der Verbindung mit der Datenbank des Nutzers 1234gab es einen Fehler
+2021-7-23 (16:54): EDB001 Es gab einen Fehler beim aufrufen der Datenbank: Exeption java.sql.SQLException: Access denied for user 'hr-adm'@'DEBERN0001.fritz.box' (using password: YES)

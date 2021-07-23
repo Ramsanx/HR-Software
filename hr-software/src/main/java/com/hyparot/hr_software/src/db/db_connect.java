@@ -5,46 +5,38 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import com.hyparot.hr_software.src.backend.Logging;
 
 public class db_connect {
 
-	// sobald die Software auf dem Server läuft muss die IP zu "localhost" geändert werden
-	static String db_url = "jdbc:mysql://192.168.178.64:3306/hr"; 
-	// Logindaten bitte nicht ändern
-	static String user = "hr-adm";
-	static String pass = "pwd4HR-adm";
+	// Zugangsdaten für die Datenbank
+	private static String db_url = "jdbc:mysql://192.168.178.64:3306/hr"; 
+	private static String user = "hr-adm";
+	private static String pass = "pwd4HR-adm";
 	
-		
 	
-	// Main Funktion zum testen
-	public static void main(String[] args) {
-		//new_vacation_ill(1001, "2021-05-12", "2021-05-20", false);
-	}
-	
+	// Funktion zum Anlegen eines neuem Benutzers
 	public static void create_user(int persNr, String firstname, String lastname, String birthday, String street, int houseNr, String housenumberSupplement, String city, int postcode, String country, String phoneNumber, String eMail, String jobTitle,String group, int v_days_left, int ill_days, int w_time_left, String startDate, int z_ID, String username, String pwd, int v_days, int v_Nr, int gehalt, int entgeltabrNr, int a_Stunden){
 		try {
 			// hier wird eine Verbindung zur Datenbank aufgebaut 
 			
 			Connection con = DriverManager.getConnection(db_url, user, pass);
-		    System.out.println("Verbindung zur Datenbank erfolgreich hergestellt");
 		    
 		    // hier für ein neues Objekt vom typ Statement damit kann die Datenbank verändert werden erstellt (kann wie beim Scanner mehrmals verwendet werden)
 		    Statement stm_anlegen = con.createStatement();
 		    		
 			stm_anlegen.executeUpdate("INSERT INTO t_mitarbeiter VALUES ('"+persNr+"', '"+firstname+"', '"+lastname+"', '"+birthday+"', '"+street+"', '"+houseNr+"', '"+housenumberSupplement+"', '"+city+"', '"+postcode+"', '"+country+"', '"+phoneNumber+"', '"+eMail+"', '"+jobTitle+"', '"+startDate+"', '"+group+"', '"+v_days_left+"', '"+ill_days+"', '"+w_time_left+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_zugaenge VALUES ('"+z_ID+"', '"+persNr+"', '"+username+"', '"+pwd+"')");
-			// stm_anlegen.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+u_tage_gesamt+"', '"+u_tage_gesamt+"', '"+0+"', '"+a_Stunden+"', '"+2+"')");
 			stm_anlegen.executeUpdate("INSERT INTO t_vertragsdaten VALUES ('"+v_Nr+"', '"+persNr+"', '"+a_Stunden +"', '"+gehalt+"', '"+entgeltabrNr+"', '"+v_days+"')");
-			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde angelegt");
+			Logging.writeActlog("AUS001", persNr);
 			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		} catch (SQLException  e) {
+			System.out.println(e);
+			Logging.writeErrlog("EUS001", persNr, e);
 		}
 	}
-	
+	// Funktion zum eintragen eines neuem Urlaubs- / Krankheitszeitraum in die Datenbank
 	public static void new_vacation_sick(int persNr, String start, String end, boolean sick, boolean is_acceptet) {
-
-
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_vac = con.createStatement();
@@ -63,100 +55,50 @@ public class db_connect {
 					acceptet_i = 1;
 				}
 				stm_vac.executeUpdate("INSERT INTO t_urlaub_krankheit VALUES ('"+uk_ID+"', '"+persNr+"', '"+start+"', '"+end+"', '"+sick_i+"', '"+acceptet_i+"')");
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+				
+				Logging.writeActlog("AVC001", persNr);
+				
+		} catch (SQLException  e) {
+			System.out.println(e);
+			Logging.writeErrlog("EVC001", persNr, e);
 		}
-
-
-
-		}
+	}
 	
+	// Funktion zum löschen eines Nutzers
 	public static void delete_user(int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_loeschen = con.createStatement();
-//			stm_loeschen.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE PersNr = "+persNr+"");
+			stm_loeschen.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_zugaenge WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_vertragsdaten WHERE PersNr = "+persNr+"");
 			stm_loeschen.executeUpdate("DELETE FROM t_mitarbeiter WHERE PersNr = "+persNr+"");
-			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich gelöscht");
 			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logging.writeActlog("AUS003", persNr);
+			
+		} catch (SQLException  e) {
+			System.out.println(e);
+			Logging.writeErrlog("EUS003", persNr, e);
 		}
 	}
 	
+	// Funktion zum aulesen eines Wertes aus der Datenbank als String
 	public static String read_str_value(String table, String value, int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_wert_auslesen = con.createStatement();
 			ResultSet rs_wert = stm_wert_auslesen.executeQuery("SELECT "+value+" FROM "+table+" WHERE PersNr='"+persNr+"';");
 			while (rs_wert.next()) {
-				return rs_wert.getString(value);
+				Logging.writeActlog("ADB001", persNr);
 			}
+			
 			return "Fehler";
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return "Fehler";
 		}
 	}
-	
-	public static void value_update(String tabelle, String spalte, String wert_neu, int persNr) {
-		try {
-			Connection con = DriverManager.getConnection(db_url, user, pass);
-			Statement stm_update = con.createStatement();
-			stm_update.executeUpdate("UPDATE "+tabelle+" SET "+spalte+" = '"+wert_neu+"' WHERE PersNr = "+persNr+";");
-			System.out.println("Benutzer mit der Personalnummer "+persNr+" wurde erfolgreich geändert");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} 
-	}
-	
-// 	public static void db_read_table(String table) {
-// 		try {
-// 			Connection con = DriverManager.getConnection(db_url, user, pass);
-// 			Statement stm_tabelle_auslesen = con.createStatement();
-		
-// 			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+table+";");
-// 			ResultSetMetaData meta = rs_tabelle.getMetaData();
-// //			for(int i = 1; i <= meta.getColumnCount(); i++) {
-// //				System.out.println(meta.getColumnLabel(i));
-// //			}
-			
-// 			if (table.equals("t_mitarbeiter")) {
-// 				while(rs_tabelle.next()){
-	
-// 					for (int i=1; i <= meta.getColumnCount(); i++) {
-// 						System.out.print(rs_tabelle.getString(i)  + " ");
-// 						}
-// 					System.out.println("");
-// 					}
-// 			}
-	
-			
-// 		} catch (SQLException e) {
-// 			System.out.println(e.getMessage());
-// 		} 
-		
-// 	}
-//	Niklas' Ergänzungen
-	public static ResultSet read_table(String table) {
-		try {
-			Connection con = DriverManager.getConnection(db_url, user, pass);
-			Statement stm_tabelle_auslesen = con.createStatement();
-		
-			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+table+";");
-			return rs_tabelle;
-			
-		}catch (SQLException e) {
-			System.out.println("READ_TABLE_FEHLER");
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
-	
-	
+	// Funktion zum aulesen eines Wertes aus der Datenbank als Integer Value
 	public static int read_int_value(String table, String value, int persNr) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
@@ -166,68 +108,76 @@ public class db_connect {
 				return rs_wert.getInt(value);
 			}
 			return -1;
-		} catch (SQLException e) {
+		} catch (SQLException  e) {
+			System.out.println(e);
 			System.out.println(e.getMessage());
 			return -1;
 		}
 	}
 	
+	// Funktion zum ändern eines Wertes
+	public static void value_update(String table, String collum, String value, int persNr) {
+		try {
+			Connection con = DriverManager.getConnection(db_url, user, pass);
+			Statement stm_update = con.createStatement();
+			stm_update.executeUpdate("UPDATE "+table+" SET "+collum+" = '"+value+"' WHERE PersNr = "+persNr+";");
+			
+			Logging.writeActlog("AUS002", persNr);
+			
+		} catch (SQLException  e) {
+			System.out.println(e);
+			Logging.writeErrlog("EUS002", persNr, e);
+		} 
+	}
+	
+	//	Funktion zum auslesen einer kompletten Tabelle und weitergeben dieser als "ResultSet" Objekt
+	public static ResultSet read_table(String table) {
+		try {
+			Connection con = DriverManager.getConnection(db_url, user, pass);
+			Statement stm_tabelle_auslesen = con.createStatement();
+		
+			ResultSet rs_tabelle = stm_tabelle_auslesen.executeQuery("SELECT * FROM "+table+";");
+			Logging.writeActlog("ADB001", 0);
+			return rs_tabelle;
+			
+		} catch (SQLException  e) {
+			System.out.println(e);
+			Logging.writeErrlog("EDB001", 0, e);
+			return null;
+		}
+	}
+	
+	//	Funktion zum löschen eines Urlaubs aus der Datenbank
 	public static boolean deleteAbsence(int absenceID) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_delete = con.createStatement();
 			stm_delete.executeUpdate("DELETE FROM t_urlaub_krankheit WHERE UK_ID = "+absenceID+";");
+			Logging.writeActlog("AVC004", absenceID);
 			return true;
 
-		} catch (SQLException e) {
+		} catch (SQLException  e) {
+			System.out.println(e);
+			Logging.writeErrlog("EVC004", absenceID, e);
 			return false;
 		}
 	}
 	
-
+	// Funktion welche in der Datenbank anpasst wenn der Urlaub angenommen wurde
 	public static boolean acceptVacation(int absenceID) {
 		try {
 			Connection con = DriverManager.getConnection(db_url, user, pass);
 			Statement stm_update = con.createStatement();
 			stm_update.executeUpdate("UPDATE t_urlaub_krankheit SET genemigt = 1 WHERE UK_ID = "+absenceID+";");
-			System.out.println("ja");
+			Logging.writeActlog("AVC002", absenceID);
 			return true;
 			
-		} catch (SQLException e) {
-			System.out.println("nein");
+		} catch (SQLException  e) {
+			System.out.println(e);
+			Logging.writeErrlog("EVC002", absenceID, e);
 			return false;
 		}
 	}
 	
-//	public static boolean getAbsenceByID(int absenceID) {
-//		try {
-//			Connection con = DriverManager.getConnection(db_url, user, pass);
-//			Statement stm_update = con.createStatement();
-//			stm_update.executeUpdate("SELECT 'Von' FROM 't_urlaub_krankheit' WHERE UK_ID='"+absenceID+"';");
-//			System.out.println("ja");
-//			return true;
-//			
-//		} catch (SQLException e) {
-//			System.out.println("nein");
-//			return false;
-//		}
-//	}
-	
-//	public static void showVacationRequest(int absenceID) {
-//		try {
-//			Connection con = DriverManager.getConnection(db_url, user, pass);
-//			Statement stm_show = con.createStatement();
-//			ResultSet rs_showValue = stm_show.executeQuery("SELECT * FROM t_urlaub_krankheit;");
-//			while (rs_showValue.next()) {
-//				if (rs_showValue.getInt("PersNr") == 0) {
-//					String v1 = rs_showValue.getString("PersNr");
-//				}
-//				
-//			}
-//		} catch (SQLException e) {
-//			
-//			System.out.println("1");
-//		}
-//	}
 
 }

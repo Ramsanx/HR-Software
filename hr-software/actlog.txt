@@ -11,3 +11,42 @@
 2021-6-18 (10:34): AUS002 Der Benutzer mit der Personalnummer 1234 wurde bearbeitet
 2021-6-18 (10:34): AUS002 Der Benutzer mit der Personalnummer 1234 wurde bearbeitet
 2021-6-18 (10:34): AUS002 Der Benutzer mit der Personalnummer 1234 wurde bearbeitet
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:55): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (16:59): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:01): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
