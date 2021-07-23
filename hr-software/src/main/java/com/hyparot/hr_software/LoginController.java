@@ -81,6 +81,7 @@ public class LoginController {
 			//Username und Passwort prüfen
 			if(bic.loginUser(TFUsername.getText().toString(), PFPassword.getText().toString())) {
 				//Falls korrekt: Einloggen
+				
 				changeSceneAfterLogin(bic.getEmployeeByName(TFUsername.getText().toString()));
 			}else {
 				//Falls inkorrekt: Fehlermeldung

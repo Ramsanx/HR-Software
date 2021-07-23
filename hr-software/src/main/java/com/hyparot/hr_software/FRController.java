@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.hyparot.hr_software.src.backend.BIConnect;
 import com.hyparot.hr_software.src.employee.Employee;
+import com.hyparot.hr_software.src.backend.Logging;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -155,6 +156,8 @@ public class FRController {
 
 	//Alternative zu Initialize
 	public void schreiben() {
+		// Eintrag in den ActLog
+		Logging.writeActlog(null, user.getPersNr());
 		//Uneditable Text rechts einfügen (Daten des akt. Users)
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 

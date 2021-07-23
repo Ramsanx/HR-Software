@@ -176,8 +176,10 @@ public class BusinessIntelligence {
 					String acceptance;
 					if(abs.isAccepted()) {
 						acceptance = "genehmigt";
+						Logging.writeActlog("AVC002", abs.getPersNr());
 					}else {
 						acceptance = "nicht genehmigt";
+						Logging.writeActlog("AVC003", abs.getPersNr());
 					}
 					vac.add(abs);
 				}
