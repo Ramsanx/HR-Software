@@ -14,3 +14,6 @@
 2021-7-23 (17:22): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
 2021-7-23 (17:24): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
 2021-7-23 (17:24): AUS001 Ein neuer Benutzer mit der Personalnummer 1017 wurde angelegt
+2021-7-23 (17:50): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:53): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-23 (17:54): AUS004 Der Benutzer mit der Personalnummer 1002 konnte ich erfolgreich anmelden

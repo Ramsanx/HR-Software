@@ -157,7 +157,7 @@ public class FRController {
 	//Alternative zu Initialize
 	public void schreiben() {
 		// Eintrag in den ActLog
-		Logging.writeActlog(null, user.getPersNr());
+		Logging.writeActlog("AUS004", user.getPersNr());
 		//Uneditable Text rechts einfügen (Daten des akt. Users)
 		TVorname_Nachname.setText(user.getFirstname() + " " + user.getLastname());
 		TPersonalnummer.setText((String.valueOf(user.getPersNr()))); 
