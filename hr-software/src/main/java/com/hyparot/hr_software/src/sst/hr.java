@@ -4,6 +4,9 @@ import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Date;
 
+/*
+ * dient der Auflistung der nur an/mit Objekten der Klasse HR ausführbaren Metoden
+ */
 public interface hr {
 
 	public void getPayroll(int persNr);

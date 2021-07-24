@@ -212,7 +212,6 @@ public class SystemDBConnector {
 
 				int id;
 				Absence absence;
-				String acceptance;
 				boolean sick;
 
 				while(rs.next()) {
@@ -225,10 +224,8 @@ public class SystemDBConnector {
 					}
 					absence = new Absence(id, new Date(rs.getString("Von")), new Date(rs.getString("Bis")), sick);
 					if(rs.getInt("genemigt") == 1) {
-						acceptance = "genehmigt";
 						absence.setAccepted(true);
 					}else {
-						acceptance = "nicht genehmigt";
 						absence.setAccepted(false);
 					}
 					absence.setAbsenceID(rs.getInt("UK_ID"));

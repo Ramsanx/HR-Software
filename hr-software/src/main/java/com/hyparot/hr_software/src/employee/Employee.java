@@ -1,8 +1,6 @@
 package com.hyparot.hr_software.src.employee;
 
-import java.util.Hashtable;
 import java.util.Vector;
-
 import com.hyparot.hr_software.src.backend.*;
 import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;

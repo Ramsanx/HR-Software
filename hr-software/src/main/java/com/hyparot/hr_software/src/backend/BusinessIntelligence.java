@@ -147,12 +147,6 @@ public class BusinessIntelligence {
 		while(it.hasNext()) {
 			Absence abs = it.next();
 			if(!abs.isSick()) {
-				String acceptance;
-//				if(abs.isAccepted()) {
-//					acceptance = "genehmigt";
-//				}else {
-//					acceptance = "nicht genehmigt";
-//				}
 				vac.add(abs);
 			}
 		}
@@ -173,12 +167,9 @@ public class BusinessIntelligence {
 			while(it.hasNext()) {
 				Absence abs = it.next();
 				if(!abs.isSick()) {
-					String acceptance;
 					if(abs.isAccepted()) {
-						acceptance = "genehmigt";
 						Logging.writeActlog("AVC002", abs.getPersNr());
 					}else {
-						acceptance = "nicht genehmigt";
 						Logging.writeActlog("AVC003", abs.getPersNr());
 					}
 					vac.add(abs);

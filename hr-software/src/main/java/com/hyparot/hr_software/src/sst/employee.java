@@ -1,13 +1,14 @@
 package com.hyparot.hr_software.src.sst;
 
-import java.util.Hashtable;
 import java.util.Vector;
-
 import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Contract;
 import com.hyparot.hr_software.src.employeedata.Date;
 
 
+/*
+ * dient der Auflistung der an/mit Objekten der Klasse Employee ausführbaren Metoden
+ */
 public interface employee {
 
 	public static boolean loginUser(String username, String password) {
