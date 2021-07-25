@@ -14,6 +14,9 @@ import com.hyparot.hr_software.src.employeedata.Absence;
 import com.hyparot.hr_software.src.employeedata.Adress;
 import com.hyparot.hr_software.src.employeedata.Date;
 
+/**
+ * Klasse zur Verbindung des Programms mit der Klasse db_conect und damit zur Datenbank
+ */
 public class SystemDBConnector {
 
 	/**
