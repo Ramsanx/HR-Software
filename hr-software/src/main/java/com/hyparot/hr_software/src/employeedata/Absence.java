@@ -1,6 +1,6 @@
 package com.hyparot.hr_software.src.employeedata;
 
-/*
+/**
  * Klasse für die Objekte der Abwesenheit (Urlaub und Krankheit)
  */
 public class Absence {
@@ -16,10 +16,10 @@ public class Absence {
 	/**
 	 * dient der Konstruktion eines Objektes
 	 * 
-	 * @param persNr
-	 * @param begin
-	 * @param end
-	 * @param isSick
+	 * @param persNr the persNr of the person for which the absence is
+	 * @param begin the begin of the absence
+	 * @param end the end of the absence
+	 * @param isSick the reason for the absence (true for illness, false for everything else)
 	 */
 	public Absence(int persNr, Date begin, Date end, boolean isSick) {
 		this.setPersNr(persNr);
@@ -29,90 +29,90 @@ public class Absence {
 	}
 	
 	/**
-	 * dient dem Abruf des Parameters begin
+	 * dient dem Abruf der Variablen begin
 	 * 
-	 * @return
+	 * @return the begin of the Absence
 	 */
 	public Date getBegin() {
 		return begin;
 	}
 
 	/**
-	 * dient der Manipulation des Parameters begin
+	 * dient der Manipulation der Variablen begin
 	 * 
-	 * @param begin
+	 * @param begin the begin to set
 	 */
 	public void setBegin(Date begin) {
 		this.begin = begin;
 	}
 
 	/**
-	 * dient dem Abruf des Parameters end
+	 * dient dem Abruf der Variablen end
 	 * 
-	 * @return
+	 * @return the end of the Absence
 	 */
 	public Date getEnd() {
 		return end;
 	}
 
 	/**
-	 * dient der Manipulation des Parameters end
+	 * dient der Manipulation der Variablen end
 	 * 
-	 * @param end
+	 * @param end the end to set
 	 */
 	public void setEnd(Date end) {
 		this.end = end;
 	}
 
 	/**
-	 * dient dem Abruf des Parameters persNr
+	 * dient dem Abruf der Variablen persNr
 	 * 
-	 * @return
+	 * @return the persNr of the person for which the absence is
 	 */
 	public int getPersNr() {
 		return persNr;
 	}
 
 	/**
-	 * dient der Manipulation des Parameters persNr
+	 * dient der Manipulation der Variablen persNr
 	 * 
-	 * @param persNr
+	 * @param persNr the persNr to set
 	 */
 	private void setPersNr(int persNr) {
 		this.persNr = persNr;
 	}
 
 	/**
-	 * dient dem Abruf des Parameters absenceId
+	 * dient dem Abruf der Variablen absenceId
 	 * 
-	 * @return
+	 * @return the absenceID (the unique ID of the object)
 	 */
 	public int getAbsenceID() {
 		return absenceID;
 	}
 
 	/**
-	 * dient der Manipulation des Parameters absenceId
+	 * dient der Manipulation der Variablen absenceId
 	 * 
-	 * @param absenceID
+	 * @param absenceID the absenceID to set
 	 */
 	public void setAbsenceID(int absenceID) {
 		this.absenceID = absenceID;
 	}
 
 	/**
-	 * dient dem Abruf des Parameters isSick
+	 * dient dem Abruf der Variablens isSick
 	 * 
-	 * @return
+	 * @return isSick (reason for absence (true for illness, false for everything else))
 	 */
 	public boolean isSick() {
 		return isSick;
 	}
 
 	/**
-	 * dient der Manipulation des Parameters isSick
+	 * dient der Manipulation der Variablen isSick
 	 * 
-	 * @param isSick
+	 * @param isSick the sick status to set
 	 */
 	public void setSick(boolean isSick) {
 		this.isSick = isSick;
@@ -121,7 +121,7 @@ public class Absence {
 	/**
 	 * dient dem Abruf der Dauer einer Abwesenheit (Differenz zwischen begin und end)
 	 * 
-	 * @return
+	 * @return the duration of the object (duration = days between start and end)
 	 */
 	public int getAbsenceDuration() {
 		return Date.getVacDays(this.begin, this.end);
@@ -129,34 +129,36 @@ public class Absence {
 	
 	/**
 	 * dient der Wiedergabe einer String-Repräsentation des Objektes
+	 * 
+	 * @return a string reference of the object
 	 */
 	public String toString() {
 		return ("\nAbsent from " + this.begin.toString() + " till " + this.end.toString());
 	}
 
 	/**
-	 * dient dem Abruf des Parameters isAccepted
+	 * dient dem Abruf der Variablen isAccepted
 	 * 
-	 * @return
+	 * @return the acceptance status of the absence
 	 */
 	public boolean isAccepted() {
 		return isAccepted;
 	}
 
 	/**
-	 * dient der Manipulation des Parameters isAccepted
+	 * dient der Manipulation der Variablen isAccepted
 	 * 
-	 * @param isAccepted
+	 * @param isAccepted the acceptance status to set
 	 */
 	public void setAccepted(boolean isAccepted) {
 		this.isAccepted = isAccepted;
 	}
 	
 	/**
-	 * dient der Manipulation des Parameters begin
+	 * testet ob sich zwei Objekte dieser Klasse zeitlich überschneiden
 	 * 
-	 * @param abs
-	 * @return
+	 * @param abs the absence object with which this is to be aligned
+	 * @return true if the absences overlap, else false
 	 */
 	public boolean isOverlapping(Absence abs) {
 		if(this.getBegin().compare(abs.getEnd()) == 1 || this.getEnd().compare(abs.getBegin()) == -1) {

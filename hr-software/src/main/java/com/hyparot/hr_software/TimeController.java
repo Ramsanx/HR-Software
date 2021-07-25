@@ -278,7 +278,7 @@ public class TimeController {
 					bic.cancelVacation(Integer.parseInt(TFCancelVacationID.getText())); //Urlaub stornieren
 					//Übrige Urlaubstage korrigieren
 					user.setVacation_left(user.getVacation_left()+Date.getVacDays(abs.getBegin(), abs.getEnd()));
-					bic.addToChanges(user.getPersNr());
+					bic.correctVacation_left(user.getPersNr());
 					//In DB hochladen
 					SystemDBConnector.loadLocalDataToDB();
 					TResturlaubstage.setText(String.valueOf(user.getVacation_left())); //Urlaubstage Anzeige aktualiseren
@@ -313,12 +313,13 @@ public class TimeController {
 					TErfolgreichArbeitszeit.setStyle("-fx-text-fill: #36c740;");
 					TErfolgreichArbeitszeit.setText("Arbeitsstunden erfolgreich erfasst: " + workedTime + "h.");
 
-					BIConnect bic = new BIConnect();
-					//Übrige Arbeitszeit des Users updaten
-					user.setWorkingTime_left(user.getWorkingTime_left()-workedTime);
-					bic.addToChanges(user.getPersNr());
-					//In DB hochladen
-					SystemDBConnector.loadLocalDataToDB();
+					user.setWorkTime(workedTime);
+//					BIConnect bic = new BIConnect();
+//					//Übrige Arbeitszeit des Users updaten
+//					user.setWorkingTime_left(user.getWorkingTime_left()-workedTime);
+//					bic.addToChanges(user.getPersNr());
+//					//In DB hochladen
+//					SystemDBConnector.loadLocalDataToDB();
 					//Restliche bzw. aktuelle Arbeitsstundenanzeige aktualisieren
 					TReststunden.setText(String.valueOf(user.getWorkingTime_left()));
 				} else {
@@ -441,7 +442,7 @@ public class TimeController {
 						BIConnect bic = new BIConnect();
 						//Ziehe Resturlaubstage ab
 						user.setVacation_left(user.getVacation_left()-Date.getVacDays(VacationFrom, VacationUntil));
-						bic.addToChanges(user.getPersNr());
+						bic.correctVacation_left(user.getPersNr());
 						//In DB hochladen
 						SystemDBConnector.loadLocalDataToDB();
 						//Resturlaubstage Anzeige aktualisieren

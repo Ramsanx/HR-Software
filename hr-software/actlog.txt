@@ -124,3 +124,16 @@
 2021-7-24 (18:38): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
 2021-7-24 (18:38): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
 2021-7-24 (18:38): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-25 (22:45): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-25 (22:46): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
+2021-7-25 (22:46): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
+2021-7-25 (22:46): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-25 (22:47): AUS002 Der Benutzer mit der Personalnummer 1001 wurde bearbeitet
+2021-7-25 (22:47): AUS002 Der Benutzer mit der Personalnummer 1001 wurde bearbeitet
+2021-7-25 (22:47): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
+2021-7-25 (22:47): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
+2021-7-25 (22:49): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-25 (22:49): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
+2021-7-25 (22:49): ADB001 Die Datenbank konnte erfolgreich ausgelesen werden
+2021-7-25 (22:51): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden
+2021-7-25 (22:52): AUS004 Der Benutzer mit der Personalnummer 1001 konnte ich erfolgreich anmelden

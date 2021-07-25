@@ -16,6 +16,9 @@ import com.hyparot.hr_software.src.employeedata.Date;
 
 public class SystemDBConnector {
 
+	/**
+	 * dient dem laden der Daten aus der Datenbank in den lokalen Speicher 
+	 */
 	public static void loadDBDataToLocal() {
 		ResultSet data = db_connect.read_table("t_mitarbeiter");
 		if(data != null) {
@@ -24,7 +27,6 @@ public class SystemDBConnector {
 				while(data.next()) {
 
 					String classType = data.getString("Gruppe");
-					//System.out.println(Daten.getInt("PersNr"));
 					if(classType.equals("HR")) {
 						HR employee = new HR(db_connect.read_str_value("t_zugaenge", "Nutzername", data.getInt("PersNr")),
 								db_connect.read_str_value("t_zugaenge", "Passwort", data.getInt("PersNr")),
@@ -101,6 +103,11 @@ public class SystemDBConnector {
 	}
 
 
+	/**
+	 * dient dem laden, der, an den lokal gespeicherten Daten, vorgenommenen Änderungen in die Datenbank
+	 * 
+	 * @return true if there was an change that was loaded to db; else false
+	 */
 	public static boolean loadLocalDataToDB() {
 		Hashtable<Integer, String> changes = LocalStorage.getChangeTable();
 		Iterator<Integer> toStore = changes.keys().asIterator();
@@ -158,6 +165,7 @@ public class SystemDBConnector {
 
 				db_connect.delete_user(persNr);
 				LocalStorage.removeFromChanges(persNr);
+				
 			} else if(changes.get(persNr).equals("workingTimeChange")) {
 				db_connect.value_update("t_mitarbeiter", "Arbeitszeit_Ist", String.valueOf(employee.getWorkingTime_left()), persNr);
 				db_connect.value_update("t_mitarbeiter", "Urlaubstage_verbleibend", String.valueOf(employee.getVacation_left()), persNr);
@@ -170,6 +178,12 @@ public class SystemDBConnector {
 	}
 	
 
+	/**
+	 * dient dem Erhalt aller in der Datenbank gespeicherten Abwesenheiten eines Angestellten
+	 * 
+	 * @param User the employee whose absences are to load
+	 * @return Vector<Absence> with all absences of the employee 'user' or null if an error occurred
+	 */
 	protected static Vector<Absence> getAbsenceOf(Employee User) {
 		try {
 			Vector<Absence> abs = new Vector<Absence>();
@@ -205,6 +219,11 @@ public class SystemDBConnector {
 	
 	
 	//Ram
+		/**
+		 * dient dem auslesen der Datenbank Tabelle 't_urlaub_krankheit'
+		 * 
+		 * @return Vector<Absence> with all absences stored in db table or null if an error occured
+		 */
 		protected static Vector<Absence> getAbsenceTable() {
 			try {
 				Vector<Absence> abs = new Vector<Absence>();
@@ -234,12 +253,18 @@ public class SystemDBConnector {
 				return abs;
 			}
 			catch(Exception e) {
-				System.out.print("Fehler return null");
+				System.err.println("Fehler --> returnwert null");
 				return null;
 			}
 		}
 
 		//Ram, Checken ob automatisch erzeugter Username existiert (Für createUserController)
+		/**
+		 * dient dem check nach Usernamen (diese müssen unique sein)
+		 * 
+		 * @param username the username which is to be checked
+		 * @return a valid (unique) username or null if an error occurred
+		 */
 		protected static String checkUsername(String username) {
 			try {
 				String usernameNew;
@@ -266,21 +291,38 @@ public class SystemDBConnector {
 				}
 			}
 			catch(Exception e) {
-				System.out.print("Fehler return null");
+				System.err.println("Fehler bei Username-check --> returnwert null");
 				return null;
 			}
 			return null;
 		}
 	
+	/**
+	 * dient dem speichern einer Abwesenheit
+	 * 
+	 * @param abs the absence which is to be saved
+	 */
 	protected static void saveAbsence(Absence abs) {
 		db_connect.new_vacation_sick(abs.getPersNr(), abs.getBegin().toString(), abs.getEnd().toString(), abs.isSick(), abs.isAccepted());
 	}
 	
+	/**
+	 * dient dem stornieren eines Urlaubsantrags (und Speicherung dieser Änderung in der Datenbank)
+	 * 
+	 * @param vacation the vacation request to be deleted
+	 * @return true if there was a absence with the ID 'vacation', else false
+	 */
 	protected static boolean cancelVacation(Integer vacation) {
 		System.out.println(vacation);
 		return db_connect.deleteAbsence(vacation);
 	}
 	
+	/**
+	 * dient dem Akzeptieren eines Urlaubs (und Speicherung der Änderung in der Datenbank)
+	 * 
+	 * @param vacation the vacation request to be accepted
+	 * @return true if there is an absence 'vacation', else false
+	 */
 	protected static boolean acceptVacation(Absence vacation) {
 		return db_connect.acceptVacation(vacation.getAbsenceID());
 	}

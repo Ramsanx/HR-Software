@@ -11,18 +11,36 @@ import com.hyparot.hr_software.src.sst.employee;
 import com.hyparot.hr_software.src.sst.hr;
 import com.hyparot.hr_software.src.sst.superior;
 
+/**
+ * diese Klasse dient der Anbindung der Klassen Employee, HR, Superior... an die Klasse BusinessInteligence
+ */
 public class BIConnect implements employee, hr, superior{
 
 	private int operatingUserID;
 	
+	
+	/**
+	 * dient der Erstellung eines Objektes, dieser Klasse, für die Nutzung von, von Angestelleten unabhängigen, Funktionen 
+	 */
 	public BIConnect() {
-		
 	}
 	
+	/**
+	 * dient der Erstellung eines Objektes, dieser Klasse, für die Nutzung von, von Angestelleten abhängigen, Funktionen 
+	 * 
+	 * @param persNr the persNr of the employee who or on whom the method is to be applied later on
+	 */
 	public BIConnect(int persNr) {
 		this.operatingUserID = persNr;
 	}
 	
+	/**
+	 * dient dem Einloogen eines Nutzers
+	 * 
+	 * @param username the username of the user which wants to log in
+	 * @param password the password of the user which wants to log in
+	 * @return true if there is an employee with this username and the password is correct, else false
+	 */
 	public boolean loginUser(String username, String password) {
 		
 		Employee user = BusinessIntelligence.getEmployeeByName(username);
@@ -34,12 +52,44 @@ public class BIConnect implements employee, hr, superior{
 		return false;
 	}
 	
+	/**
+	 * dient der Suche nach einem Angestellten über seinen username
+	 * 
+	 * @param username the username of the employee which which is to be returned
+	 * @return the employee with the username 'username', if no employee exists with these username the return value is null
+	 */
 	public Employee getEmployeeByName(String username) {
 		return BusinessIntelligence.getEmployeeByName(username);
 	}
 	
+	/**
+	 * dient der Suche nach einem Angestellten über seine persNr
+	 * 
+	 * @param persNr the persNr of the employee which is to be returned
+	 * @return the employee with the personnel number 'persNr', if no employee exists with these personnel number the return value is null
+	 */
 	public Employee getEmployeeByID(int persNr) {
 		return BusinessIntelligence.getEmployeeByID(persNr);
+	}
+	
+	
+	/**
+	 * dient der Überprüfung ob automatisch erzeugter Username existiert (Für createUserController)
+	 * 
+	 * @param username the username which is to be checked
+	 * @return a username that did not exist beforet 
+	 */
+	public static String checkUsername(String username) {
+		return BusinessIntelligence.checkUsername(username);
+	}
+	
+	/**
+	 * dient der Korrektur der Variablen vacation_left bei der Beantragung oder Stornierung von Urlauben
+	 * 
+	 * @param persNr the persNr of the employee which applied or canceled a vacation
+	 */
+	public void correctVacation_left(int persNr) {
+		BusinessIntelligence.correctVacation_left(persNr);
 	}
 	
 	//Overrides superior
@@ -106,11 +156,11 @@ public class BIConnect implements employee, hr, superior{
 	}
 
 	//Ram
-		public Vector<Absence> getVacationRequests() {
-			Vector<Absence> absence = BusinessIntelligence.getVacationRequests();
+	public Vector<Absence> getVacationRequests() {
+		Vector<Absence> absence = BusinessIntelligence.getVacationRequests();
 			
-			return absence;
-		}
+		return absence;
+	}
 
 
 	@Override
@@ -121,14 +171,9 @@ public class BIConnect implements employee, hr, superior{
 	}
 
 	@Override
-	public void setWorkTime() {
+	public void setWorkTime(int worktime) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	public void addToChanges(int persNr) {
-		BusinessIntelligence.addToChanges(persNr);
+		BusinessIntelligence.setWorkTime(this.operatingUserID, worktime);
 	}
 
 
@@ -163,11 +208,6 @@ public class BIConnect implements employee, hr, superior{
 	public void sendMailinfo() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	//Ram, Checken ob automatisch erzeugter Username existiert (Für createUserController)
-	public static String checkUsername(String username) {
-		return BusinessIntelligence.checkUsername(username);
 	}
 
 	@Override

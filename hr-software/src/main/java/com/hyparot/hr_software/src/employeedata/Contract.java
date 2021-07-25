@@ -1,106 +1,232 @@
 package com.hyparot.hr_software.src.employeedata;
 
 
-//ein Objekt der Klasse Vertrag wird beim Anlegen eines Angestellten erstellt
+/**
+ * ein Objekt der Klasse Vertrag wird beim Anlegen eines Angestellten erstellt
+ */
 public class Contract {
 
-	private String Vorname;
-	private String Nachname;
-	private String GruppenBezeichnung;
-	private String StellenBezeichnung;
-	private String Telefonnummer;
+	private String firstname;
+	private String lastname;
+	private String group;
+	private String jobTitle;
+	private String phoneNumber;
 	
-	private int SollArbeitszeit;
+	private int workingTime_contract;
 	
-	private Date GeburtsTag;
-	private Date EinstellungsDatum;
+	private Date birthday;
+	private Date startDate;
 	
-	private Adress Adresse;
+	private Adress adress;
 	
-	public Contract(String Vorname, String Nachname, String GruppenBezeichnung, String StellenBezeichnung, String Telefonnummer, 
-				   int SollArbeitszeit,
-				   Date GeburtsTag, Date EinstellungsDatum, 
-				   Adress Adresse) {
+
+	/**
+	 * dient der Erstellung eines Objektes dieser Klasse
+	 * 
+	 * @param firstname the firstname of the Employee
+	 * @param lastname the lastname of the Employee
+	 * @param group the group of the Employee
+	 * @param jobTitle the jobTitle of the Employee
+	 * @param phoneNumber the phoneNumber of the Employee
+	 * @param workingTime_contract the workingTime_contract of the Employee
+	 * @param birthday the birthday of the Employee
+	 * @param startDate the startDate of the Employee
+	 * @param adress the adress of the Employee
+	 */
+	public Contract(String firstname, String lastname, String group, String jobTitle, String phoneNumber, 
+				   int workingTime_contract,
+				   Date birthday, Date startDate, 
+				   Adress adress) {
 		
-		this.Vorname = Vorname;
-		this.Nachname = Nachname;
-		this.GruppenBezeichnung = GruppenBezeichnung;
-		this.StellenBezeichnung = StellenBezeichnung;
-		this.GruppenBezeichnung = GruppenBezeichnung;
-		this.GeburtsTag = GeburtsTag;
-		this.EinstellungsDatum = EinstellungsDatum;
-		this.Adresse = Adresse;
+		this.setFirstname(firstname);
+		this.setLastname(firstname);
+		this.setGroup(group);
+		this.setJobTitle(jobTitle);
+		this.setPhoneNumber(phoneNumber);
+		this.setWorkingTime_contract(workingTime_contract);
+		this.setBirthday(birthday);
+		this.setStartDate(startDate);
+		this.setAdress(adress);
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen firstname
+	 * 
+	 * @return the firstname
+	 */
+	public String getFirstname() {
+		return firstname;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen firstname
+	 * 
+	 * @param firstname the firstname to set
+	 */
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen jobTitle
+	 * 
+	 * @return the jobTitle
+	 */
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen jobTitle
+	 * 
+	 * @param jobTitle the jobTitle to set
+	 */
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen phoneNumber
+	 * 
+	 * @return the phoneNumber
+	 */
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen phoneNumber
+	 * 
+	 * @param phoneNumber the phoneNumber to set
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen workingTime_contract
+	 * 
+	 * @return the workingTime_contract
+	 */
+	public int getWorkingTime_contract() {
+		return workingTime_contract;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen workingTime_contract
+	 * 
+	 * @param workingTime_contract the workingTime_contract to set
+	 */
+	public void setWorkingTime_contract(int workingTime_contract) {
+		this.workingTime_contract = workingTime_contract;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen birthday
+	 * 
+	 * @return the birthday
+	 */
+	public Date getBirthday() {
+		return birthday;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen birthday
+	 * 
+	 * @param birthday the birthday to set
+	 */
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen startDate
+	 * 
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen startDate
+	 * 
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen adress
+	 * 
+	 * @return the adress
+	 */
+	public Adress getAdress() {
+		return adress;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen adress
+	 * 
+	 * @param adress the adress to set
+	 */
+	public void setAdress(Adress adress) {
+		this.adress = adress;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen lastname
+	 * 
+	 * @return the lastname
+	 */
+	public String getLastname() {
+		return lastname;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen lastname
+	 * 
+	 * @param lastname the lastname to set
+	 */
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	/**
+	 * dient der Abfrage der Variablen group
+	 * 
+	 * @return the group
+	 */
+	public String getGroup() {
+		return group;
+	}
+
+
+	/**
+	 * dient der Manipulation der Variablen group
+	 * 
+	 * @param group the group to set
+	 */
+	public void setGroup(String group) {
+		this.group = group;
 	}
 	
-	public String getVorname() {
-		return this.Vorname;
-	}
-	
-	public void setVorname(String newVorname) {
-		this.Vorname = newVorname;
-	}
-	
-	public String getNachname() {
-		return this.Nachname;
-	}
-	
-	public void setNachname(String newNachname) {
-		this.Nachname = newNachname;
-	}
-	
-	public String GruppenBezeichnung() {
-		return this.GruppenBezeichnung;
-	}
-	
-	public void setGruppenBezeichnung(String newGruppenBezeichnung) {
-		this.GruppenBezeichnung = newGruppenBezeichnung;
-	}
-	
-	public String StellenBezeichnung() {
-		return this.StellenBezeichnung;
-	}
-	
-	public void setStellenBezeichnung(String newStellenBezeichnung) {
-		this.StellenBezeichnung = newStellenBezeichnung;
-	}
-	
-	public String Telefonnumer() {
-		return this.Telefonnummer;
-	}
-	
-	public void setTelefonnummer(String newTelefonnummer) {
-		this.Telefonnummer = newTelefonnummer;
-	}
-	
-	public int SollArbeitszeit() {
-		return this.SollArbeitszeit;
-	}
-	
-	public void setSollArbeitszeit(int newSollArbeitszeit) {
-		this.SollArbeitszeit = newSollArbeitszeit;
-	}
-	
-	public Date getGeburtsTag() {
-		return this.GeburtsTag;
-	}
-	
-	public void setGeburtsTag(Date newGeburtsTag) {
-		this.GeburtsTag = newGeburtsTag;
-	}
-	
-	public Date EinstellungsDatum() {
-		return this.EinstellungsDatum;
-	}
-	
-	public void setEinstellungsDatum(Date newEinstellungsDatum) {
-		this.EinstellungsDatum = newEinstellungsDatum;
-	}
-	
-	public Adress getAdresse() {
-		return this.Adresse;
-	}
-	
-	public void setAdresse(Adress newAdresse) {
-		this.Adresse = newAdresse;
-	}
 }

@@ -1,8 +1,6 @@
 package com.hyparot.hr_software.src.backend;
 
-import java.io.File;
 import java.io.FileWriter;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
