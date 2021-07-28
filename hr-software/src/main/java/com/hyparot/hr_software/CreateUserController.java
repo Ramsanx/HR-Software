@@ -282,8 +282,7 @@ public class CreateUserController {
 
 
 		//Checken und ersetzen, falls Username bereits existiert
-		BIConnect bic = new BIConnect();
-		String usernameAfterCheck = bic.checkUsername(usernameNew);
+		String usernameAfterCheck = BIConnect.checkUsername(usernameNew);
 		if (!usernameNew.equals(usernameAfterCheck)) {
 			usernameNew = usernameAfterCheck;
 			TUsername.setText(usernameAfterCheck);

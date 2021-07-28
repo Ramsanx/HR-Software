@@ -1,6 +1,6 @@
 package com.hyparot.hr_software.src.backend;
 
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.Vector;
 import com.hyparot.hr_software.src.employee.Employee;
 import com.hyparot.hr_software.src.employeedata.Absence;
@@ -186,18 +186,18 @@ public class BIConnect implements employee, hr, superior{
 
 	@Override
 	public void getPhoneBook() {
-		
-		Iterator<Employee> it = BusinessIntelligence.getPhonebook().listIterator();
-		
-		//TODO
-		//Anstatt in der commandline zu printen muss es im Phonebook passieren
-		while(it.hasNext()) {
-			System.out.println(it.next());
-		}
+	/*
+	 * anderweitig gelöst
+	 */
+//		Iterator<Employee> it = BusinessIntelligence.getPhonebook().listIterator();
+//		
+//		//TODO
+//		//Anstatt in der commandline zu printen muss es im Phonebook passieren
+//		while(it.hasNext()) {
+//			System.out.println(it.next());
+//		}
 	}
 
-	//TODO
-	//Variable salary benötigt
 	@Override
 	public void getPayroll() {
 		// TODO Auto-generated method stub
@@ -208,6 +208,11 @@ public class BIConnect implements employee, hr, superior{
 	public void sendMailinfo() {
 		// TODO Auto-generated method stub
 		
+		/*
+		 * ursprünglich geplant, zwischen durch verworfen
+		 * 
+		 * optionales Feature für die Zukunft
+		 */
 	}
 
 	@Override

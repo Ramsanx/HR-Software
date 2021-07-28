@@ -9,7 +9,7 @@ import com.hyparot.hr_software.src.backend.LocalStorage;
 import com.hyparot.hr_software.src.employee.Employee;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+//import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,7 +121,7 @@ public class PhonebookController {
 		TE_Mail.setText(user.getEMail());
 		TKuerzel.setText(user.getFirstname().charAt(0) + "" + user.getLastname().charAt(0));
 
-		final ObservableList<Employee> data = FXCollections.observableArrayList();
+		//final ObservableList<Employee> data = FXCollections.observableArrayList();
 	}
 
 	//Szenenwechsel: Logout

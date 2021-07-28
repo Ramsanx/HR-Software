@@ -170,8 +170,9 @@ public class Employee extends Person implements employee{
 		
 	}
 
-//TODO
-	//sollte das gemacht werden wird noch eine Variable salary benötigt
+	/*
+	 * aufgrund fehlender Zeit ausgelassen (kein Bestandteil der Muss-Ziele)
+	 */
 	@Override
 	public void getPayroll() {
 		// TODO Auto-generated method stub
@@ -181,7 +182,9 @@ public class Employee extends Person implements employee{
 		
 	}
 
-//TODO
+	/*
+	 * aufgrund fehlender Zeit ausgelassen (kein Bestandteil der Muss-Ziele)
+	 */
 	@Override
 	public void sendMailinfo() {
 		// TODO Auto-generated method stub
